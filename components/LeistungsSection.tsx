@@ -1,4 +1,4 @@
-import { Mail, Phone, TrendingUp, BarChart2, Lightbulb, Server, Cloud, PackageCheck, HardDrive } from 'lucide-react';
+import { Mail, Phone, TrendingUp, BarChart2, Lightbulb, Cloud, PackageCheck, HardDrive } from 'lucide-react';
 import { useState, useEffect, useRef } from 'react';
 
 interface CounterProps {
@@ -35,13 +35,14 @@ const AnimatedCounter = ({ end, duration = 1000 }: CounterProps) => {
       { threshold: 0.5 }
     );
 
-    if (ref.current) {
-      observer.observe(ref.current);
+    const currentRef = ref.current;
+    if (currentRef) {
+      observer.observe(currentRef);
     }
 
     return () => {
-      if (ref.current) {
-        observer.unobserve(ref.current);
+      if (currentRef) {
+        observer.unobserve(currentRef);
       }
     };
   }, [end, duration]);

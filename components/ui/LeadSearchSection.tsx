@@ -7,7 +7,6 @@ import { Checkbox } from './checkbox';
 import { Label } from './label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue, SelectGroup } from './select';
 import LeadResultsTable from './LeadResultsTable';
-import { useRouter } from 'next/router';
 import getStripe from '@/utils/get-stripejs';
 import { CheckIcon, ChevronsUpDownIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -24,7 +23,6 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import Image from 'next/image';
 import { Lead } from './LeadResultsTable';
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
@@ -198,7 +196,19 @@ const fuzzyMatch = (text: string, query: string): boolean => {
   return j === q.length;
 };
 
-export default function LeadSearchSection({ children, className }: { children?: React.ReactNode, className?: string }) {
+interface SearchCriteria {
+  branch: string | null;
+  state: string | null;
+  city: string | null;
+  zipCode: string | null;
+  legalForm: string | null;
+  includePhone: boolean;
+  includeWebsite: boolean;
+  includeEmail: boolean;
+  includeCEO: boolean;
+}
+
+export default function LeadSearchSection({ className }: { className?: string }) {
   const [branchQuery, setBranchQuery] = useState<string>('');
   const [debouncedBranchQuery, setDebouncedBranchQuery] = useState('');
   const [filteredBranches, setFilteredBranches] = useState<string[]>([]);
@@ -217,7 +227,7 @@ export default function LeadSearchSection({ children, className }: { children?: 
   const [leads, setLeads] = useState<Lead[]>([]);
   const [totalLeadsFound, setTotalLeadsFound] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
-  const [leadsPerPage, setLeadsPerPage] = useState(20);
+  const [leadsPerPage] = useState(20);
   const [optionalCounts, setOptionalCounts] = useState({
     phone: 0,
     email: 0,
@@ -225,13 +235,11 @@ export default function LeadSearchSection({ children, className }: { children?: 
     ceo: 0,
   });
 
-  const router = useRouter();
-
-  const prevSearchCriteriaRef = useRef<any>(null); // Ref to store previous search criteria
+  const prevSearchCriteriaRef = useRef<SearchCriteria | null>(null);
 
   // State to hold the combined list of all branches and fetched sub-industries
   const [combinedBranches, setCombinedBranches] = useState<string[]>([]);
-  const [isCheckoutLoading, setIsCheckoutLoading] = useState(false); // New state for checkout loading
+  const [isCheckoutLoading, setIsCheckoutLoading] = useState(false);
 
   useEffect(() => {
     // Load saved search criteria from sessionStorage on component mount
@@ -468,7 +476,7 @@ export default function LeadSearchSection({ children, className }: { children?: 
   }, []);
 
   const handleCheckout = async () => {
-    setIsCheckoutLoading(true); // Use new state for checkout loading
+    setIsCheckoutLoading(true);
     try {
       const stripe = await getStripe();
 
@@ -519,9 +527,15 @@ export default function LeadSearchSection({ children, className }: { children?: 
         console.error("Error redirecting to Stripe Checkout:", error.message);
         alert(`Error: ${error.message}`);
       }
-    } catch (error: any) {
-      console.error("Checkout process failed:", error.message);
-      alert(`An error occurred during checkout: ${error.message}`);
+    } catch (error: unknown) {
+      let errorMessage = "An unknown error occurred.";
+      if (error instanceof Error) {
+        errorMessage = error.message;
+      } else if (typeof error === "object" && error !== null && "message" in error) {
+        errorMessage = (error as { message: string }).message;
+      }
+      console.error("Checkout process failed:", errorMessage);
+      alert(`An error occurred during checkout: ${errorMessage}`);
     } finally {
       setIsCheckoutLoading(false);
     }
@@ -529,7 +543,7 @@ export default function LeadSearchSection({ children, className }: { children?: 
 
   return (
     <section id="firmensuche-section" className={`w-full max-w-sm md:max-w-3xl py-8 lg:max-w-4xl mx-auto px-2 sm:px-6 md:px-8 bg-background/40 dark:bg-background/80 rounded-2xl border border-[var(--border)] dark:border-gray-800 backdrop-blur-xl shadow-md transition-shadow ${className || ''}`}>
-      <h3 className="text-center text-lg font-bold text-[var(--color-accent)]">Angebot -50% Gutscheincode: "Juli-50"</h3>
+      <h3 className="text-center text-lg font-bold text-[var(--color-accent)]">Angebot -50% Gutscheincode: &quot;Juli-50&quot;</h3>
 
       <h2 className="text-balance text-2xl font-bold md:text-3xl lg:text-4xl text-center text-[var(--foreground)] mt-4 mb-4">Firmensuche</h2>
       <p className="text-base text-center text-[var(--foreground)] mb-10">Finde jetzt die passenden österreichischen Unternehmen aufgrund deiner Auswahlkriterien</p>
@@ -722,9 +736,9 @@ export default function LeadSearchSection({ children, className }: { children?: 
               {costItems.map((item, index) => (
                 <div key={index} className={`flex items-center text-gray-600 ${index < costItems.length - 1 ? 'border-b border-dashed border-[var(--border)] pb-2 mb-2' : ''} gap-x-1 md:gap-x-4`}>
                   <span className="flex-1 font-medium text-sm text-left">{item.label}</span>
-                  <span className="min-w-[30px] md:min-w-[50px] text-center text-xs sm:text-sm">{item.pricePerItem.toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} €</span>
+                  <span className="min-w-[30px] md:min-w-[50px] text-center text-xs sm:text-sm">{item.pricePerItem.toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} &euro;</span>
                   <span className="min-w-[30px] md:min-w-[50px] text-center text-xs sm:text-sm">{item.count} x</span>
-                  <span className="min-w-[60px] md:min-w-[60px] text-center text-sm sm:text-base font-bold">{(item.pricePerItem * item.count).toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} €</span>
+                  <span className="min-w-[60px] md:min-w-[60px] text-center text-sm sm:text-base font-bold">{(item.pricePerItem * item.count).toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} &euro;</span>
                 </div>
               ))}
               
@@ -734,14 +748,14 @@ export default function LeadSearchSection({ children, className }: { children?: 
                 <span className="flex-1 text-sm text-left">Zwischensumme</span>
                 <span className="min-w-[30px] md:min-w-[50px] text-right"></span>
                 <span className="min-w-[30px] md:min-w-[50px] text-right"></span>
-                <span className="min-w-[60px] md:min-w-[60px] text-right text-sm sm:text-base">{subtotal.toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} €</span>
+                <span className="min-w-[60px] md:min-w-[60px] text-right text-sm sm:text-base">{subtotal.toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} &euro;</span>
               </div>
 
               <div className="border-t border-dashed border-[var(--border)] pt-2 mt-2 flex items-center text-[var(--color-accent)] gap-x-1 md:gap-x-4">
-                <span className="flex-1 font-semibold text-sm text-left font-bold">Juli Aktion: 'Juli-50'</span>
-                <span className="min-w-[30px] md:min-w-[50px] text-right text-sm sm:text-base font-semibold">- {Math.round(discountPercentage * 100)}%</span>
+                <span className="flex-1 font-semibold text-sm text-left font-bold">Juli Aktion: &apos;Juli-50&apos;</span>
+                <span className="min-w-[30px] md:min-w-[50px] text-right text-sm sm:text-sm font-semibold">- {Math.round(discountPercentage * 100)}%</span>
                 <span className="min-w-[30px] md:min-w-[50px] text-right"></span>
-                <span className="min-w-[60px] md:min-w-[60px] text-right text-sm sm:text-base font-semibold">- {discountAmount.toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} €</span>
+                <span className="min-w-[60px] md:min-w-[60px] text-right text-sm sm:text-base font-semibold">- {discountAmount.toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} &euro;</span>
               </div>
 
               <div className="border-t border-dashed border-[var(--border)] pt-2 mt-2"></div>
@@ -749,30 +763,23 @@ export default function LeadSearchSection({ children, className }: { children?: 
               <div className="flex items-center text-gray-800 text-lg font-bold border-b border-dashed border-[var(--border)] pb-2 gap-x-1 md:gap-x-4" id="total-sum-section">
                 <span className="flex-1 text-base sm:text-lg text-left">Gesamtsumme</span>
                 <span className="min-w-[30px] md:min-w-[50px] text-right"></span>
-                <span className="flex-1 text-sm sm:text-base text-right">{totalExclUSt.toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} € exkl. USt.</span>
-              </div>
-            </div>
-            
-            <div className="text-center mt-8">
-              <Button className="button-21" onClick={handleCheckout} disabled={isCheckoutLoading}>
-                {isCheckoutLoading ? 'Weiterleiten...' : 'Jetzt zum Checkout'}
-              </Button>
-              <div className="mt-2 text-center">
-                <p className="text-sm text-gray-500 mb-2">Sicher und bequem bezahlen mit:</p>
-                <div className="flex items-center gap-1 w-full justify-center">
-                  <Image alt="Visa" loading="lazy" width="40" height="25" decoding="async" data-nimg="1" className="h-auto object-contain" style={{ color: 'transparent' }} src="/img/visa.svg" />
-                  <Image alt="Mastercard" loading="lazy" width="40" height="25" decoding="async" data-nimg="1" className="h-auto object-contain" style={{ color: 'transparent' }} src="/img/mastercard.svg" />
-                  <Image alt="PayPal" loading="lazy" width="40" height="25" decoding="async" data-nimg="1" className="h-auto object-contain" style={{ color: 'transparent' }} src="/img/paypal.svg" />
-                  <Image alt="Stripe" loading="lazy" width="40" height="25" decoding="async" data-nimg="1" className="h-auto object-contain" style={{ color: 'transparent' }} src="/img/stripe.svg" />
-                  <Image alt="Klarna" loading="lazy" width="40" height="25" decoding="async" data-nimg="1" className="h-auto object-contain" style={{ color: 'transparent' }} src="/img/klarna.svg" />
-                </div>
+                <span className="min-w-[30px] md:min-w-[50px] text-right"></span>
+                <span className="min-w-[60px] md:min-w-[60px] text-right text-base sm:text-lg">{totalExclUSt.toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} &euro;</span>
               </div>
             </div>
           </div>
+
+          <div className="mt-8 text-center">
+            <Button
+              onClick={handleCheckout}
+              className="button-21 w-full max-w-xs md:max-w-md mx-auto"
+              disabled={isCheckoutLoading || totalLeadsFound === 0}
+            >
+              {isCheckoutLoading ? 'Wird geladen...' : 'Kostenpflichtig bestellen'}
+            </Button>
+          </div>
         </div>
       )}
-
-      {children}
     </section>
   );
-} 
+}

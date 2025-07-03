@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button';
 import { PhoneIcon, MailIcon, MapPinIcon } from 'lucide-react';
 import Link from 'next/link';
 
-export default function ContactForm({ id }: { id?: string }) {
+export default function ContactForm() {
   return (
     <section id="kontakt" className="w-full py-24 md:py-48 bg-[var(--background)]">
       <div className="mx-auto max-w-6xl px-4 md:px-8">

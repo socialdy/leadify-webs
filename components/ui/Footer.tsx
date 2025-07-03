@@ -3,9 +3,6 @@
 import { Logo } from '@/components/ui/logo'
 import Link from 'next/link'
 import Image from 'next/image'
-import { cn } from "@/lib/utils";
-import { useState, useEffect } from 'react';
-import { PlusIcon } from 'lucide-react';
 
 export default function FooterSection() {
     const firmenadressenLinks = [

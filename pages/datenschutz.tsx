@@ -30,7 +30,7 @@ export default function DatenschutzPage() {
                 </div>
                 <div>
                   <h3 className="text-xl font-semibold mb-3 text-[var(--foreground)]">2. Verweise und Links:</h3>
-                  <p>Bei direkten oder indirekten Verweisen auf fremde Webseiten ("Hyperlinks"), die außerhalb des Verantwortungsbereiches des Autors liegen, tritt eine Haftungsverpflichtung nur in Kraft, wenn der Autor Kenntnis von den Inhalten der verlinkten Seite hat und es ihm technisch möglich und zumutbar gewesen wäre, die Nutzung im Falle rechtswidriger Inhalte zu verhindern. Der Autor hat keinerlei Einfluss auf die aktuelle und zukünftige Gestaltung, Inhalte oder Urheberschaft der verlinkten Seiten. Eine Haftung für illegale, fehlerhafte oder unvollständige Inhalte wird ausdrücklich ausgeschlossen.</p>
+                  <p>Bei direkten oder indirekten Verweisen auf fremde Webseiten (&quot;Hyperlinks&quot;), die außerhalb des Verantwortungsbereiches des Autors liegen, tritt eine Haftungsverpflichtung nur in Kraft, wenn der Autor Kenntnis von den Inhalten der verlinkten Seite hat und es ihm technisch möglich und zumutbar gewesen wäre, die Nutzung im Falle rechtswidriger Inhalte zu verhindern. Der Autor hat keinerlei Einfluss auf die aktuelle und zukünftige Gestaltung, Inhalte oder Urheberschaft der verlinkten Seiten. Eine Haftung für illegale, fehlerhafte oder unvollständige Inhalte wird ausdrücklich ausgeschlossen.</p>
                 </div>
                 <div>
                   <h3 className="text-xl font-semibold mb-3 text-[var(--foreground)]">3. Urheber- und Kennzeichenrecht:</h3>

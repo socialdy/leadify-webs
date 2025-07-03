@@ -1,8 +1,8 @@
 import { Search, FileText, ShoppingCart, CreditCard, Truck, Award } from 'lucide-react';
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useMemo } from 'react';
 
 export default function ProcessFlow() {
-    const steps = [
+    const steps = useMemo(() => [
         {
             id: 1,
             title: '1. Suche starten',
@@ -39,7 +39,7 @@ export default function ProcessFlow() {
             description: 'Du hast erfolgreich Deine Firmenadressen aus Österreich erhalten und kannst diese direkt und unbegrenzt nutzen.',
             icon: Award,
         },
-    ];
+    ], []);
 
     const [activeStepId, setActiveStepId] = useState<number | null>(null);
     const stepRefs = useRef<(HTMLDivElement | null)[]>([]);

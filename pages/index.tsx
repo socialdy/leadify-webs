@@ -12,7 +12,6 @@ import Pricing from "../components/pricing";
 import Testimonials from "../components/testimonials";
 import ProcessFlow from "../components/ui/ProcessFlow";
 import LeistungsSection from "@/components/LeistungsSection";
-import { allBranches } from "../components/ui/LeadSearchSection";
 import CallToAction2 from "../components/ui/CallToAction2";
 import ContactForm from "../components/ui/ContactForm";
 import { useRouter } from 'next/router';
@@ -28,12 +27,12 @@ export default function Home() {
   const router = useRouter();
   const [showCancelMessage, setShowCancelMessage] = useState(false);
 
-  // useEffect(() => {
-  //   if (router.query.canceled === 'true') {
-  //     setShowCancelMessage(true);
-  //     router.replace('/', undefined, { shallow: true });
-  //   }
-  // }, [router.query.canceled]);
+  useEffect(() => {
+    if (router.query.canceled === 'true') {
+      setShowCancelMessage(true);
+      router.replace('/', undefined, { shallow: true });
+    }
+  }, [router.query.canceled, router]);
 
   // Define a subset of branches for the WordRotate component
   const dynamicBranchesWords = [
@@ -131,7 +130,7 @@ export default function Home() {
 
               {/* Animated Industry Search Text - Moved here */}
               <div className="flex items-center justify-center my-8 md:my-16 text-center flex-wrap w-full">
-                <h2 className="text-2xl md:text-5xl font-bold text-[var(--foreground)] leading-normal flex items-center justify-center flex-wrap">
+                <h2 className="text-2xl md:text-5xl font-bold text-[var(--foreground)] leading-tight flex items-center justify-center flex-wrap">
                   Ich suche alle
                   <WordRotate
                     words={dynamicBranchesWords}
@@ -185,7 +184,7 @@ export default function Home() {
               </section>
 
               {/* Contact Form Section */}
-              <ContactForm id="kontakt" />
+              <ContactForm />
             </div>
           </div>
         </main>

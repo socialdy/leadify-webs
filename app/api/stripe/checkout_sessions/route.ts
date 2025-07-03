@@ -1,7 +1,15 @@
 import Stripe from 'stripe';
 import { NextResponse } from 'next/server';
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string, {
+  apiVersion: '2025-05-28.basil',
+});
+
+interface CostItem {
+  label: string;
+  pricePerItem: number;
+  count: number;
+}
 
 export async function POST(req: Request) {
   try {
@@ -11,10 +19,10 @@ export async function POST(req: Request) {
       return NextResponse.json({ statusCode: 400, message: 'No items provided for checkout.' }, { status: 400 });
     }
 
-    const line_items = costItems.map((item: any) => {
+    const line_items = costItems.map((item: CostItem) => {
       let description = '';
       if (item.label === 'Standard Paket' && searchCriteria) {
-        let criteriaList = [];
+        const criteriaList = [];
         if (searchCriteria.branch && searchCriteria.branch !== 'Alle' && searchCriteria.branch !== 'Alle Branchen') criteriaList.push(`Branche: ${searchCriteria.branch}`);
         if (searchCriteria.state && searchCriteria.state !== 'all' && searchCriteria.state !== 'Alle Bundesländer') criteriaList.push(`Bundesland: ${searchCriteria.state}`);
         if (searchCriteria.city && searchCriteria.city !== '') criteriaList.push(`Stadt: ${searchCriteria.city}`);
@@ -65,7 +73,11 @@ export async function POST(req: Request) {
       cancel_url: `${origin}/?canceled=true`,
     });
     return NextResponse.json({ sessionId: session.id }, { status: 200 });
-  } catch (err: any) {
-    return NextResponse.json({ statusCode: 500, message: err.message }, { status: 500 });
+  } catch (err: unknown) {
+    if (err instanceof Error) {
+      return NextResponse.json({ statusCode: 500, message: err.message }, { status: 500 });
+    } else {
+      return NextResponse.json({ statusCode: 500, message: 'An unknown error occurred.' }, { status: 500 });
+    }
   }
 } 

@@ -1,7 +1,8 @@
 import { NextResponse } from 'next/server';
 import { db } from '@/src/db';
 import { leads as leadsTable } from '@/src/db/schema';
-import { eq, ilike, and, or, sql, isNotNull, SQL } from 'drizzle-orm';
+import { eq, ilike, and, or, sql } from 'drizzle-orm';
+import type { SQL } from 'drizzle-orm';
 
 export async function POST(req: Request) {
   try {
@@ -42,7 +43,7 @@ export async function POST(req: Request) {
       baseWherePredicate = baseWherePredicate ? and(baseWherePredicate, condition) : condition;
     }
 
-    let finalFilteredWherePredicate: SQL<unknown> | undefined = baseWherePredicate; // Start with base conditions
+    const finalFilteredWherePredicate: SQL<unknown> | undefined = baseWherePredicate;
 
     // Conditions for optional fields: only filter if checkbox is true (i.e., IS NOT NULL AND NOT EMPTY)
     // These conditions are removed to ensure leads are not filtered out based on the presence of optional data.
@@ -80,7 +81,7 @@ export async function POST(req: Request) {
     // }
 
     // Always select these base fields
-    const selectFields: any = {
+    const selectFields = {
       id: leadsTable.id,
       companyName: leadsTable.companyName,
       address: leadsTable.street, // Mapping street to address for the frontend
@@ -94,25 +95,27 @@ export async function POST(req: Request) {
     };
 
     if (includeEmail) {
-      selectFields.email = leadsTable.email;
+      Object.assign(selectFields, { email: leadsTable.email });
     }
     if (includePhone) {
-      selectFields.phone = leadsTable.phone;
+      Object.assign(selectFields, { phone: leadsTable.phone });
     }
     if (includeWebsite) {
-      selectFields.website = leadsTable.website;
+      Object.assign(selectFields, { website: leadsTable.website });
     }
     if (includeCEO) {
-      selectFields.ceo = sql`CASE 
+      Object.assign(selectFields, {
+        ceo: sql<string>`CASE 
                 WHEN ${leadsTable.managingDirector} IS NOT NULL AND TRIM(${leadsTable.managingDirector}) <> '' 
                 THEN ${leadsTable.managingDirector}
                 ELSE TRIM(CONCAT_WS(' ', ${leadsTable.salutation}, ${leadsTable.title1}, ${leadsTable.firstName}, ${leadsTable.lastName}, ${leadsTable.title2}))
-              END`;
-      selectFields.salutation = leadsTable.salutation;
-      selectFields.title1 = leadsTable.title1;
-      selectFields.firstName = leadsTable.firstName;
-      selectFields.lastName = leadsTable.lastName;
-      selectFields.title2 = leadsTable.title2;
+              END`,
+        salutation: leadsTable.salutation,
+        title1: leadsTable.title1,
+        firstName: leadsTable.firstName,
+        lastName: leadsTable.lastName,
+        title2: leadsTable.title2,
+      });
     }
 
     const limit = pagination?.limit || 20; // Default limit if not provided

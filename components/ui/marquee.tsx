@@ -4,18 +4,15 @@ import Image from "next/image";
 
 interface MarqueeProps {
   className?: string;
-  reverse?: boolean;
   pauseOnHover?: boolean;
   children?: React.ReactNode;
   align?: "left" | "center" | "right";
   vertical?: boolean;
   fade?: boolean;
-  [key: string]: any;
 }
 
 export function Marquee({
   className,
-  reverse,
   pauseOnHover = false,
   children,
   vertical = false,
@@ -69,7 +66,7 @@ const imageSources = [
 export function MarqueeDemo() {
   return (
     <div className="relative flex w-full flex-col items-center overflow-hidden mt-16">
-      <Marquee reverse={false} className="[--duration:80s]">
+      <Marquee className="[--duration:80s]">
         {imageSources.map((imgPath, index) => (
           <div key={index} className="relative w-[100px] h-[50px]">
             <Image src={imgPath} alt={`Marquee Image ${index + 1}`} fill={true} objectFit="contain" />

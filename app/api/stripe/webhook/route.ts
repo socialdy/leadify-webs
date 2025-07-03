@@ -2,7 +2,7 @@ import Stripe from 'stripe';
 import { NextResponse } from 'next/server';
 import { db } from '@/src/db';
 import { orders, downloads, users, leads } from '@/src/db/schema';
-import { eq, ilike, and, or, sql } from 'drizzle-orm';
+import { eq, ilike, and, sql, SQL } from 'drizzle-orm';
 import { stringify } from 'csv-stringify';
 import ExcelJS from 'exceljs';
 import nodemailer from 'nodemailer';
@@ -32,9 +32,14 @@ export async function POST(req: Request) {
       signature as string,
       process.env.STRIPE_WEBHOOK_SECRET as string
     );
-  } catch (err: any) {
-    console.error(`Webhook Error: ${err.message}`);
-    return new NextResponse(`Webhook Error: ${err.message}`, { status: 400 });
+  } catch (err: unknown) {
+    if (err instanceof Error) {
+      console.error(`Webhook Error: ${err.message}`);
+      return new NextResponse(`Webhook Error: ${err.message}`, { status: 400 });
+    } else {
+      console.error('Webhook Error: An unknown error occurred.', err);
+      return new NextResponse('Webhook Error: An unknown error occurred.', { status: 400 });
+    }
   }
 
   // Handle the event
@@ -54,7 +59,7 @@ export async function POST(req: Request) {
       }
 
       try {
-        let user = await db.select().from(users).where(eq(users.email, customerEmail)).limit(1);
+        const user = await db.select().from(users).where(eq(users.email, customerEmail)).limit(1);
         let userId: number;
 
         if (user.length === 0) {
@@ -127,7 +132,7 @@ export async function POST(req: Request) {
           includeCEO,
         } = searchCriteria;
 
-        let baseWherePredicate: any = undefined;
+        let baseWherePredicate: SQL<unknown> | undefined = undefined;
 
         if (branch && branch !== 'Alle') {
           const condition = ilike(leads.subIndustry, `%${branch}%`);
@@ -150,7 +155,7 @@ export async function POST(req: Request) {
           baseWherePredicate = baseWherePredicate ? and(baseWherePredicate, condition) : condition;
         }
 
-        let finalFilteredWherePredicate: any = baseWherePredicate;
+        const finalFilteredWherePredicate: SQL<unknown> | undefined = baseWherePredicate;
 
         // Conditions for optional fields: these conditions are removed to ensure leads are not filtered out
         // based on the presence of optional data. The selection of fields for display/download is handled
@@ -187,7 +192,7 @@ export async function POST(req: Request) {
         //   finalFilteredWherePredicate = finalFilteredWherePredicate ? and(finalFilteredWherePredicate, condition) : condition;
         // }
 
-        const selectFields: any = {
+        const selectFields = {
           companyName: leads.companyName,
           address: leads.street,
           zipCode: leads.zipCode,
@@ -196,29 +201,18 @@ export async function POST(req: Request) {
           legalForm: leads.legalForm,
           industry: leads.industry,
           subIndustry: leads.subIndustry,
+          ...(includeEmail && { email: leads.email }),
+          ...(includePhone && { phone: leads.phone }),
+          ...(includeWebsite && { website: leads.website }),
+          ...(includeCEO && {
+            ceo: sql<string>`CASE\n                      WHEN ${leads.managingDirector} IS NOT NULL AND TRIM(${leads.managingDirector}) <> ''\n                      THEN ${leads.managingDirector}\n                      ELSE TRIM(CONCAT_WS(' ', ${leads.salutation}, ${leads.title1}, ${leads.firstName}, ${leads.lastName}, ${leads.title2}))\n                    END`,
+            salutation: leads.salutation,
+            title1: leads.title1,
+            firstName: leads.firstName,
+            lastName: leads.lastName,
+            title2: leads.title2,
+          }),
         };
-
-        if (includeEmail) {
-          selectFields.email = leads.email;
-        }
-        if (includePhone) {
-          selectFields.phone = leads.phone;
-        }
-        if (includeWebsite) {
-          selectFields.website = leads.website;
-        }
-        if (includeCEO) {
-          selectFields.ceo = sql`CASE
-                    WHEN ${leads.managingDirector} IS NOT NULL AND TRIM(${leads.managingDirector}) <> ''
-                    THEN ${leads.managingDirector}
-                    ELSE TRIM(CONCAT_WS(' ', ${leads.salutation}, ${leads.title1}, ${leads.firstName}, ${leads.lastName}, ${leads.title2}))
-                  END`;
-          selectFields.salutation = leads.salutation;
-          selectFields.title1 = leads.title1;
-          selectFields.firstName = leads.firstName;
-          selectFields.lastName = leads.lastName;
-          selectFields.title2 = leads.title2;
-        }
 
         // Fetch leads
         const leadsData = await db
@@ -229,7 +223,7 @@ export async function POST(req: Request) {
 
         // Generate CSV
         const csvHeader = Object.keys(selectFields);
-        const csvData = leadsData.map((lead: any) => csvHeader.map(key => lead[key] || ''));
+        const csvData = leadsData.map((lead: Record<string, unknown>) => csvHeader.map(key => lead[key] || ''));
         const csvString = await new Promise<string>((resolve, reject) => {
           stringify(csvData, { header: true, columns: csvHeader, delimiter: ';' }, (err, output) => {
             if (err) return reject(err);
@@ -241,7 +235,7 @@ export async function POST(req: Request) {
         const workbook = new ExcelJS.Workbook();
         const worksheet = workbook.addWorksheet('Leads');
         worksheet.columns = csvHeader.map(key => ({ header: key, key: key, width: 20 }));
-        worksheet.addRows(leadsData.map((lead: any) => csvHeader.map(key => lead[key] || '')));
+        worksheet.addRows(leadsData.map((lead: Record<string, unknown>) => csvHeader.map(key => lead[key] || '')));
         const excelBuffer = await workbook.xlsx.writeBuffer();
 
         // Upload to Supabase Storage
@@ -275,7 +269,7 @@ export async function POST(req: Request) {
         // Get signed URLs
         const { data: csvSignedUrlData, error: csvSignedUrlError } = await supabase.storage
           .from(bucketName)
-          .createSignedUrl(csvFileName, 3600); // URL valid for 1 hour
+          .createSignedUrl(csvFileName, 10800); // URL valid for 3 hours
 
         if (csvSignedUrlError) {
           throw new Error(`Failed to generate CSV signed URL: ${csvSignedUrlError.message}`);
@@ -283,7 +277,7 @@ export async function POST(req: Request) {
 
         const { data: excelSignedUrlData, error: excelSignedUrlError } = await supabase.storage
           .from(bucketName)
-          .createSignedUrl(excelFileName, 3600); // URL valid for 1 hour
+          .createSignedUrl(excelFileName, 10800); // URL valid for 3 hours
 
         if (excelSignedUrlError) {
           throw new Error(`Failed to generate Excel signed URL: ${excelSignedUrlError.message}`);
@@ -442,7 +436,7 @@ export async function POST(req: Request) {
                         <div class="button-container">
                             <a href="${excelDownloadLink}" class="button">Excel-Datei herunterladen</a>
                         </div>
-                        <p style="font-size: 14px; color: oklch(0.556 0 0);">Diese Download-Links sind für 1 Stunde gültig.</p>
+                        <p style="font-size: 14px; color: oklch(0.556 0 0);">Diese Download-Links sind für 3 Stunden gültig.</p>
                         <p>Bei Fragen oder Problemen stehen wir Ihnen gerne zur Verfügung.</p>
                         
                         <div class="contact-info">
