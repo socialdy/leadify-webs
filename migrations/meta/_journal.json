@@ -1,0 +1,55 @@
+{
+  "version": "7",
+  "dialect": "postgresql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "7",
+      "when": 1751408902995,
+      "tag": "0000_add_orders_and_saved_searches",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1751410055390,
+      "tag": "0001_fantastic_jigsaw",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1751410988518,
+      "tag": "0002_damp_rattler",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1751411457796,
+      "tag": "0003_high_firebird",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1751411604061,
+      "tag": "0004_abandoned_jean_grey",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1751411654658,
+      "tag": "0005_purple_ken_ellis",
+      "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1751412439957,
+      "tag": "0006_massive_norrin_radd",
+      "breakpoints": true
+    }
+  ]
+}

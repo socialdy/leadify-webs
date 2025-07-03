@@ -1,115 +1,197 @@
+import Head from "next/head";
 import Image from "next/image";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Poppins } from "next/font/google";
+import { HeroHeader as Header } from "../components/ui/Header";
+import Footer from "../components/ui/Footer";
+import { MarqueeDemo } from "../components/ui/marquee";
+import LeadSearchSection from "../components/ui/LeadSearchSection";
+import NotFoundSection from "../components/ui/NotFoundSection";
+import Faqs from "../components/faqs-2";
+import WordRotate from "../components/magicui/word-rotate";
+import Pricing from "../components/pricing";
+import Testimonials from "../components/testimonials";
+import ProcessFlow from "../components/ui/ProcessFlow";
+import LeistungsSection from "@/components/LeistungsSection";
+import { allBranches } from "../components/ui/LeadSearchSection";
+import CallToAction2 from "../components/ui/CallToAction2";
+import ContactForm from "../components/ui/ContactForm";
+import { useRouter } from 'next/router';
+import { useState, useEffect } from 'react';
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const poppins = Poppins({
   subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-poppins",
 });
 
 export default function Home() {
+  const router = useRouter();
+  const [showCancelMessage, setShowCancelMessage] = useState(false);
+
+  // useEffect(() => {
+  //   if (router.query.canceled === 'true') {
+  //     setShowCancelMessage(true);
+  //     router.replace('/', undefined, { shallow: true });
+  //   }
+  // }, [router.query.canceled]);
+
+  // Define a subset of branches for the WordRotate component
+  const dynamicBranchesWords = [
+    "Softwareentwickler",
+    "Kreativagenturen",
+    "Unternehmensberater",
+    "IT-Dienstleister",
+    "Architekturbüros",
+    "Einzelhändler",
+    "Hotels",
+    "Restaurants",
+    "Steuerberater",
+    "Ärzte",
+    "Rechtsanwälte",
+    "Webdesigner",
+    "Immobilienmakler",
+    "Eventplaner",
+  ];
+
   return (
-    <div
-      className={`${geistSans.className} ${geistMono.className} grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]`}
-    >
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              pages/index.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+    <>
+      <Head>
+        <title>Firmenadressen kaufen Österreich | B2B Leads - Leadify.at</title>
+        <meta name="description" content="Firmenadressen in Österreich kaufen: Präzise B2B Leads mit Telefon, E-Mail & Ansprechpartnern. DSGVO-konform, sofortiger Download in Excel/CSV. Ideal für Marketing & Vertrieb." />
+        <meta property="og:title" content="Firmenadressen kaufen aus Österreich | B2B Adressen aus Österreich kaufen" />
+        <meta property="og:description" content="Firmenadressen mit unlimitierter Nutzung günstig kaufen aus Österreich. Starte die Suche für österreichische Adressen. Kostenloses Angebot &amp; sofortiger Excel &amp; CSV Download" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+      <div
+        className={`${poppins.className} grid grid-rows-[auto_1fr_auto] min-h-screen bg-[var(--background)] overflow-x-hidden`}
+      >
+        <Header />
+        <main className="pt-20 md:pt-30 lg:pt-40 overflow-hidden">
+          {showCancelMessage && (
+            <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mx-auto max-w-4xl mt-4" role="alert">
+              <strong className="font-bold">Zahlung abgebrochen!</strong>
+              <span className="block sm:inline"> Ihre Zahlung wurde abgebrochen. Falls Sie Probleme hatten, kontaktieren Sie uns bitte.</span>
+              <span className="absolute top-0 bottom-0 right-0 px-4 py-3 cursor-pointer" onClick={() => setShowCancelMessage(false)}>
+                <svg className="fill-current h-6 w-6 text-red-500" role="button" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><title>Close</title><path d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z"/></svg>
+              </span>
+            </div>
+          )}
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <div className="max-w-4xl mx-auto w-full flex flex-col items-center justify-center text-center">
+              <h1 className="text-4xl md:text-6xl font-bold tracking-tight text-[var(--foreground)] mb-4 break-words text-center">
+                Firmenadressen kaufen <br/> Österreich
+              </h1>
+              <p className="text-base md:text-sm text-[var(--foreground)] max-w-2xl mx-auto mb-6">
+                Firmenadressen günstig kaufen in Österreich. Starte jetzt die Suche nach B2B Adressen. Kostenloses Angebot & Sofortiger Kauf und Download in Excel, CSV und DSGVO konform. Daten aus Österreich mit Qualität.
+              </p>
+
+              <div className="flex gap-4 mb-10 justify-center mx-auto">
+                <button
+                  className="button-21"
+                  role="button"
+                  onClick={() => document.getElementById('firmensuche')?.scrollIntoView({ behavior: 'smooth' })}
+                >
+                  <span className="text">
+                    Jetzt Firmensuche starten
+                  </span>
+                </button>
+              </div>
+
+              {/* Secure Payment Section */}
+              {/* Moved to below LeadSearchSection */}
+            </div> {/* Close max-w-4xl div here */}
+
+            {/* Image Badges outside the max-w-4xl div */}
+            <div className="mt-6 mb-16 mx-auto w-full max-w-[160px] md:max-w-[160px] flex justify-center">
+              <Image src="/img/website-badges-dsgvo-austria.png" alt="Trust Badges" width={150} height={75} className="w-[120px] h-auto md:w-full" />
+            </div>
+
+            <div className="max-w-4xl mx-auto w-full flex flex-col items-center justify-center text-center"> {/* Open new max-w-4xl div here for subsequent content */}
+              {/* Avatar Images */}
+              {/* Removed avatar images as requested */}
+
+              {/* Removed Badge components as requested */}
+
+              {/* Marquee section moved inside main */}
+              <section className="w-full my-8 md:my-16">
+                <p className="text-base text-center font-medium text-[var(--foreground)]">Unternehmen die uns vertrauen</p>
+                <MarqueeDemo />
+              </section>
+            </div>
+
+            {/* New Lead Search Section outside the max-w-4xl div */}
+            <section id="firmensuche">
+              <LeadSearchSection className="my-8 md:my-16"></LeadSearchSection>
+            </section>
+
+            <div className="max-w-4xl mx-auto w-full flex flex-col items-center justify-center text-center">
+              {/* Not Found Section - Moved here */}
+              <NotFoundSection className="my-8 md:my-16" />
+
+              {/* Animated Industry Search Text - Moved here */}
+              <div className="flex items-center justify-center my-8 md:my-16 text-center flex-wrap w-full">
+                <h2 className="text-2xl md:text-5xl font-bold text-[var(--foreground)] leading-normal flex items-center justify-center flex-wrap">
+                  Ich suche alle
+                  <WordRotate
+                    words={dynamicBranchesWords}
+                    duration={4000}
+                    className="inline-block text-[var(--color-primary)] align-baseline"
+                  />
+                  <span className="inline-block align-baseline">aus</span>
+                  <WordRotate
+                    words={[
+                      "Wien",
+                      "Graz",
+                      "Linz",
+                      "Salzburg",
+                      "Innsbruck",
+                      "Klagenfurt",
+                      "Bregenz",
+                      "Eisenstadt",
+                    ]}
+                    duration={4000}
+                    className="inline-block text-[var(--color-primary)] align-baseline"
+                  />
+                </h2>
+              </div>
+
+              {/* Process Flow Section */}
+              <section id="ablauf" className=" w-full">
+                  <ProcessFlow />
+              </section>
+            </div>
+
+            {/* LeistungsSection outside the max-w-4xl div */}
+            <LeistungsSection id="leistungen" className="my-4 md:my-8" />
+
+            {/* Testimonials */}
+            <section id="kunden" className="py-8 md:py-16 w-full">
+                <Testimonials />
+            </section>
+
+            <div className="max-w-4xl mx-auto w-full flex flex-col items-center justify-center text-center">
+              {/* Call to Action 2 */}
+              <CallToAction2 className="my-8 md:my-16" />
+
+              {/* Pricing Section */}
+              <section id="preise" className="py-8 md:py-16 w-full">
+                  <Pricing />
+              </section>
+
+              {/* FAQ Section */}
+              <section id="faq" className="py-8 md:py-16 w-full">
+                  <Faqs />
+              </section>
+
+              {/* Contact Form Section */}
+              <ContactForm id="kontakt" />
+            </div>
+          </div>
+        </main>
+
+        <Footer />
+      </div>
+    </>
   );
 }
