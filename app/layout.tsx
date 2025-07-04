@@ -20,7 +20,7 @@ export default function RootLayout({
         <title>Leadify - Finden Sie Ihre Leads</title>
         <meta name="description" content="Finden und kaufen Sie hochwertige Firmenadressen und Leads für Ihr Direktmarketing in Österreich." />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="/fav.ico" />
       </head>
       <body className={`${poppins.className} w-full max-w-screen-xl mx-auto flex flex-col items-center`}>
         <HeroHeader />

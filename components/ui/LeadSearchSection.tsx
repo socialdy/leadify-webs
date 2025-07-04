@@ -25,138 +25,77 @@ import {
 } from "@/components/ui/popover";
 import { Lead } from './LeadResultsTable';
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import Image from 'next/image';
+import { toast } from "sonner";
 
 export const allBranches = [
-  // Industries
-  "Anlagenbau", "Appartements", "Architekturbüro", "Autohandel", "Bäckerei", "Banken",
-  "Bau", "Baunebengewerbe", "Baustoffhandel", "Beherbergung", "Bekleidung", "Beratung",
-  "Bergbau", "Bestattung", "Betreuung und Pflege", "Bildung", "Biotechnologie", "Bootsbau",
-  "Buchhandel", "Catering", "Chemie", "Dachdecker", "Design", "Dienstleistung",
-  "Druck", "E-Commerce", "Einzelhandel", "Elektro", "Energie", "Entsorgung",
-  "Eventmanagement", "Fahrzeughandel", "Finanzdienstleistung", "Fischerei", "Fleischerei", "Forstwirtschaft",
-  "Fotografie", "Friseur", "Gastronomie", "Gartenbau", "Gebäudemanagement", "Gesundheit",
-  "Großhandel", "Handel", "Handwerk", "Hausverwaltung", "Heizung", "Immobilien",
-  "Industrie", "Informationstechnologie", "Ingenieurbüro", "Internet", "IT-Dienstleistung", "Juwelier",
-  "KFZ", "Kino", "Klempner", "Kommunikation", "Kosmetik", "Krankenhaus",
-  "Kunst", "Landwirtschaft", "Logistik", "Maler", "Marketing", "Maschinenbau",
-  "Medien", "Medizintechnik", "Metallbau", "Möbel", "Mode", "Musik",
-  "Nahrungsmittel", "Naturheilkunde", "Optiker", "Papier", "Personalvermittlung", "Pharma",
-  "Physiotherapie", "Planung", "Produktion", "Psychologie", "Reinigung", "Reisebüro",
-  "Reparatur", "Restaurant", "Rohstoffgewinnung", "Sanitär", "Schlosserei", "Schmuck",
-  "Schuhhandel", "Sicherheit", "Software", "Solar", "Sport", "Stahlbau",
-  "Steuerberatung", "Tourismus", "Transport", "Trockenbau", "Unternehmensberatung", "Versicherung",
-  "Vertrieb", "Werbung", "Werkstatt", "Weinbau", "Wellness", "Wohnungsbau",
-  "Zahnarzt", "Zeitarbeit", "Zellstoff",
-  // Professions / Concepts (examples, can be expanded)
-  "Anwalt", "Arzt", "Berater", "Bauer", "Designer", "Entwickler", "Finanzberater",
-  "Handwerker", "Ingenieur", "Kaufmann", "Koch", "Künstler", "Lehrer",
-  "Maler", "Manager", "Marketingexperte", "Musiker", "Pflegefachkraft", "Programmierer",
-  "Psychologe", "Therapeut", "Tierarzt", "Tischler", "Verkäufer", "Zahntechniker",
-  "Startups", "KMU", "Gewerbebetriebe", "Freiberufler", "Non-Profit-Organisationen",
-  "B2B Dienstleister", "Produzierende Unternehmen", "Online-Shops", "Boutiquen",
-  "Fitnessstudios", "Spas", "Hotels", "Pensionen", "Ferienwohnungen", "Campingplätze",
-  "Eventlocations", "Caterer", "Hochzeitsplaner", "Messebauer", "Webagenturen",
-  "SEO-Agenturen", "Social Media Agenturen", "PR-Agenturen", "Übersetzungsbüros",
-  "Rechtsanwaltskanzleien", "Steuerkanzleien", "Wirtschaftsprüfer", "Notare",
-  "Ärztepraxen", "Zahnarztpraxen", "Physiotherapiepraxen", "Apotheken", "Pflegedienste",
-  "Bauunternehmen", "Immobilienmakler", "Architekten", "Garten- und Landschaftsbauer",
-  "Elektriker", "Installateure", "Dachdecker", "Maler und Lackierer", "Tischlereien",
-  "Schreinereien", "Metallbauunternehmen", "Maschinenbauunternehmen", "Anlagenbauunternehmen",
-  "Softwareunternehmen", "IT-Beratungen", "Hardware-Hersteller", "Telekommunikationsanbieter",
-  "Einzelhandelsgeschäfte", "Online-Händler", "Großhändler", "Export-Import-Unternehmen",
-  "Gaststätten", "Cafés", "Bars", "Nachtclubs", "Hotels", "Restaurants",
-  "Verlage", "Druckereien", "Werbeagenturen", "Filmproduktionen", "Tonstudios",
-  "Reiseveranstalter", "Fluggesellschaften", "Busunternehmen", "Kreuzfahrtanbieter",
-  "Logistikunternehmen", "Speditionen", "Kurierdienste", "Lagerhäuser",
-  "Reinigungsgewerbe", "Gebäudereiniger", "Textilreinigung", "Industriereinigung",
-  "Sicherheitsdienste", "Detekteien", "Alarmanlagen", "Videoüberwachung",
-  "Finanzberater", "Versicherungsagenten", "Banken", "Bausparkassen", "Investmentfonds",
-  "Bildungseinrichtungen", "Nachhilfeinstitute", "Sprachschulen", "Fahrschulen",
-  "Sportvereine", "Fitnessstudios", "Yoga-Studios", "Tanzschulen",
-  "Tierärzte", "Tierheime", "Zoohandlungen", "Tierpensionen",
-  "Museen", "Galerien", "Theater", "Opernhäuser", "Konzerthäuser",
-  "Gärtnereien", "Blumenläden", "Baumschulen", "Pflanzenhandel",
-  "Landwirtschaftliche Betriebe", "Winzer", "Obstbauern", "Gemüsebauern",
-  "Forstbetriebe", "Holzhandel", "Sägewerke", "Papierfabriken",
-  "Recyclingunternehmen", "Müllentsorgung", "Abwasserbehandlung", "Luftreinhaltung",
-  "Modeboutiquen", "Schuhgeschäfte", "Schmuckgeschäfte", "Uhrmacher",
-  "Kosmetikstudios", "Friseursalons", "Nagelstudios", "Wellnesszentren",
-  "Optiker", "Hörgeräteakustiker",
-  "Eventagenturen", "Catering-Services", "Hochzeitslocations", "Ton- und Lichttechnik",
-  "Filmstudios", "Medienproduzenten", "Verlage", "Rundfunkanstalten",
-  "Immobilienverwaltung", "Facility Management", "Sicherheitsmanagement",
-  "Bauträger", "Projektentwickler",
-  "IT-Security", "Cloud Computing", "Big Data", "Künstliche Intelligenz", "Blockchain",
-  "Robotik", "Automatisierung", "3D-Druck", "Nanotechnologie",
-  "Erneuerbare Energien", "Photovoltaik", "Windkraft", "Wasserkraft", "Biomasse",
-  "Umweltberatung", "Nachhaltigkeitsmanagement",
-  "Forschung & Entwicklung", "Laboratorien", "Biopharmazeutika", "Gentherapie",
-  "Telemedizin", "E-Health", "Mobile Health",
-  "Consulting", "Interim Management", "Coaching", "Training",
-  "E-Learning", "Online-Kurse", "Webinare",
-  "Grafikdesign", "Webdesign", "App-Entwicklung", "UX/UI Design",
-  "Content Marketing", "E-Mail Marketing", "Suchmaschinenmarketing",
-  "Public Relations", "Krisenkommunikation",
-  "Bauingenieure", "Maschinenbauingenieure", "Elektroingenieure", "Softwareingenieure",
-  "Mediziner", "Ärzte", "Krankenschwestern", "Pfleger",
-  "Juristen", "Rechtsanwälte", "Notare", "Richter",
-  "Steuerberater", "Wirtschaftsprüfer", "Buchhalter",
-  "Handelsvertreter", "Key Account Manager", "Vertriebsleiter",
-  "Kundenservice", "Call Center", "Help Desk",
-  "HR-Manager", "Recruiter", "Personalentwickler",
-  "Logopäden", "Ergotherapeuten", "Heilpraktiker",
-  "Archäologen", "Historiker", "Soziologen", "Philosophen",
-  "Journalisten", "Autoren", "Redakteure", "Lektoren",
-  "Kameraleute", "Regisseure", "Produzenten", "Schauspieler",
-  "Tänzer", "Choreografen", "Bühnenbildner", "Kostümbildner",
-  "Bildhauer", "Maler", "Zeichner", "Fotografen",
-  "Chemiker", "Physiker", "Biologen", "Mathematiker",
-  "Geologen", "Meteorologen", "Ozeanographen",
-  "Tierpfleger", "Zooärzte", "Wildhüter",
-  "Forstwirte", "Jäger", "Fischer",
-  "Landwirte", "Gärtner", "Floristen",
-  "Imker", "Winzer", "Brauer",
-  "Köche", "Bäcker", "Konditoren", "Fleischer",
-  "Restaurantfachleute", "Hotelfachleute", "Barkeeper",
-  "Reiseverkehrskaufleute", "Flugbegleiter", "Piloten",
-  "Tourismusmanager", "Fremdenführer",
-  "Sportlehrer", "Fitnesstrainer", "Personal Trainer",
-  "Masseure", "Physiotherapeuten", "Ernährungsberater",
-  "Psychotherapeuten", "Psychologen", "Coaches",
-  "Sozialarbeiter", "Pädagogen", "Erzieher",
-  "Wissenschaftler", "Forscher", "Dozenten", "Professoren",
-  "Bibliothekare", "Archivare", "Kuratoren",
-  "Techniker", "Mechatroniker", "Elektroniker", "Informatiker",
-  "Mechaniker", "Klempner", "Schweißer",
-  "Sicherheitskräfte", "Polizisten", "Feuerwehrleute", "Sanitäter",
-  "Soldaten", "Offiziere", "Piloten",
-  "Architekten", "Bauleiter", "Statiker",
-  "Entwicklungshelfer", "Humanitäre Helfer",
-  "Geomaten", "Kartografen", "Vermessungstechniker",
-  "Umweltberater", "Energieberater",
-  "Dolmetscher", "Übersetzer",
-  "Grafiker", "Illustratoren", "Animatoren",
-  "SEO-Spezialisten", "SEM-Spezialisten", "Social Media Manager",
-  "Data Scientists", "Datenanalysten", "Business Intelligence Spezialisten",
-  "Blockchain-Entwickler", "KI-Entwickler", "Robotics-Ingenieure",
-  "Cybersecurity-Experten", "Forensiker",
-  "Qualitätsmanager", "Prozessmanager",
-  "Supply Chain Manager", "Logistikplaner",
-  "Fahrzeugbauer", "Flugzeugbauer", "Schiffbauer",
-  "Textiltechniker", "Modedesigner",
-  "Chemielaboranten", "Pharmakanten",
-  "Biologen", "Mediziner", "Zahnmediziner",
-  "Psychiater", "Neurologen",
-  "Forstwissenschaftler", "Agrarwissenschaftler",
-  "Geowissenschaftler", "Meteorologen",
-  "Kriminalisten", "Ermittler",
-  "Reiseberater", "Hotelmanager",
-  "Sportwissenschaftler", "Ernährungswissenschaftler",
-  "Fitnesstrainer", "Personal Coach",
-  "Tanzlehrer", "Musikpädagogen",
-  "Schriftsteller", "Journalisten", "Redakteure",
-  "Künstleragenten", "Galeristen",
-  "Restauratoren", "Kunsthistoriker"
+  "Wäscherei / chemische Reinigung", "Fremdenführer / Reiseführer", "Esoterik", "Musikgruppe / Musikverein",
+  "Verkehrsbetriebe", "Altstoffe / Abfallstoffe", "Gießerei", "Musikinstrumente / Produktion",
+  "Filteranlagen", "Kläranlage", "Produktion von Spielzeug", "Mobile Disko / Vermieten von Diskothekenanlagen",
+  "Casino / Spielcasino", "Anlagen zur Wasserversorgung", "Umweltschutz", "Wirtschaftstreuhänder / Buchprüfer",
+  "Schifffahrt", "Recycling", "Tierpräparator", "Reparatur Elektrogeräte / Haushaltsgeräte",
+  "Logistik", "Sonstige Reparaturen", "Ferienunterkünfte", "Privatzimmer",
+  "Begleitservice / Escort", "Taxi", "Luftfahrt / Dienstleistungen", "Vermietung von Gebrauchsgütern",
+  "Automaten", "Vermieten von Maschinen und Geräten", "Ferienhaus / Ferienwohnung", "Spedition / Transport",
+  "Reparatur von Waschmaschinen", "Recycling sortierter Werkstoffe", "Parkhaus / Parkgarage", "Pensionen",
+  "Entsorgungsunternehmen / Beseitigung von Umweltverschmutzungen", "Verkehr / Logistik",
+  "Güterbeförderung in der Schifffahrt", "Lagerhäuser / Lagern", "Hundesalon / Katzensalon",
+  "Herstellen, Veredeln und Bearbeiten von Glas", "Fotolabor", "Buchhaltung / Büro, Kanzlei",
+  "Rechtsanwalt", "Spedition / Zollbüro", "Personenbeförderung", "Wettbüros: Wetten, Toto, Lotto",
+  "Vermietung Flugzeuge / Hubschrauber", "Campingzubehör", "Veranstalter für Messe, Ausstellung und Kongresse",
+  "Kühlhäuser", "Abenteuer Sport", "Spedition / Erde, Kies, Schotter", "Schwimmbad / Freibad / Erlebnisbad",
+  "Bordell", "Güterbeförderung / Gütertransport auf der Straße", "Skiverleih / Leihski",
+  "Herstellung von Schleifkörpern und Schleifmitteln", "Verpackungsservice", "Sattler / Sattlerei",
+  "Jugendherberge", "beeidete Wirtschaftsprüfer", "Technische Bedarfsartikel", "Tennisschule / Tennistrainer",
+  "Segelschule", "Sportartikel und Sportgeräte, Produktion", "Tauchsport / Tauchen", "Wirtschaftsberatung",
+  "Kompost / Kompostierung", "Mautstraßen", "Bestattung / Bestattungsunternehmen", "Personalberatung",
+  "Hotels", "Nähmaschinen / Reparatur", "Kino", "Sonstige Beherbergung",
+  "Medizinische Behelfe u Bedarfsartikel", "Autobusse, Busse / Personentransport", "Bootsvermietung / Boote mieten",
+  "Filmverleih / Filmvertrieb", "Übersetzen / Dolmetschen", "Kegelbahn / Kegeln / Bowling",
+  "Eventagentur", "Technische Gase", "Videothek", "Disko",
+  "Projekt-Management", "Veranstalter für Messe, Ausstellung und Kongresse", "Gasthöfe und Pensionen",
+  "Herstellung von sonstigen Waren", "Steuerberater", "Fiaker / Fahrt mit der Pferdekutsche",
+  "Reisebüro / Reiseveranstalter", "Schmiermittel", "Fotoausarbeitungen",
+  "Events / Organisation, Veranstaltungsorganisation", "Hütte / Schutzhütte", "Unternehmensberatung",
+  "Unterhaltung / Erholung", "Airline / Luftfahrt Personenbeförderung", "Veranstaltungslocation",
+  "Kanalreinigung / Kanalräumung", "Autoverwerter", "Motorsport", "Hallenbad",
+  "Pension / Frühstückspension", "Wasserversorgung", "Zelte", "Vermietung von beweglichen Sachen",
+  "Boote / Bootsbau und Yachtbau", "Sonstige Erzeugnisse", "Vermietung Sportgeräte / Sport",
+  "technische Teile aus Keramik", "Reparaturen aller Art", "Luftfracht / Transportflugzeuge",
+  "Abfallentsorgung / Müllabfuhr", "Container / Produktion und Handel", "Güterbeförderung im Eisenbahnverkehr",
+  "Private Haushalte mit Hauspersonal", "Tanzsport", "Sportverein / Sportverband",
+  "Feuerwerkskörper / Pyrotechnik", "Möbeltransporte", "Golfplatz",
+  "Reinigungsbedarf, Reinigungsmittel, Seifen", "Übersiedlungen / Umzüge / Umzugsservice",
+  "Transportunternehmen / Transport / Logistik", "Kran, Autokran / Verkauf, Vermietung",
+  "Messen und Ausstellungen", "Sonstige freiberufliche Tätigkeiten",
+  "Flughafen / Flughafenbetriebsgesellschaft", "Flugzeuge / Verkauf, Vertrieb", "Busunternehmen",
+  "Sportveranstalter / Kulturveranstalter", "Spedition / Holztransporte",
+  "Sonstige freiberufliche, wissenschaftliche und technische Tätigkeiten", "Freizeitzentrum",
+  "Obst und Gemüse Verwertung", "Detektei / Detektiv", "Schädlingsbekämpfung / Kammerjäger",
+  "Postdienste von Universaldienstleistungsanbietern", "Sondermüll / Sondermüllentsorgung",
+  "botanischer Garten / Naturpark", "Yachtcharter", "Seminarhotel", "Botendienst",
+  "Vermieten von Lichtanlagen / Musikanlagen", "Chigong / Qigong und Taiji", "Spedition / Kleintransporte",
+  "Schlüsseldienst / Schlüsselnotdienst / Aufsperrdienst", "Bühnenbeleuchtung",
+  "Zerlegen von Schiffs- und Fahrzeugwracks und anderen Altwaren", "Eisenbahn, Zug / Personenbeförderung",
+  "Bühnen / Tribünen", "Vermietung LKW / Busse, Reisebusse", "Mülldeponien / Müllentsorgung",
+  "Vergnügungsparks / Themenparks / Freizeitparks", "Skilift", "Events / Künstlerisches Schaffen",
+  "Fitnesscenter", "Abwasserentsorgung / Abwasseraufbereitung", "Luftfahrt / Flugzeuge",
+  "Konzertagentur", "Management / Management-Beratung", "Nachtclub / Nightclub",
+  "Gefahrgutbeauftragter", "Reitsport", "Museum / Ausstellungen", "Gummi / Gummiwaren",
+  "Minigolf / Minigolfanlage", "Festspiele", "Appartement / Ferienwohnung",
+  "Reparatur und Ersatzteile für Baumaschinen / Baugeräte", "Sportanlagen / Sportplätze",
+  "Glücksspielautomaten", "sonstige wirtschaftliche Dienstleistungen", "Touristeninformation",
+  "Abfüllen und Verpacken", "sonstige Reservierungsdienstleistungen a.n.g.", "Sonstige Dienstleistungen",
+  "Reitstall / Reitschule", "Notar", "Büchsenmacher", "Sporthallen",
+  "Bilanzbuchhalter", "Vermietung landwirtschaftliche Maschinen und Geräte", "Kartenbüro", "Reiseveranstalter",
+  "Tennishalle / Tennisplatz", "Wachdienste, Sicherheitsdienste / Bewachung", "Hotel Garni", "Campingplatz",
+  "Skischule / Schischule", "Paketdienste / Expressdienste", "Dienstleistungen / Sport", "Schrott",
+  "Darstellende Kunst", "Astrologie / Astrologen", "Eisenbahnbau", "Reiseleiter",
+  "Tierpension", "Übersetzungen / Übersetzer", "Seilbahn, Sessellift / Bergbahnen", "Kabaret",
+  "Altpapier", "Reparatur und Instandhaltung von Luft- und Raumfahrzeugen", "Container Vermietung",
+  "Kultur / Unterhaltung", "Mediation", "Veranstaltungstechnik / Lichtanlagen / Musikanlagen",
+  "Theater und Opernhäuser", "Spedition / Kühltransporte", "Reparatur von sonstigen Ausrüstungen",
+  "Modellbau", "Wasseraufbereitung / Wasserreinigung", "Grabsteine"
 ];
 
 const allStates = [
@@ -238,48 +177,61 @@ export default function LeadSearchSection({ className }: { className?: string })
   const prevSearchCriteriaRef = useRef<SearchCriteria | null>(null);
 
   // State to hold the combined list of all branches and fetched sub-industries
-  const [combinedBranches, setCombinedBranches] = useState<string[]>([]);
+  // const [combinedBranches, setCombinedBranches] = useState<string[]>([]); // Removed: no longer needed
   const [isCheckoutLoading, setIsCheckoutLoading] = useState(false);
 
+  const ignorePageEffect = useRef(false);
+  const isInitialMount = useRef(true);
+
+  console.log('LeadSearchSection component rendering...'); // Add this log here
+
   useEffect(() => {
+    // console.log('useEffect for fetching sub-industries running...'); // Removed: no longer needed
     // Load saved search criteria from sessionStorage on component mount
     const savedCriteria = sessionStorage.getItem('lastSearchCriteria');
     if (savedCriteria) {
       try {
         const parsedCriteria = JSON.parse(savedCriteria);
-        setSelectedBranch(parsedCriteria.branch || '');
-        setSelectedState(parsedCriteria.state || 'all');
-        setCity(parsedCriteria.city || '');
-        setZipCode(parsedCriteria.zipCode || '');
-        setSelectedLegalForm(parsedCriteria.legalForm || 'Alle');
-        setIncludePhone(parsedCriteria.includePhone || false);
-        setIncludeWebsite(parsedCriteria.includeWebsite || false);
-        setIncludeEmail(parsedCriteria.includeEmail || false);
-        setIncludeCEO(parsedCriteria.includeCEO || false);
-        // You might want to trigger a search here as well if the user returns to the page
-        // However, for simplicity, we'll just restore the form fields for now.
-        sessionStorage.removeItem('lastSearchCriteria'); // Clear after loading to prevent persistence across sessions
+        // if (parsedCriteria) {
+        //   setSelectedBranch(parsedCriteria.branch || '');
+        //   setSelectedState(parsedCriteria.state || 'all');
+        //   setCity(parsedCriteria.city || '');
+        //   setZipCode(parsedCriteria.zipCode || '');
+        //   setSelectedLegalForm(parsedCriteria.legalForm || 'Alle');
+        //   setIncludePhone(parsedCriteria.includePhone || false);
+        //   setIncludeWebsite(parsedCriteria.includeWebsite || false);
+        //   setIncludeEmail(parsedCriteria.includeEmail || false);
+        //   setIncludeCEO(parsedCriteria.includeCEO || false);
+        //   setShowResults(true); // Show results section if criteria were loaded
+        //   // Do not trigger a new search here, only load the UI state
+        // }
       } catch (error) {
-        console.error("Error parsing saved search criteria:", error);
-        sessionStorage.removeItem('lastSearchCriteria'); // Clear corrupted data
+        // console.error("Error parsing saved search criteria:", error);
       }
     }
 
-    // Fetch sub-industries from the backend
-    const fetchSubIndustries = async () => {
-      try {
-        const response = await fetch('/api/leads', { method: 'GET' });
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        const subIndustries = await response.json() as string[];
-        const uniqueSubIndustries = Array.from(new Set(subIndustries));
-        setCombinedBranches(['Alle', ...uniqueSubIndustries.sort()]);
-      } catch (error) {
-        console.error("Error fetching sub-industries:", error);
-      }
-    };
-    fetchSubIndustries();
+    // Initialize filteredBranches directly with allBranches now that it's static
+    setFilteredBranches(allBranches);
+
+    // Removed the fetchSubIndustries function and its call as it's no longer needed
+    // const fetchSubIndustries = async () => {
+    //   try {
+    //     const response = await fetch('/api/leads');
+    //     const data = await response.json();
+    //     // Removed Debugging logs
+
+    //     // if (Array.isArray(data)) {
+    //     //   // Only use sub-industries from the database, do not combine with hardcoded allBranches
+    //     //   setCombinedBranches(Array.from(new Set([...data]))); 
+    //     //   console.log('Fetched sub-industries data:', data); // Add this log to see what the API returns
+    //     //   // Removed Debugging logs
+    //     // }
+    //   } catch (error) {
+    //     console.error("Error fetching sub-industries:", error); // Temporarily re-enable for debugging
+    //   }
+    // };
+    // console.log('Calling fetchSubIndustries...'); // Add this log
+    // fetchSubIndustries();
   }, []);
 
   useEffect(() => {
@@ -295,17 +247,18 @@ export default function LeadSearchSection({ className }: { className?: string })
   useEffect(() => {
     if (debouncedBranchQuery.length > 0) {
       setFilteredBranches(
-        combinedBranches.filter(branch =>
+        allBranches.filter(branch => // Filter allBranches directly
           fuzzyMatch(branch, debouncedBranchQuery)
         )
       );
     } else {
-      setFilteredBranches(combinedBranches);
+      setFilteredBranches(allBranches); // Set to allBranches when query is empty
     }
-  }, [debouncedBranchQuery, combinedBranches]);
+  }, [debouncedBranchQuery]); // Removed combinedBranches from dependency array
 
   // Memoized handleSearch function to ensure stable identity
   const handleSearch = useCallback(async () => {
+    ignorePageEffect.current = true;
     setIsLoading(true);
     setShowResults(false);
     setLeads([]);
@@ -321,6 +274,7 @@ export default function LeadSearchSection({ className }: { className?: string })
       includeEmail: includeEmail,
       includeCEO: includeCEO,
     };
+    prevSearchCriteriaRef.current = searchCriteria;
 
     const pagination = {
       limit: leadsPerPage,
@@ -347,17 +301,30 @@ export default function LeadSearchSection({ className }: { className?: string })
 
       setOptionalCounts(data.counts || { phone: 0, email: 0, website: 0, ceo: 0 });
 
+      setIsLoading(false);
       setShowResults(true);
-      prevSearchCriteriaRef.current = searchCriteria; // Update ref after successful search
+
+      if (fetchedLeads.length === 0) {
+        toast.info("Keine Leads gefunden", {
+          description: "Es wurden leider keine Leads mit deinen Filtern gefunden. Bitte passen Sie Ihre Suchkriterien an.",
+          position: "bottom-right",
+          duration: 5000,
+        });
+      }
 
     } catch (error) {
-      console.error("Error fetching leads:", error);
-      alert("Failed to fetch leads. Please try again.");
+      // console.error('Error during leads search:', error);
+      toast.error("Fehler", {
+        description: "Es ist ein unerwarteter Fehler bei der Leads-Suche aufgetreten. Bitte versuchen Sie es erneut.",
+        position: "bottom-right",
+        duration: 8000,
+      });
       setLeads([]);
       setTotalLeadsFound(0);
       setOptionalCounts({ phone: 0, email: 0, website: 0, ceo: 0 });
     } finally {
       setIsLoading(false);
+      ignorePageEffect.current = false;
     }
   }, [
     selectedBranch,
@@ -380,13 +347,25 @@ export default function LeadSearchSection({ className }: { className?: string })
 
   // Effect to re-run search when currentPage changes (pagination)
   useEffect(() => {
-    if (prevSearchCriteriaRef.current !== null) {
+    if (ignorePageEffect.current) {
+      // This means handleSearch was just called directly, so prevent duplicate
+      return;
+    }
+
+    // Only trigger if a previous search criteria exists (i.e., not initial render or fresh start)
+    // AND if the currentPage is greater than 1 (meaning it's an actual pagination change, not the initial page 1 search).
+    if (prevSearchCriteriaRef.current !== null && currentPage > 1) {
       handleSearch();
     }
-  }, [currentPage, handleSearch]); // handleSearch is a dependency as it's memoized
+  }, [currentPage, handleSearch, prevSearchCriteriaRef]);
 
   // New useEffect to debounce search criteria changes
   useEffect(() => {
+    if (isInitialMount.current) {
+      isInitialMount.current = false;
+      return; // Skip initial mount
+    }
+
     const currentSearchCriteria = {
       branch: selectedBranch === 'Alle' ? null : selectedBranch,
       state: selectedState === 'all' ? null : selectedState,
@@ -400,9 +379,8 @@ export default function LeadSearchSection({ className }: { className?: string })
     };
 
     // Only trigger if an initial search has been performed AND criteria have actually changed
-    if (prevSearchCriteriaRef.current === null ||
-        JSON.stringify(currentSearchCriteria) === JSON.stringify(prevSearchCriteriaRef.current)) {
-      return; // No initial search done or no change in criteria, do nothing
+    if (JSON.stringify(currentSearchCriteria) === JSON.stringify(prevSearchCriteriaRef.current)) {
+      return; // No change in criteria, do nothing
     }
 
     const handler = setTimeout(() => {
@@ -475,71 +453,82 @@ export default function LeadSearchSection({ className }: { className?: string })
     setOpenCombobox(false);
   }, []);
 
-  const handleCheckout = async () => {
+  const handleCheckout = useCallback(async () => {
+    if (totalLeadsFound === 0) {
+      toast.error("Keine Leads gefunden", {
+        description: "Bitte passen Sie Ihre Suchkriterien an.",
+        position: "bottom-right",
+        duration: 5000,
+      });
+      return;
+    }
+
+    if (totalExclUSt < 1) { // Check for minimum order value of 1 EUR
+      toast.error("Mindestbestellwert", {
+        description: "Der Mindestbestellwert für Leads beträgt 1 Euro.",
+        position: "bottom-right",
+        duration: 8000,
+      });
+      return;
+    }
+
     setIsCheckoutLoading(true);
     try {
       const stripe = await getStripe();
 
       if (!stripe) {
-        console.error("Stripe.js failed to load.");
+        // console.error('Stripe is not initialized.');
+        toast.error("Fehler beim Checkout", {
+          description: "Stripe konnte nicht initialisiert werden. Bitte versuchen Sie es später erneut.",
+          position: "bottom-right",
+          duration: 8000,
+        });
         setIsCheckoutLoading(false);
         return;
       }
 
-      // Capture all search criteria
-      const searchCriteria = {
-        branch: selectedBranch === 'Alle' ? null : selectedBranch,
-        state: selectedState === 'all' ? null : selectedState,
-        city: city.trim() === '' ? null : city.trim(),
-        zipCode: zipCode.trim() === '' ? null : zipCode.trim(),
-        legalForm: selectedLegalForm === 'Alle' ? null : selectedLegalForm,
-        includePhone: includePhone,
-        includeWebsite: includeWebsite,
-        includeEmail: includeEmail,
-        includeCEO: includeCEO,
-      };
-
-      sessionStorage.setItem('lastSearchCriteria', JSON.stringify(searchCriteria));
-
-      // Pass costItems and searchCriteria to the backend
       const response = await fetch('/api/stripe/checkout_sessions', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ costItems: costItems, searchCriteria: searchCriteria }),
+        body: JSON.stringify({ costItems, searchCriteria: prevSearchCriteriaRef.current }),
       });
 
       if (!response.ok) {
         const errorData = await response.json();
-        throw new Error(errorData.message || 'Failed to create checkout session.');
+        // console.error('Error creating checkout session:', errorData.message);
+        toast.error("Fehler beim Checkout", {
+          description: errorData.message || "Es ist ein unbekannter Fehler aufgetreten.",
+          position: "bottom-right",
+          duration: 8000,
+        });
+        setIsCheckoutLoading(false);
+        return;
       }
 
       const { sessionId } = await response.json();
-
-      if (!sessionId) {
-        throw new Error('Session ID not received from backend.');
-      }
-
       const { error } = await stripe.redirectToCheckout({ sessionId });
 
       if (error) {
-        console.error("Error redirecting to Stripe Checkout:", error.message);
-        alert(`Error: ${error.message}`);
+        // console.error('Stripe checkout error:', error.message);
+        toast.error("Fehler beim Checkout", {
+          description: error.message || "Es ist ein unbekannter Fehler beim Weiterleiten zum Checkout aufgetreten.",
+          position: "bottom-right",
+          duration: 8000,
+        });
       }
-    } catch (error: unknown) {
-      let errorMessage = "An unknown error occurred.";
-      if (error instanceof Error) {
-        errorMessage = error.message;
-      } else if (typeof error === "object" && error !== null && "message" in error) {
-        errorMessage = (error as { message: string }).message;
-      }
-      console.error("Checkout process failed:", errorMessage);
-      alert(`An error occurred during checkout: ${errorMessage}`);
+    } catch (error) {
+      // console.error('Error in handleCheckout:', error);
+      toast.error("Fehler", {
+        description: "Es ist ein unerwarteter Fehler aufgetreten. Bitte versuchen Sie es erneut.",
+        position: "bottom-right",
+        duration: 8000,
+      });
     } finally {
       setIsCheckoutLoading(false);
     }
-  };
+  }, [costItems, prevSearchCriteriaRef, totalLeadsFound, totalExclUSt]);
 
   return (
     <section id="firmensuche-section" className={`w-full max-w-sm md:max-w-3xl py-8 lg:max-w-4xl mx-auto px-2 sm:px-6 md:px-8 bg-background/40 dark:bg-background/80 rounded-2xl border border-[var(--border)] dark:border-gray-800 backdrop-blur-xl shadow-md transition-shadow ${className || ''}`}>
@@ -599,7 +588,7 @@ export default function LeadSearchSection({ className }: { className?: string })
         </div>
 
         <div className="md:flex md:flex-col md:items-center">
-          <label className="peer-disabled:cursor-not-allowed peer-disabled:opacity-70 block text-sm font-medium text-gray-700 mb-2 text-center" htmlFor="cityInput">Stadt</label>
+          <label className="peer-disabled:cursor-not-allowed peer-disabled:opacity-70 block text-sm font-medium text-gray-700 mb-2 text-center" htmlFor="cityInput">Ort</label>
           <Input
             id="cityInput"
             type="text"
@@ -691,93 +680,131 @@ export default function LeadSearchSection({ className }: { className?: string })
 
       {showResults && (
         <div id="results-and-calculation-section" className="mt-12">
-          <h3 className="text-2xl font-semibold text-center text-[var(--foreground)] mb-6">Es wurden <span className="text-[var(--color-accent)] font-bold">{totalLeadsFound.toLocaleString('de-DE')}</span> Leads gefunden</h3>
-          <LeadResultsTable 
-            leads={leads} 
-            className="mb-8" 
-            includePhone={includePhone}
-            includeWebsite={includeWebsite}
-            includeEmail={includeEmail}
-            includeCEO={includeCEO}
-          />
-
-          <div className="mt-4 p-4 bg-background/50 rounded-lg">
-            {isLoading ? (
-              <div className="flex justify-center items-center py-4">
-                <div className="h-8 w-8 animate-spin rounded-full border-4 border-solid border-[var(--color-primary)] border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"></div>
-                <p className="ml-2 text-[var(--foreground)]">Leads werden geladen...</p>
-              </div>
-            ) : (
-              <div className="flex items-center justify-center">
-                <Button
-                  onClick={() => setCurrentPage(prev => prev - 1)}
-                  disabled={currentPage === 1}
-                  className="bg-transparent text-[var(--foreground)] hover:bg-[var(--border)] hover:text-[var(--color-primary)] mr-2 cursor-pointer"
-                >
-                  <ChevronLeft className="h-5 w-5" />
-                </Button>
-                <span className="text-sm text-gray-500">
-                  Seite {currentPage.toLocaleString('de-DE')} von {Math.ceil(totalLeadsFound / leadsPerPage).toLocaleString('de-DE')}
-                </span>
-                <Button
-                  onClick={() => setCurrentPage(prev => prev + 1)}
-                  disabled={currentPage * leadsPerPage >= totalLeadsFound}
-                  className="bg-transparent text-[var(--foreground)] hover:bg-[var(--border)] hover:text-[var(--color-primary)] ml-2 cursor-pointer"
-                >
-                  <ChevronRight className="h-5 w-5" />
-                </Button>
-              </div>
-            )}
-          </div>
-
-          <div className="mt-4 p-4 bg-background/50 rounded-lg">
-            
-            <div className="space-y-4">
-              {costItems.map((item, index) => (
-                <div key={index} className={`flex items-center text-gray-600 ${index < costItems.length - 1 ? 'border-b border-dashed border-[var(--border)] pb-2 mb-2' : ''} gap-x-1 md:gap-x-4`}>
-                  <span className="flex-1 font-medium text-sm text-left">{item.label}</span>
-                  <span className="min-w-[30px] md:min-w-[50px] text-center text-xs sm:text-sm">{item.pricePerItem.toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} &euro;</span>
-                  <span className="min-w-[30px] md:min-w-[50px] text-center text-xs sm:text-sm">{item.count} x</span>
-                  <span className="min-w-[60px] md:min-w-[60px] text-center text-sm sm:text-base font-bold">{(item.pricePerItem * item.count).toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} &euro;</span>
-                </div>
-              ))}
-              
-              <div className="border-t border-dashed border-[var(--border)] pt-2 mt-2"></div>
-
-              <div className="flex items-center text-gray-800 font-bold gap-x-1 md:gap-x-4">
-                <span className="flex-1 text-sm text-left">Zwischensumme</span>
-                <span className="min-w-[30px] md:min-w-[50px] text-right"></span>
-                <span className="min-w-[30px] md:min-w-[50px] text-right"></span>
-                <span className="min-w-[60px] md:min-w-[60px] text-right text-sm sm:text-base">{subtotal.toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} &euro;</span>
-              </div>
-
-              <div className="border-t border-dashed border-[var(--border)] pt-2 mt-2 flex items-center text-[var(--color-accent)] gap-x-1 md:gap-x-4">
-                <span className="flex-1 font-semibold text-sm text-left font-bold">Juli Aktion: &apos;Juli-50&apos;</span>
-                <span className="min-w-[30px] md:min-w-[50px] text-right text-sm sm:text-sm font-semibold">- {Math.round(discountPercentage * 100)}%</span>
-                <span className="min-w-[30px] md:min-w-[50px] text-right"></span>
-                <span className="min-w-[60px] md:min-w-[60px] text-right text-sm sm:text-base font-semibold">- {discountAmount.toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} &euro;</span>
-              </div>
-
-              <div className="border-t border-dashed border-[var(--border)] pt-2 mt-2"></div>
-
-              <div className="flex items-center text-gray-800 text-lg font-bold border-b border-dashed border-[var(--border)] pb-2 gap-x-1 md:gap-x-4" id="total-sum-section">
-                <span className="flex-1 text-base sm:text-lg text-left">Gesamtsumme</span>
-                <span className="min-w-[30px] md:min-w-[50px] text-right"></span>
-                <span className="min-w-[30px] md:min-w-[50px] text-right"></span>
-                <span className="min-w-[60px] md:min-w-[60px] text-right text-base sm:text-lg">{totalExclUSt.toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} &euro;</span>
-              </div>
+          {totalLeadsFound === 0 ? (
+            <div className="text-center py-10">
+              <h3 className="text-xl font-semibold text-[var(--foreground)] mb-4">Es wurden leider keine Leads mit deinen Filtern gefunden.</h3>
+              <p className="text-gray-600">Bitte passe deine Suchkriterien an, um Ergebnisse zu erhalten.</p>
             </div>
-          </div>
+          ) : (
+            <>
+              <h3 className="text-2xl font-semibold text-center text-[var(--foreground)] mb-6">Es wurden <span className="text-[var(--color-accent)] font-bold">{totalLeadsFound.toLocaleString('de-DE')}</span> Leads gefunden</h3>
+              <LeadResultsTable 
+                leads={leads} 
+                className="mb-8" 
+                includePhone={includePhone}
+                includeWebsite={includeWebsite}
+                includeEmail={includeEmail}
+                includeCEO={includeCEO}
+              />
 
-          <div className="mt-8 text-center">
-            <Button
-              onClick={handleCheckout}
-              className="button-21 w-full max-w-xs md:max-w-md mx-auto"
-              disabled={isCheckoutLoading || totalLeadsFound === 0}
-            >
-              {isCheckoutLoading ? 'Wird geladen...' : 'Kostenpflichtig bestellen'}
-            </Button>
-          </div>
+              <div className="mt-4 p-4 bg-background/50 rounded-lg">
+                {isLoading ? (
+                  <div className="flex justify-center items-center py-4">
+                    <div className="h-8 w-8 animate-spin rounded-full border-4 border-solid border-[var(--color-primary)] border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"></div>
+                    <p className="ml-2 text-[var(--foreground)]">Leads werden geladen...</p>
+                  </div>
+                ) : (
+                  <div className="flex items-center justify-center">
+                    <Button
+                      onClick={() => setCurrentPage(prev => prev - 1)}
+                      disabled={currentPage === 1}
+                      className="bg-transparent text-[var(--foreground)] hover:bg-[var(--border)] hover:text-[var(--color-primary)] mr-2 cursor-pointer"
+                    >
+                      <ChevronLeft className="h-5 w-5" />
+                    </Button>
+                    <span className="text-sm text-gray-500">
+                      Seite {currentPage.toLocaleString('de-DE')} von {Math.ceil(totalLeadsFound / leadsPerPage).toLocaleString('de-DE')}
+                    </span>
+                    <Button
+                      onClick={() => setCurrentPage(prev => prev + 1)}
+                      disabled={currentPage * leadsPerPage >= totalLeadsFound}
+                      className="bg-transparent text-[var(--foreground)] hover:bg-[var(--border)] hover:text-[var(--color-primary)] ml-2 cursor-pointer"
+                    >
+                      <ChevronRight className="h-5 w-5" />
+                    </Button>
+                  </div>
+                )}
+              </div>
+
+              <div className="mt-4 p-4 bg-background/50 rounded-lg">
+                
+                <div className="space-y-4">
+                  {costItems.map((item, index) => (
+                    <div key={index} className={`flex items-center text-gray-600 ${index < costItems.length - 1 ? 'border-b border-dashed border-[var(--border)] pb-2 mb-2' : ''} gap-x-1 md:gap-x-4`}>
+                      <span className="flex-1 font-medium text-sm text-left">{item.label}</span>
+                      <span className="min-w-[30px] md:min-w-[50px] text-center text-xs sm:text-sm">{item.pricePerItem.toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} &euro;</span>
+                      <span className="min-w-[30px] md:min-w-[50px] text-center text-xs sm:text-sm">{item.count} x</span>
+                      <span className="min-w-[60px] md:min-w-[60px] text-center text-sm sm:text-base font-bold">{(item.pricePerItem * item.count).toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} &euro;</span>
+                    </div>
+                  ))}
+                  
+                  <div className="border-t border-dashed border-[var(--border)] pt-2 mt-2"></div>
+
+                  <div className="flex items-center text-gray-800 font-bold gap-x-1 md:gap-x-4">
+                    <span className="flex-1 text-sm text-left">Zwischensumme</span>
+                    <span className="min-w-[30px] md:min-w-[50px] text-right"></span>
+                    <span className="min-w-[30px] md:min-w-[50px] text-right"></span>
+                    <span className="min-w-[60px] md:min-w-[60px] text-right text-sm sm:text-base">{subtotal.toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} &euro;</span>
+                  </div>
+
+                  <div className="border-t border-dashed border-[var(--border)] pt-2 mt-2 flex items-center text-[var(--color-accent)] gap-x-1 md:gap-x-4">
+                    <span className="flex-1 font-semibold text-sm text-left font-bold">Juli Aktion: &apos;Juli-50&apos;</span>
+                    <span className="min-w-[30px] md:min-w-[50px] text-right text-sm sm:text-sm font-semibold">- {Math.round(discountPercentage * 100)}%</span>
+                    <span className="min-w-[30px] md:min-w-[50px] text-right"></span>
+                    <span className="min-w-[60px] md:min-w-[60px] text-right text-sm sm:text-base font-semibold">- {discountAmount.toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} &euro;</span>
+                  </div>
+
+                  <div className="border-t border-dashed border-[var(--border)] pt-2 mt-2"></div>
+
+                  <div className="flex items-center text-gray-800 text-lg font-bold border-b border-dashed border-[var(--border)] pb-2 gap-x-1 md:gap-x-4" id="total-sum-section">
+                    <span className="flex-1 text-base sm:text-lg text-left">Gesamtsumme</span>
+                    <span className="min-w-[30px] md:min-w-[50px] text-right"></span>
+                    <span className="min-w-[30px] md:min-w-[50px] text-right"></span>
+                    <span className="min-w-[60px] md:min-w-[60px] text-right text-base sm:text-lg">{totalExclUSt.toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} &euro;</span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="mt-8 text-center">
+                <div
+                  onClick={() => {
+                    if (!isCheckoutLoading && totalExclUSt < 1) {
+                      toast.error("Mindestbestellwert", {
+                        description: "Der Mindestbestellwert für Leads beträgt 1 Euro.",
+                        position: "bottom-right",
+                        duration: 8000,
+                      });
+                    } else if (!isCheckoutLoading && totalLeadsFound === 0) {
+                      toast.error("Keine Leads gefunden", {
+                        description: "Bitte passen Sie Ihre Suchkriterien an.",
+                        position: "bottom-right",
+                        duration: 5000,
+                      });
+                    }
+                  }}
+                  style={{ cursor: (totalExclUSt < 1 || totalLeadsFound === 0) ? 'not-allowed' : 'pointer' }}
+                >
+                  <Button
+                    onClick={handleCheckout}
+                    className="button-21 mx-auto"
+                    disabled={isCheckoutLoading || totalLeadsFound === 0 || totalExclUSt < 1}
+                  >
+                    {isCheckoutLoading ? 'Umleiten...' : 'Zum Checkout'}
+                  </Button>
+                </div>
+                <div className="mt-4 text-sm text-[var(--foreground)] opacity-80">
+                  Sicher & bequem bezahlen
+                </div>
+                <div className="flex items-center justify-center gap-2 mt-2">
+                  <Image src="/img/visa.svg" alt="Visa" width={40} height={25} className="h-auto object-contain" />
+                  <Image src="/img/mastercard.svg" alt="Mastercard" width={40} height={25} className="h-auto object-contain" />
+                  <Image src="/img/paypal.svg" alt="PayPal" width={40} height={25} className="h-auto object-contain" />
+                  <Image src="/img/stripe.svg" alt="Stripe" width={40} height={25} className="h-auto object-contain" />
+                  <Image src="/img/klarna.svg" alt="Klarna" width={40} height={25} className="h-auto object-contain" />
+                </div>
+              </div>
+            </>
+          )}
         </div>
       )}
     </section>

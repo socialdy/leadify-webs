@@ -13,9 +13,14 @@ export default function ImpressumPage() {
   return (
     <>
       <Head>
-        <title>Impressum | Leadify.at - günstig Firmenadressen & B2B Leads kaufen</title>
-        <meta name="description" content="Allgemeine Geschäftsbedingungen von Leadify.at." />
-        <link rel="icon" href="/favicon.ico" />
+        <title>Impressum | Leadify.at - Rechtliche Informationen & Kontakt</title>
+        <meta name="description" content="Impressum von Leadify mit allen rechtlich erforderlichen Angaben, Kontaktinformationen, UID-Nummer und Details zur Gewerbeordnung." />
+        <meta name="keywords" content="Impressum, Leadify.at, Kontakt, rechtliche Informationen, Firmeninformationen, UID-Nummer, Datenschutzbeauftragter, Werbeagentur Österreich" />
+        <meta property="og:title" content="Impressum | Leadify.at - Rechtliche Informationen & Kontakt" />
+        <meta property="og:description" content="Impressum von Leadify mit allen rechtlich erforderlichen Angaben, Kontaktinformationen, UID-Nummer und Details zur Gewerbeordnung." />
+        <meta property="og:url" content="https://www.leadify.at/impressum" />
+        <meta property="og:type" content="website" />
+        <link rel="icon" href="/fav.ico" />
       </Head>
       <div className="min-h-screen bg-[var(--background)] flex flex-col overflow-hidden">
         <Header />

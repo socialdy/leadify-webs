@@ -13,9 +13,14 @@ export default function DatenschutzPage() {
   return (
     <>
       <Head>
-        <title>Datenschutz | Leadify.at - günstig Firmenadressen & B2B Leads kaufen</title>
-        <meta name="description" content="Datenschutzerklärung von Leadify.at – Informationen zur Datenverarbeitung und Ihren Rechten." />
-        <link rel="icon" href="/favicon.ico" />
+        <title>Datenschutzerklärung | Leadify.at - Informationen zur Datenverarbeitung</title>
+        <meta name="description" content="Erfahren Sie, wie Ihre Daten verarbeitet werden, welche Rechte Sie haben und wie wir Ihre Privatsphäre schützen. DSGVO-konform." />
+        <meta name="keywords" content="Datenschutzerklärung, Leadify.at, Datenschutz, DSGVO, Datenverarbeitung, Nutzerrechte, Privatsphäre, Cookie-Richtlinie, Google Analytics" />
+        <meta property="og:title" content="Datenschutzerklärung | Leadify.at - Informationen zur Datenverarbeitung" />
+        <meta property="og:description" content="Erfahren Sie, wie Ihre Daten verarbeitet werden, welche Rechte Sie haben und wie wir Ihre Privatsphäre schützen. DSGVO-konform." />
+        <meta property="og:url" content="https://www.leadify.at/datenschutz" />
+        <meta property="og:type" content="website" />
+        <link rel="icon" href="/fav.ico" />
       </Head>
       <div className="min-h-screen bg-[var(--background)] flex flex-col overflow-hidden">
         <Header />

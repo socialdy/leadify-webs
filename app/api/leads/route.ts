@@ -163,8 +163,6 @@ export async function POST(req: Request) {
       .limit(limit)
       .offset(offset);
 
-    console.log('Filtered Leads from DB:', filteredLeads);
-
     return NextResponse.json({
       leads: filteredLeads,
       totalCount,
@@ -176,8 +174,8 @@ export async function POST(req: Request) {
       }
     });
   } catch (error) {
-    console.error('Error in lead search API:', error);
-    return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
+    // console.error('Error in lead search API:', error);
+    return NextResponse.json({ message: "Internal Server Error" }, { status: 500 });
   }
 }
 
@@ -185,9 +183,9 @@ export async function GET() {
   try {
     const subIndustries = await db.selectDistinct({ subIndustry: leadsTable.subIndustry }).from(leadsTable);
     const uniqueSubIndustries = subIndustries.map(item => item.subIndustry).filter(Boolean) as string[];
-    return NextResponse.json(uniqueSubIndustries);
+    return NextResponse.json({ subIndustries: uniqueSubIndustries });
   } catch (error) {
-    console.error('Error fetching unique sub-industries:', error);
-    return NextResponse.json({ error: 'Failed to fetch sub-industries' }, { status: 500 });
+    // console.error('Error fetching unique sub-industries:', error);
+    return NextResponse.json({ message: "Internal Server Error" }, { status: 500 });
   }
 } 

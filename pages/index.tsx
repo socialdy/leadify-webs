@@ -16,6 +16,8 @@ import CallToAction2 from "../components/ui/CallToAction2";
 import ContactForm from "../components/ui/ContactForm";
 import { useRouter } from 'next/router';
 import { useState, useEffect } from 'react';
+import { toast } from "sonner";
+import { Toaster } from "../components/ui/sonner";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -29,7 +31,11 @@ export default function Home() {
 
   useEffect(() => {
     if (router.query.canceled === 'true') {
-      setShowCancelMessage(true);
+      toast.error("Zahlung abgebrochen!", {
+        description: <p>Ihre Zahlung wurde abgebrochen. Falls Sie Probleme hatten, <span style={{ color: 'var(--color-primary)' }}>kontaktieren</span> Sie uns bitte.</p>,
+        position: "bottom-right",
+        duration: 8000,
+      });
       router.replace('/', undefined, { shallow: true });
     }
   }, [router.query.canceled, router]);
@@ -60,22 +66,14 @@ export default function Home() {
         <meta property="og:title" content="Firmenadressen kaufen aus Österreich | B2B Adressen aus Österreich kaufen" />
         <meta property="og:description" content="Firmenadressen mit unlimitierter Nutzung günstig kaufen aus Österreich. Starte die Suche für österreichische Adressen. Kostenloses Angebot &amp; sofortiger Excel &amp; CSV Download" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/favicon.ico" />
+        <meta name="keywords" content="Leads Österreich, Firmenadressen kaufen, B2B Leads, Direktmarketing Österreich, Unternehmensdaten" />
+        <link rel="icon" href="/fav.ico" />
       </Head>
       <div
         className={`${poppins.className} grid grid-rows-[auto_1fr_auto] min-h-screen bg-[var(--background)] overflow-x-hidden`}
       >
         <Header />
         <main className="pt-20 md:pt-30 lg:pt-40 overflow-hidden">
-          {showCancelMessage && (
-            <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mx-auto max-w-4xl mt-4" role="alert">
-              <strong className="font-bold">Zahlung abgebrochen!</strong>
-              <span className="block sm:inline"> Ihre Zahlung wurde abgebrochen. Falls Sie Probleme hatten, kontaktieren Sie uns bitte.</span>
-              <span className="absolute top-0 bottom-0 right-0 px-4 py-3 cursor-pointer" onClick={() => setShowCancelMessage(false)}>
-                <svg className="fill-current h-6 w-6 text-red-500" role="button" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><title>Close</title><path d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z"/></svg>
-              </span>
-            </div>
-          )}
           <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
             <div className="max-w-4xl mx-auto w-full flex flex-col items-center justify-center text-center">
               <h1 className="text-4xl md:text-6xl font-bold tracking-tight text-[var(--foreground)] mb-4 break-words text-center">
@@ -191,6 +189,7 @@ export default function Home() {
 
         <Footer />
       </div>
+      <Toaster />
     </>
   );
 }

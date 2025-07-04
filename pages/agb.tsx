@@ -13,9 +13,14 @@ export default function AgbPage() {
   return (
     <>
       <Head>
-        <title>Allgemeine Geschäftsbedingungen | Leadify.at - günstig Firmenadressen & B2B Leads kaufen</title>
-        <meta name="description" content="Allgemeine Geschäftsbedingungen von Leadify.at." />
-        <link rel="icon" href="/favicon.ico" />
+        <title>AGB | Leadify.at - Allgemeine Geschäftsbedingungen</title>
+        <meta name="description" content="Lesen Sie die AGB von Leadify, die unsere Leistungen, Zahlungs- und Lieferbedingungen sowie Haftungsausschlüsse regeln." />
+        <meta name="keywords" content="AGB, Allgemeine Geschäftsbedingungen, Leadify.at, Nutzungsbedingungen, Vertragsbedingungen, Lieferbedingungen, Zahlungsbedingungen, Haftungsausschluss" />
+        <meta property="og:title" content="AGB | Leadify.at - Allgemeine Geschäftsbedingungen" />
+        <meta property="og:description" content="Lesen Sie die AGB von Leadify, die unsere Leistungen, Zahlungs- und Lieferbedingungen sowie Haftungsausschlüsse regeln." />
+        <meta property="og:url" content="https://www.leadify.at/agb" />
+        <meta property="og:type" content="website" />
+        <link rel="icon" href="/fav.ico" />
       </Head>
       <div className="min-h-screen bg-[var(--background)] flex flex-col overflow-hidden">
         <Header />

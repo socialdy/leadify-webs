@@ -32,21 +32,20 @@ export async function POST(req: Request) {
       signature as string,
       process.env.STRIPE_WEBHOOK_SECRET as string
     );
-  } catch (err: unknown) {
-    if (err instanceof Error) {
-      console.error(`Webhook Error: ${err.message}`);
-      return new NextResponse(`Webhook Error: ${err.message}`, { status: 400 });
-    } else {
-      console.error('Webhook Error: An unknown error occurred.', err);
-      return new NextResponse('Webhook Error: An unknown error occurred.', { status: 400 });
-    }
+  } catch (err: any) {
+    // console.error(`Webhook Error: ${err.message}`);
+    return new NextResponse(`Webhook Error: ${err.message}`, { status: 400 });
+  }
+
+  if (!event) {
+    // console.error('Webhook Error: An unknown error occurred.', err);
+    return new NextResponse('Webhook Error: An unknown error occurred.', { status: 500 });
   }
 
   // Handle the event
   switch (event.type) {
     case 'checkout.session.completed':
       const session = event.data.object as Stripe.Checkout.Session;
-      console.log('Checkout Session Completed:', session);
 
       const customerEmail = session.customer_details?.email;
       const amountTotal = session.amount_total;
@@ -54,7 +53,7 @@ export async function POST(req: Request) {
       const searchCriteriaString = session.metadata?.search_criteria;
 
       if (!customerEmail || amountTotal === null || currency === null || !searchCriteriaString) {
-        console.error('Missing required data in checkout.session.completed event');
+        // console.error('Missing required data in checkout.session.completed event');
         return new NextResponse('Missing data', { status: 400 });
       }
 
@@ -74,7 +73,6 @@ export async function POST(req: Request) {
             country: session.customer_details?.address?.country || null,
           }).returning({ id: users.id });
           userId = newUser[0].id;
-          console.log(`Created new user with ID: ${userId}`);
         } else {
           userId = user[0].id;
           // Also update existing user with potentially new address/phone/company details
@@ -92,7 +90,6 @@ export async function POST(req: Request) {
               companyName: companyName || user[0].companyName, // Update companyName
             })
             .where(eq(users.id, userId));
-          console.log(`Updated existing user with ID: ${userId}`);
         }
 
         const newDownloadId = uuidv4();
@@ -104,7 +101,6 @@ export async function POST(req: Request) {
           customerEmail: customerEmail,
           searchCriteria: searchCriteriaString,
         });
-        console.log(`Inserted new download with ID: ${newDownloadId}`);
 
         // Insert into orders table
         await db.insert(orders).values({
@@ -114,7 +110,6 @@ export async function POST(req: Request) {
           currency: currency,
           status: 'completed',
         });
-        console.log('Inserted new order.');
 
         // --- Re-integrating Lead Generation, Storage, and Email Sending Logic ---
 
@@ -219,7 +214,6 @@ export async function POST(req: Request) {
           .select(selectFields)
           .from(leads)
           .where(finalFilteredWherePredicate);
-        console.log(`Fetched ${leadsData.length} leads.`);
 
         // Generate CSV
         const csvHeader = Object.keys(selectFields);
@@ -264,7 +258,6 @@ export async function POST(req: Request) {
         if (excelUploadError) {
           throw new Error(`Failed to upload Excel: ${excelUploadError.message}`);
         }
-        console.log('Files uploaded to Supabase Storage.');
 
         // Get signed URLs
         const { data: csvSignedUrlData, error: csvSignedUrlError } = await supabase.storage
@@ -294,7 +287,6 @@ export async function POST(req: Request) {
         await db.update(downloads)
           .set({ csvUrl: csvDownloadLink, excelUrl: excelDownloadLink })
           .where(eq(downloads.id, newDownloadId));
-        console.log('Updated download entry with CSV and Excel URLs.');
 
         // Send confirmation email
         const transporter = nodemailer.createTransport({
@@ -459,15 +451,14 @@ export async function POST(req: Request) {
         };
 
         await transporter.sendMail(mailOptions);
-        console.log('Confirmation email sent.');
 
-      } catch (error) {
-        console.error('Error processing checkout.session.completed event:', error);
-        return new NextResponse('Error processing webhook', { status: 500 });
+      } catch (error: any) {
+        // console.error('Error processing checkout.session.completed event:', error);
+        return new NextResponse(`Webhook handler failed: ${error.message}`, { status: 500 });
       }
       break;
     default:
-      console.log(`Unhandled event type ${event.type}`);
+      // console.log(`Unhandled event type ${event.type}`);
   }
 
   return new NextResponse('OK', { status: 200 });

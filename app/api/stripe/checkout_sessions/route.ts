@@ -22,14 +22,30 @@ export async function POST(req: Request) {
     const line_items = costItems.map((item: CostItem) => {
       let description = '';
       if (item.label === 'Standard Paket' && searchCriteria) {
-        const criteriaList = [];
-        if (searchCriteria.branch && searchCriteria.branch !== 'Alle' && searchCriteria.branch !== 'Alle Branchen') criteriaList.push(`Branche: ${searchCriteria.branch}`);
-        if (searchCriteria.state && searchCriteria.state !== 'all' && searchCriteria.state !== 'Alle Bundesländer') criteriaList.push(`Bundesland: ${searchCriteria.state}`);
-        if (searchCriteria.city && searchCriteria.city !== '') criteriaList.push(`Stadt: ${searchCriteria.city}`);
-        if (searchCriteria.zipCode && searchCriteria.zipCode !== '') criteriaList.push(`PLZ: ${searchCriteria.zipCode}`);
-        if (searchCriteria.legalForm && searchCriteria.legalForm !== 'Alle' && searchCriteria.legalForm !== 'Alle Rechtsformen') criteriaList.push(`Rechtsform: ${searchCriteria.legalForm}`);
+        const criteriaParts = [];
 
-        description = criteriaList.length > 0 ? `Suchkriterien: ${criteriaList.join(', ')}` : 'Standardpaket für Leads';
+        // Always include Branche, explicitly state 'Alle gewählt' if not specified
+        const branchValue = searchCriteria.branch && searchCriteria.branch !== 'Alle' && searchCriteria.branch !== 'Alle Branchen'
+          ? searchCriteria.branch
+          : 'Alle gewählt';
+        criteriaParts.push(`Branche: ${branchValue}`);
+
+        if (searchCriteria.city && searchCriteria.city !== '') {
+          criteriaParts.push(`Stadt: ${searchCriteria.city}`);
+        }
+        if (searchCriteria.zipCode && searchCriteria.zipCode !== '') {
+          criteriaParts.push(`PLZ: ${searchCriteria.zipCode}`);
+        }
+        if (searchCriteria.state && searchCriteria.state !== 'all' && searchCriteria.state !== 'Alle Bundesländer') {
+          criteriaParts.push(`Bundesland: ${searchCriteria.state}`);
+        }
+        if (searchCriteria.legalForm && searchCriteria.legalForm !== 'Alle' && searchCriteria.legalForm !== 'Alle Rechtsformen') {
+          criteriaParts.push(`Rechtsform: ${searchCriteria.legalForm}`);
+        }
+
+        description = criteriaParts.length > 0 ? `Suchkriterien: ${criteriaParts.join(', ')}` : 'Standard Paket';
+      } else {
+        description = item.label;
       }
 
       return {

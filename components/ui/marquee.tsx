@@ -69,7 +69,7 @@ export function MarqueeDemo() {
       <Marquee className="[--duration:80s]">
         {imageSources.map((imgPath, index) => (
           <div key={index} className="relative w-[100px] h-[50px]">
-            <Image src={imgPath} alt={`Marquee Image ${index + 1}`} fill={true} objectFit="contain" />
+            <Image src={imgPath} alt={`Marquee Image ${index + 1}`} fill={true} style={{ objectFit: "contain" }} />
           </div>
         ))}
       </Marquee>

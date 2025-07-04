@@ -13,9 +13,9 @@ export default function CallToAction2({ className }: { className?: string }) {
       </p>
       <Button 
         className="button-21"
-        onClick={() => document.getElementById('firmensuche')?.scrollIntoView({ behavior: 'smooth' })}
+        onClick={() => document.getElementById('kontakt')?.scrollIntoView({ behavior: 'smooth' })}
       >
-        <span className="font-normal">Jetzt Firmensuche starten</span>
+        <span className="font-normal">Sende uns deine Anfrage</span>
       </Button>
     </section>
   );

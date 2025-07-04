@@ -28,7 +28,7 @@ interface LeadCsvRow {
 const CSV_FILE_PATH = path.resolve(__dirname, './leads_v1.csv'); // CSV-Datei im src/scripts Ordner
 
 async function importLeads() {
-  console.log('Starting lead import...');
+  // console.log('Starting lead import...');
   const leadsToInsert: typeof leads.$inferInsert[] = [];
 
   fs.createReadStream(CSV_FILE_PATH)
@@ -63,23 +63,22 @@ async function importLeads() {
       leadsToInsert.push(leadData);
     })
     .on('end', async () => {
-      console.log(`Finished parsing CSV. Found ${leadsToInsert.length} leads.`);
+      // console.log(`Finished parsing CSV. Found ${leadsToInsert.length} leads.`);
       if (leadsToInsert.length === 0) {
-        console.log('No leads to insert. Exiting.');
+        // console.log('No leads to insert. Exiting.');
         return;
       }
 
       try {
         // Bulk-Insert mit Drizzle
         await db.insert(leads).values(leadsToInsert);
-        console.log('All leads imported successfully!');
+        // console.log('All leads imported successfully!');
       } catch (error) {
-        console.error('Error importing leads:', error);
-        // Hier könntest du spezifischere Fehlerbehandlung hinzufügen, z.B. bei doppelten E-Mails (unique constraint)
+        // console.error('Error importing leads:', error);
       }
     })
-    .on('error', (err: Error) => {
-      console.error('Error reading CSV:', err);
+    .on('error', (err) => {
+      // console.error('Error reading CSV:', err);
     });
 }
 
