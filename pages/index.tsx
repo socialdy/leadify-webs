@@ -15,9 +15,9 @@ import LeistungsSection from "@/components/LeistungsSection";
 import CallToAction2 from "../components/ui/CallToAction2";
 import ContactForm from "../components/ui/ContactForm";
 import { useRouter } from 'next/router';
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { toast } from "sonner";
-import { Toaster } from "../components/ui/sonner";
+import { Toaster } from "sonner";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -27,7 +27,6 @@ const poppins = Poppins({
 
 export default function Home() {
   const router = useRouter();
-  const [showCancelMessage, setShowCancelMessage] = useState(false);
 
   useEffect(() => {
     if (router.query.canceled === 'true') {

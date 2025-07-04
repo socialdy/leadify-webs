@@ -1,13 +1,12 @@
 "use client";
 
-import React, { useState, useEffect, useCallback, useRef } from 'react';
+import React, { useState, useEffect, useCallback, useRef, useMemo } from 'react';
 import { Input } from './input';
 import { Button } from './button';
 import { Checkbox } from './checkbox';
 import { Label } from './label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue, SelectGroup } from './select';
 import LeadResultsTable from './LeadResultsTable';
-import getStripe from '@/utils/get-stripejs';
 import { CheckIcon, ChevronsUpDownIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 import {
@@ -27,6 +26,7 @@ import { Lead } from './LeadResultsTable';
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import Image from 'next/image';
 import { toast } from "sonner";
+import { loadStripe, Stripe } from '@stripe/stripe-js';
 
 export const allBranches = [
   "Wäscherei / chemische Reinigung", "Fremdenführer / Reiseführer", "Esoterik", "Musikgruppe / Musikverein",
@@ -147,6 +147,17 @@ interface SearchCriteria {
   includeCEO: boolean;
 }
 
+// Define the discount percentage as a constant
+const DISCOUNT_PERCENTAGE = 0.50;
+
+let stripePromise: Promise<Stripe | null>;
+const getStripe = () => {
+  if (!stripePromise) {
+    stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!);
+  }
+  return stripePromise;
+};
+
 export default function LeadSearchSection({ className }: { className?: string }) {
   const [branchQuery, setBranchQuery] = useState<string>('');
   const [debouncedBranchQuery, setDebouncedBranchQuery] = useState('');
@@ -185,13 +196,15 @@ export default function LeadSearchSection({ className }: { className?: string })
 
   console.log('LeadSearchSection component rendering...'); // Add this log here
 
+  const projectId = "ijilcjvjtdcggzrxgtrf"; // Your Supabase project ID
+
   useEffect(() => {
     // console.log('useEffect for fetching sub-industries running...'); // Removed: no longer needed
     // Load saved search criteria from sessionStorage on component mount
     const savedCriteria = sessionStorage.getItem('lastSearchCriteria');
     if (savedCriteria) {
       try {
-        const parsedCriteria = JSON.parse(savedCriteria);
+        // Removed: const parsedCriteria = JSON.parse(savedCriteria);
         // if (parsedCriteria) {
         //   setSelectedBranch(parsedCriteria.branch || '');
         //   setSelectedState(parsedCriteria.state || 'all');
@@ -205,7 +218,7 @@ export default function LeadSearchSection({ className }: { className?: string })
         //   setShowResults(true); // Show results section if criteria were loaded
         //   // Do not trigger a new search here, only load the UI state
         // }
-      } catch (error) {
+      } catch {
         // console.error("Error parsing saved search criteria:", error);
       }
     }
@@ -222,11 +235,11 @@ export default function LeadSearchSection({ className }: { className?: string })
 
     //     // if (Array.isArray(data)) {
     //     //   // Only use sub-industries from the database, do not combine with hardcoded allBranches
-    //     //   setCombinedBranches(Array.from(new Set([...data]))); 
+    //     //   setCombinedBranches(Array.from(new Set([...data])); 
     //     //   console.log('Fetched sub-industries data:', data); // Add this log to see what the API returns
     //     //   // Removed Debugging logs
     //     // }
-    //   } catch (error) {
+    //   } catch {
     //     console.error("Error fetching sub-industries:", error); // Temporarily re-enable for debugging
     //   }
     // };
@@ -312,7 +325,7 @@ export default function LeadSearchSection({ className }: { className?: string })
         });
       }
 
-    } catch (error) {
+    } catch {
       // console.error('Error during leads search:', error);
       toast.error("Fehler", {
         description: "Es ist ein unerwarteter Fehler bei der Leads-Suche aufgetreten. Bitte versuchen Sie es erneut.",
@@ -416,31 +429,40 @@ export default function LeadSearchSection({ className }: { className?: string })
   // const totalCost = leads.length * 0.50; // This will be replaced by the detailed cost calculation
 
   // Define the cost structure based on user's request
-  const costItems = [
+  const { costItems, subtotal, discountAmount, totalExclUSt } = useMemo(() => {
+    const items = [
     { label: "Standard Paket", pricePerItem: 0.10, count: totalLeadsFound },
   ];
 
   if (includePhone) {
-    costItems.push({ label: "Telefonnummer", pricePerItem: 0.02, count: optionalCounts.phone });
+      items.push({ label: "Telefonnummer", pricePerItem: 0.02, count: optionalCounts.phone });
   }
   if (includeEmail) {
-    costItems.push({ label: "Email", pricePerItem: 0.02, count: optionalCounts.email });
+      items.push({ label: "Email", pricePerItem: 0.02, count: optionalCounts.email });
   }
   if (includeWebsite) {
-    costItems.push({ label: "Website", pricePerItem: 0.02, count: optionalCounts.website });
+      items.push({ label: "Website", pricePerItem: 0.02, count: optionalCounts.website });
   }
   if (includeCEO) {
-    costItems.push({ label: "Geschäftsführer", pricePerItem: 0.02, count: optionalCounts.ceo });
-  }
+      items.push({ label: "Geschäftsführer", pricePerItem: 0.02, count: optionalCounts.ceo });
+    }
 
-  let subtotal = 0;
-  costItems.forEach(item => {
-    subtotal += item.pricePerItem * item.count;
-  });
+    let currentSubtotal = 0;
+    items.forEach(item => {
+      currentSubtotal += item.pricePerItem * item.count;
+    });
 
-  const discountPercentage = 0.50; // 50%
-  const discountAmount = subtotal * discountPercentage;
-  const totalExclUSt = subtotal - discountAmount;
+    // const discountPercentage = 0.50; // 50% - Moved to global constant
+    const currentDiscountAmount = currentSubtotal * DISCOUNT_PERCENTAGE;
+    const currentTotalExclUSt = currentSubtotal - currentDiscountAmount;
+
+    return {
+      costItems: items,
+      subtotal: currentSubtotal,
+      discountAmount: currentDiscountAmount,
+      totalExclUSt: currentTotalExclUSt,
+    };
+  }, [totalLeadsFound, includePhone, includeEmail, includeWebsite, includeCEO, optionalCounts]);
 
   const handleBranchSearch = useCallback((value: string) => {
     setBranchQuery(value);
@@ -453,31 +475,21 @@ export default function LeadSearchSection({ className }: { className?: string })
     setOpenCombobox(false);
   }, []);
 
+  // const handlePurchaseSuccess = useCallback((projectId: string) => {
+  //   toast.success("Zahlung erfolgreich", {
+  //     description: "Vielen Dank für Ihren Kauf! Die Leads werden Ihrem Konto gutgeschrieben.",
+  //       position: "bottom-right",
+  //       duration: 5000,
+  //     });
+  //   // Optionally redirect or update UI
+  // }, []);
+
   const handleCheckout = useCallback(async () => {
-    if (totalLeadsFound === 0) {
-      toast.error("Keine Leads gefunden", {
-        description: "Bitte passen Sie Ihre Suchkriterien an.",
-        position: "bottom-right",
-        duration: 5000,
-      });
-      return;
-    }
-
-    if (totalExclUSt < 1) { // Check for minimum order value of 1 EUR
-      toast.error("Mindestbestellwert", {
-        description: "Der Mindestbestellwert für Leads beträgt 1 Euro.",
-        position: "bottom-right",
-        duration: 8000,
-      });
-      return;
-    }
-
     setIsCheckoutLoading(true);
     try {
       const stripe = await getStripe();
 
       if (!stripe) {
-        // console.error('Stripe is not initialized.');
         toast.error("Fehler beim Checkout", {
           description: "Stripe konnte nicht initialisiert werden. Bitte versuchen Sie es später erneut.",
           position: "bottom-right",
@@ -487,24 +499,23 @@ export default function LeadSearchSection({ className }: { className?: string })
         return;
       }
 
-      const response = await fetch('/api/stripe/checkout_sessions', {
+      const response = await fetch('/api/create-checkout-session', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ costItems, searchCriteria: prevSearchCriteriaRef.current }),
+        body: JSON.stringify({
+          amount: totalExclUSt,
+          projectId: projectId,
+          searchCriteria: prevSearchCriteriaRef.current,
+          totalLeadsFound: totalLeadsFound,
+          costItems: costItems, // Pass cost breakdown to backend
+        }),
       });
 
       if (!response.ok) {
         const errorData = await response.json();
-        // console.error('Error creating checkout session:', errorData.message);
-        toast.error("Fehler beim Checkout", {
-          description: errorData.message || "Es ist ein unbekannter Fehler aufgetreten.",
-          position: "bottom-right",
-          duration: 8000,
-        });
-        setIsCheckoutLoading(false);
-        return;
+        throw new Error(errorData.message || `HTTP error! status: ${response.status}`);
       }
 
       const { sessionId } = await response.json();
@@ -518,7 +529,7 @@ export default function LeadSearchSection({ className }: { className?: string })
           duration: 8000,
         });
       }
-    } catch (error) {
+    } catch {
       // console.error('Error in handleCheckout:', error);
       toast.error("Fehler", {
         description: "Es ist ein unerwarteter Fehler aufgetreten. Bitte versuchen Sie es erneut.",
@@ -528,7 +539,7 @@ export default function LeadSearchSection({ className }: { className?: string })
     } finally {
       setIsCheckoutLoading(false);
     }
-  }, [costItems, prevSearchCriteriaRef, totalLeadsFound, totalExclUSt]);
+  }, [costItems, prevSearchCriteriaRef, totalLeadsFound, totalExclUSt, projectId]);
 
   return (
     <section id="firmensuche-section" className={`w-full max-w-sm md:max-w-3xl py-8 lg:max-w-4xl mx-auto px-2 sm:px-6 md:px-8 bg-background/40 dark:bg-background/80 rounded-2xl border border-[var(--border)] dark:border-gray-800 backdrop-blur-xl shadow-md transition-shadow ${className || ''}`}>
@@ -749,7 +760,7 @@ export default function LeadSearchSection({ className }: { className?: string })
 
                   <div className="border-t border-dashed border-[var(--border)] pt-2 mt-2 flex items-center text-[var(--color-accent)] gap-x-1 md:gap-x-4">
                     <span className="flex-1 font-semibold text-sm text-left font-bold">Juli Aktion: &apos;Juli-50&apos;</span>
-                    <span className="min-w-[30px] md:min-w-[50px] text-right text-sm sm:text-sm font-semibold">- {Math.round(discountPercentage * 100)}%</span>
+                    <span className="min-w-[30px] md:min-w-[50px] text-right text-sm sm:text-sm font-semibold">- {Math.round(DISCOUNT_PERCENTAGE * 100)}%</span>
                     <span className="min-w-[30px] md:min-w-[50px] text-right"></span>
                     <span className="min-w-[60px] md:min-w-[60px] text-right text-sm sm:text-base font-semibold">- {discountAmount.toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} &euro;</span>
                   </div>

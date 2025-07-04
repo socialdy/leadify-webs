@@ -32,9 +32,13 @@ export async function POST(req: Request) {
       signature as string,
       process.env.STRIPE_WEBHOOK_SECRET as string
     );
-  } catch (err: any) {
-    // console.error(`Webhook Error: ${err.message}`);
-    return new NextResponse(`Webhook Error: ${err.message}`, { status: 400 });
+  } catch (err: unknown) {
+    let errorMessage = "An unknown error occurred.";
+    if (err instanceof Error) {
+      errorMessage = err.message;
+    }
+    // console.error(`Webhook Error: ${errorMessage}`);
+    return new NextResponse(`Webhook Error: ${errorMessage}`, { status: 400 });
   }
 
   if (!event) {
@@ -452,9 +456,13 @@ export async function POST(req: Request) {
 
         await transporter.sendMail(mailOptions);
 
-      } catch (error: any) {
+      } catch (error: unknown) {
+        let errorMessage = "An unknown error occurred.";
+        if (error instanceof Error) {
+          errorMessage = error.message;
+        }
         // console.error('Error processing checkout.session.completed event:', error);
-        return new NextResponse(`Webhook handler failed: ${error.message}`, { status: 500 });
+        return new NextResponse(`Webhook handler failed: ${errorMessage}`, { status: 500 });
       }
       break;
     default:

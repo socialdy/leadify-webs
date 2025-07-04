@@ -73,11 +73,11 @@ async function importLeads() {
         // Bulk-Insert mit Drizzle
         await db.insert(leads).values(leadsToInsert);
         // console.log('All leads imported successfully!');
-      } catch (error) {
+      } catch {
         // console.error('Error importing leads:', error);
       }
     })
-    .on('error', (err) => {
+    .on('error', () => {
       // console.error('Error reading CSV:', err);
     });
 }
