@@ -68,7 +68,7 @@ export async function POST(req: Request) {
       line_items: line_items,
       mode: 'payment',
       discounts: [{
-        coupon: 'zNwgljco',
+        coupon: 'test',
       }],
       metadata: {
         search_criteria: JSON.stringify(searchCriteria), // Store search criteria as a JSON string
