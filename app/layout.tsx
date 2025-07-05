@@ -25,7 +25,7 @@ export default function RootLayout({
         <link rel="icon" href="/fav.ico" />
       </head>
       <body className={`${poppins.className} w-full max-w-screen-xl mx-auto flex flex-col items-center`}>
-        <Suspense fallback={<div></div>}>
+        <Suspense fallback={null}>
           <PageLoader />
         </Suspense>
         <HeroHeader />
