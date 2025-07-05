@@ -23,6 +23,7 @@ const supabase = createClient(
 export async function POST(req: Request) {
   const body = await req.text();
   const signature = req.headers.get('stripe-signature');
+  const origin = req.headers.get('origin');
 
   let event: Stripe.Event;
 
@@ -419,8 +420,7 @@ export async function POST(req: Request) {
             <body>
                 <div class="container">
                     <div class="header">
-                        <!-- UPDATE THIS URL IN PRODUCTION: Use a publicly hosted URL for your Leadify Logo (e.g., https://yourdomain.com/img/logo.png) -->
-                        <img src="/img/logo.png" alt="Leadify Logo" style="max-width: 180px; height: auto; display: block; margin: 0 auto 15px auto;">
+                        <img src="${origin}/img/logo.png" alt="Leadify Logo" style="max-width: 180px; height: auto; display: block; margin: 0 auto 15px auto;">
                         <h1>Ihre Leads sind bereit zum Download!</h1>
                     </div>
                     <div class="content">
@@ -446,7 +446,7 @@ export async function POST(req: Request) {
                     </div>
                     <div class="footer">
                         <p>&copy; ${new Date().getFullYear()} Leadify. Alle Rechte vorbehalten.</p>
-                        <p><a href="#" style="color: #ffffff;">Impressum</a> | <a href="#" style="color: #ffffff;">Datenschutz</a> | <a href="#" style="color: #ffffff;">AGB</a></p>
+                        <p><a href="${origin}/impressum" style="color: #ffffff;">Impressum</a> | <a href="${origin}/datenschutz" style="color: #ffffff;">Datenschutz</a> | <a href="${origin}/agb" style="color: #ffffff;">AGB</a></p>
                     </div>
                 </div>
             </body>
