@@ -628,7 +628,7 @@ export default function LeadSearchSection({ className }: { className?: string })
       </div>
 
       <div className="mt-14">
-        <h3 className="text-lg font-medium text-[var(--foreground)] mb-6 text-center">Erweiter deine Suche mit passenden Optionen, insofern verfügbar</h3>
+        <h3 className="text-lg font-medium text-[var(--foreground)] mb-6 text-center">Erweitere deine Leads mit passenden Optionen, insofern verfügbar</h3>
         <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-4 p-4 border border-[var(--border)] rounded-md">
           <div className="flex items-center space-x-2">
             <Checkbox id="phone" checked={includePhone} onCheckedChange={(checked: boolean) => { setIncludePhone(checked); includePhoneRef.current = checked; }} />
