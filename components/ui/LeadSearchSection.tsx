@@ -499,7 +499,7 @@ export default function LeadSearchSection({ className }: { className?: string })
         return;
       }
 
-      const response = await fetch('/api/create-checkout-session', {
+      const response = await fetch('/api/stripe/checkout_sessions', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

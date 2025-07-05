@@ -10,7 +10,7 @@ import { createClient } from '@supabase/supabase-js';
 import { v4 as uuidv4 } from 'uuid';
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string, {
-  apiVersion: '2025-05-28.basil',
+  apiVersion: '2025-06-30.basil' as string,
 });
 
 // Initialize Supabase Client with SERVICE_ROLE_KEY for server-side operations
