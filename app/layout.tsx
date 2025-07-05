@@ -3,6 +3,7 @@ import { HeroHeader } from '@/components/ui/Header'; // Corrected import
 import Footer from '@/components/ui/Footer';
 import { Poppins } from 'next/font/google';
 import PageLoader from '../components/ui/PageLoader';
+import { Suspense } from 'react';
 
 const poppins = Poppins({
   subsets: ['latin'],
@@ -24,7 +25,9 @@ export default function RootLayout({
         <link rel="icon" href="/fav.ico" />
       </head>
       <body className={`${poppins.className} w-full max-w-screen-xl mx-auto flex flex-col items-center`}>
-        <PageLoader />
+        <Suspense fallback={<div></div>}>
+          <PageLoader />
+        </Suspense>
         <HeroHeader />
         {children}
         <Footer />
