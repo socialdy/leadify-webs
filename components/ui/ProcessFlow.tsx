@@ -1,3 +1,5 @@
+'use client';
+
 import { Search, FileText, ShoppingCart, CreditCard, Truck, Award } from 'lucide-react';
 import { useState, useRef, useEffect, useMemo } from 'react';
 

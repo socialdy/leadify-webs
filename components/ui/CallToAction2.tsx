@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button } from './button';
+import Link from 'next/link';
 
 export default function CallToAction2({ className }: { className?: string }) {
   return (
@@ -11,12 +11,12 @@ export default function CallToAction2({ className }: { className?: string }) {
         Entdecke jetzt hochwertige Firmenadressen und B2B-Leads speziell für Dein Unternehmen in Österreich. 
         Steigere Deinen Vertriebserfolg mit präzisen und aktuellen Daten.
       </p>
-      <Button 
-        className="button-21"
-        onClick={() => document.getElementById('kontakt')?.scrollIntoView({ behavior: 'smooth' })}
+      <Link 
+        href="/firmensuche"
+        className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2 button-21"
       >
-        <span className="font-normal">Sende uns deine Anfrage</span>
-      </Button>
+        <span className="font-normal">Jetzt Firmensuche starten</span>
+      </Link>
     </section>
   );
 } 

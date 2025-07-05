@@ -23,7 +23,6 @@ const supabase = createClient(
 export async function POST(req: Request) {
   const body = await req.text();
   const signature = req.headers.get('stripe-signature');
-  const origin = req.headers.get('origin');
 
   let event: Stripe.Event;
 
@@ -314,6 +313,8 @@ export async function POST(req: Request) {
             <head>
                 <meta charset="UTF-8">
                 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <meta name="color-scheme" content="light dark">
+                <meta name="supported-color-schemes" content="light dark">
                 <title>Ihre Leads sind bereit! (Bestellung ${newDownloadId})</title>
                 <style>
                     body {
@@ -415,6 +416,96 @@ export async function POST(req: Request) {
                         color: #30E87A; /* --color-accent on hover */
                         text-decoration: underline;
                     }
+
+                    /* Dark Mode Styles */
+                    @media (prefers-color-scheme: dark) {
+                        body {
+                            background-color: oklch(0.1 0 0) !important; /* Darker background */
+                            color: oklch(0.95 0 0) !important; /* Lighter text */
+                        }
+                        .container {
+                            background-color: oklch(0.15 0 0) !important; /* Darker container background */
+                            border-color: oklch(0.2 0 0) !important; /* Darker border */
+                            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2) !important;
+                        }
+                        .header {
+                            background-color: oklch(0.15 0 0) !important; /* Darker header background */
+                            border-color: oklch(0.2 0 0) !important;
+                        }
+                        .header h1,
+                        .content,
+                        .content p {
+                            color: oklch(0.95 0 0) !important; /* Lighter text */
+                        }
+                        .contact-info {
+                            border-color: oklch(0.2 0 0) !important;
+                        }
+                        .contact-info p {
+                            color: oklch(0.8 0 0) !important; /* Slightly darker light text */
+                        }
+                        .button {
+                            background-color: #045C47 !important; /* Adjust button for dark mode */
+                            border-color: #045C47 !important;
+                        }
+                        .button:hover {
+                            background-color: #034737 !important;
+                            border-color: #034737 !important;
+                        }
+                        .footer {
+                            background-color: #045C47 !important; /* Adjust footer for dark mode */
+                            border-color: oklch(0.2 0 0) !important;
+                        }
+                        .footer a {
+                            color: #ffffff !important; /* Ensure footer links are white */
+                        }
+                        .footer a:hover {
+                            color: #30E87A !important; /* Accent on hover */
+                        }
+                    }
+
+                    /* Outlook Dark Mode Fix */
+                    [data-ogsc] .container {
+                        background-color: oklch(0.15 0 0) !important;
+                        border-color: oklch(0.2 0 0) !important;
+                    }
+                    [data-ogsc] body {
+                        background-color: oklch(0.1 0 0) !important;
+                        color: oklch(0.95 0 0) !important;
+                    }
+                    [data-ogsc] .header {
+                        background-color: oklch(0.15 0 0) !important;
+                        border-color: oklch(0.2 0 0) !important;
+                    }
+                    [data-ogsc] .header h1,
+                    [data-ogsc] .content,
+                    [data-ogsc] .content p {
+                        color: oklch(0.95 0 0) !important;
+                    }
+                    [data-ogsc] .contact-info {
+                        border-color: oklch(0.2 0 0) !important;
+                    }
+                    [data-ogsc] .contact-info p {
+                        color: oklch(0.8 0 0) !important;
+                    }
+                    [data-ogsc] .button {
+                        background-color: #045C47 !important;
+                        border-color: #045C47 !important;
+                    }
+                    [data-ogsc] .button:hover {
+                        background-color: #034737 !important;
+                        border-color: #034737 !important;
+                    }
+                    [data-ogsc] .footer {
+                        background-color: #045C47 !important;
+                        border-color: oklch(0.2 0 0) !important;
+                    }
+                    [data-ogsc] .footer a {
+                        color: #ffffff !important;
+                    }
+                    [data-ogsc] .footer a:hover {
+                        color: #30E87A !important;
+                    }
+
                 </style>
             </head>
             <body>

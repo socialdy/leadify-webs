@@ -1,3 +1,5 @@
+'use client';
+
 import Head from "next/head";
 import Image from "next/image";
 import { Poppins } from "next/font/google";
@@ -14,10 +16,8 @@ import ProcessFlow from "../components/ui/ProcessFlow";
 import LeistungsSection from "@/components/LeistungsSection";
 import CallToAction2 from "../components/ui/CallToAction2";
 import ContactForm from "../components/ui/ContactForm";
-import { useRouter } from 'next/router';
-import { useEffect } from 'react';
-import { toast } from "sonner";
-import { Toaster } from "sonner";
+import { Suspense } from 'react';
+import CanceledPaymentHandler from '../components/utils/CanceledPaymentHandler';
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -26,19 +26,6 @@ const poppins = Poppins({
 });
 
 export default function Home() {
-  const router = useRouter();
-
-  useEffect(() => {
-    if (router.query.canceled === 'true') {
-      toast.error("Zahlung abgebrochen!", {
-        description: <p>Ihre Zahlung wurde abgebrochen. Falls Sie Probleme hatten, <span style={{ color: 'var(--color-primary)' }}>kontaktieren</span> Sie uns bitte.</p>,
-        position: "bottom-right",
-        duration: 8000,
-      });
-      router.replace('/', undefined, { shallow: true });
-    }
-  }, [router.query.canceled, router]);
-
   // Define a subset of branches for the WordRotate component
   const dynamicBranchesWords = [
     "Softwareentwickler",
@@ -74,6 +61,10 @@ export default function Home() {
         <Header />
         <main className="pt-20 md:pt-30 lg:pt-40 overflow-hidden">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <Suspense fallback={<div>Loading...</div>}>
+              <CanceledPaymentHandler />
+            </Suspense>
+
             <div className="max-w-4xl mx-auto w-full flex flex-col items-center justify-center text-center">
               <h1 className="text-4xl md:text-6xl font-bold tracking-tight text-[var(--foreground)] mb-4 break-words text-center">
                 Firmenadressen kaufen <br/> Österreich
@@ -188,7 +179,6 @@ export default function Home() {
 
         <Footer />
       </div>
-      <Toaster />
     </>
   );
 }

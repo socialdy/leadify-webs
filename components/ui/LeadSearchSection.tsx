@@ -29,6 +29,7 @@ import { toast } from "sonner";
 import { loadStripe, Stripe } from '@stripe/stripe-js';
 
 export const allBranches = [
+  "Alle",
   "Wäscherei / chemische Reinigung", "Fremdenführer / Reiseführer", "Esoterik", "Musikgruppe / Musikverein",
   "Verkehrsbetriebe", "Altstoffe / Abfallstoffe", "Gießerei", "Musikinstrumente / Produktion",
   "Filteranlagen", "Kläranlage", "Produktion von Spielzeug", "Mobile Disko / Vermieten von Diskothekenanlagen",
@@ -53,7 +54,7 @@ export const allBranches = [
   "Medizinische Behelfe u Bedarfsartikel", "Autobusse, Busse / Personentransport", "Bootsvermietung / Boote mieten",
   "Filmverleih / Filmvertrieb", "Übersetzen / Dolmetschen", "Kegelbahn / Kegeln / Bowling",
   "Eventagentur", "Technische Gase", "Videothek", "Disko",
-  "Projekt-Management", "Veranstalter für Messe, Ausstellung und Kongresse", "Gasthöfe und Pensionen",
+  "Projekt-Management", "Gasthöfe und Pensionen",
   "Herstellung von sonstigen Waren", "Steuerberater", "Fiaker / Fahrt mit der Pferdekutsche",
   "Reisebüro / Reiseveranstalter", "Schmiermittel", "Fotoausarbeitungen",
   "Events / Organisation, Veranstaltungsorganisation", "Hütte / Schutzhütte", "Unternehmensberatung",
@@ -187,39 +188,52 @@ export default function LeadSearchSection({ className }: { className?: string })
 
   const prevSearchCriteriaRef = useRef<SearchCriteria | null>(null);
 
-  // State to hold the combined list of all branches and fetched sub-industries
-  // const [combinedBranches, setCombinedBranches] = useState<string[]>([]); // Removed: no longer needed
+  const selectedBranchRef = useRef('');
+  const selectedStateRef = useRef('all');
+  const cityRef = useRef('');
+  const zipCodeRef = useRef('');
+  const selectedLegalFormRef = useRef('Alle');
+  const includePhoneRef = useRef(false);
+  const includeWebsiteRef = useRef(false);
+  const includeEmailRef = useRef(false);
+  const includeCEORef = useRef(false);
+
   const [isCheckoutLoading, setIsCheckoutLoading] = useState(false);
 
   const ignorePageEffect = useRef(false);
-  const isInitialMount = useRef(true);
-
-  console.log('LeadSearchSection component rendering...'); // Add this log here
 
   const projectId = "ijilcjvjtdcggzrxgtrf"; // Your Supabase project ID
 
   useEffect(() => {
-    // console.log('useEffect for fetching sub-industries running...'); // Removed: no longer needed
     // Load saved search criteria from sessionStorage on component mount
     const savedCriteria = sessionStorage.getItem('lastSearchCriteria');
     if (savedCriteria) {
       try {
-        // Removed: const parsedCriteria = JSON.parse(savedCriteria);
-        // if (parsedCriteria) {
-        //   setSelectedBranch(parsedCriteria.branch || '');
-        //   setSelectedState(parsedCriteria.state || 'all');
-        //   setCity(parsedCriteria.city || '');
-        //   setZipCode(parsedCriteria.zipCode || '');
-        //   setSelectedLegalForm(parsedCriteria.legalForm || 'Alle');
-        //   setIncludePhone(parsedCriteria.includePhone || false);
-        //   setIncludeWebsite(parsedCriteria.includeWebsite || false);
-        //   setIncludeEmail(parsedCriteria.includeEmail || false);
-        //   setIncludeCEO(parsedCriteria.includeCEO || false);
-        //   setShowResults(true); // Show results section if criteria were loaded
-        //   // Do not trigger a new search here, only load the UI state
-        // }
-      } catch {
-        // console.error("Error parsing saved search criteria:", error);
+        const parsedCriteria = JSON.parse(savedCriteria);
+        if (parsedCriteria) {
+          setSelectedBranch(parsedCriteria.branch || '');
+          selectedBranchRef.current = parsedCriteria.branch || '';
+          setSelectedState(parsedCriteria.state || 'all');
+          selectedStateRef.current = parsedCriteria.state || 'all';
+          setCity(parsedCriteria.city || '');
+          cityRef.current = parsedCriteria.city || '';
+          setZipCode(parsedCriteria.zipCode || '');
+          zipCodeRef.current = parsedCriteria.zipCode || '';
+          setSelectedLegalForm(parsedCriteria.legalForm || 'Alle');
+          selectedLegalFormRef.current = parsedCriteria.legalForm || 'Alle';
+          setIncludePhone(parsedCriteria.includePhone || false);
+          includePhoneRef.current = parsedCriteria.includePhone || false;
+          setIncludeWebsite(parsedCriteria.includeWebsite || false);
+          includeWebsiteRef.current = parsedCriteria.includeWebsite || false;
+          setIncludeEmail(parsedCriteria.includeEmail || false);
+          includeEmailRef.current = parsedCriteria.includeEmail || false;
+          setIncludeCEO(parsedCriteria.includeCEO || false);
+          includeCEORef.current = parsedCriteria.includeCEO || false;
+          setShowResults(true); // Show results section if criteria were loaded
+          // Do not trigger a new search here, only load the UI state
+        }
+      } catch (_error) {
+        console.error("Error parsing saved search criteria:", _error);
       }
     }
 
@@ -277,15 +291,15 @@ export default function LeadSearchSection({ className }: { className?: string })
     setLeads([]);
 
     const searchCriteria = {
-      branch: selectedBranch === 'Alle' ? null : selectedBranch,
-      state: selectedState === 'all' ? null : selectedState,
-      city: city.trim() === '' ? null : city.trim(),
-      zipCode: zipCode.trim() === '' ? null : zipCode.trim(),
-      legalForm: selectedLegalForm === 'Alle' ? null : selectedLegalForm,
-      includePhone: includePhone,
-      includeWebsite: includeWebsite,
-      includeEmail: includeEmail,
-      includeCEO: includeCEO,
+      branch: selectedBranchRef.current === 'Alle' ? null : selectedBranchRef.current,
+      state: selectedStateRef.current === 'all' ? null : selectedStateRef.current,
+      city: cityRef.current.trim() === '' ? null : cityRef.current.trim(),
+      zipCode: zipCodeRef.current.trim() === '' ? null : zipCodeRef.current.trim(),
+      legalForm: selectedLegalFormRef.current === 'Alle' ? null : selectedLegalFormRef.current,
+      includePhone: includePhoneRef.current,
+      includeWebsite: includeWebsiteRef.current,
+      includeEmail: includeEmailRef.current,
+      includeCEO: includeCEORef.current,
     };
     prevSearchCriteriaRef.current = searchCriteria;
 
@@ -340,15 +354,15 @@ export default function LeadSearchSection({ className }: { className?: string })
       ignorePageEffect.current = false;
     }
   }, [
-    selectedBranch,
-    selectedState,
-    city,
-    zipCode,
-    selectedLegalForm,
-    includePhone,
-    includeWebsite,
-    includeEmail,
-    includeCEO,
+    selectedBranchRef,
+    selectedStateRef,
+    cityRef,
+    zipCodeRef,
+    selectedLegalFormRef,
+    includePhoneRef,
+    includeWebsiteRef,
+    includeEmailRef,
+    includeCEORef,
     leadsPerPage,
     currentPage,
     setLeads,
@@ -371,50 +385,6 @@ export default function LeadSearchSection({ className }: { className?: string })
       handleSearch();
     }
   }, [currentPage, handleSearch, prevSearchCriteriaRef]);
-
-  // New useEffect to debounce search criteria changes
-  useEffect(() => {
-    if (isInitialMount.current) {
-      isInitialMount.current = false;
-      return; // Skip initial mount
-    }
-
-    const currentSearchCriteria = {
-      branch: selectedBranch === 'Alle' ? null : selectedBranch,
-      state: selectedState === 'all' ? null : selectedState,
-      city: city.trim() === '' ? null : city.trim(),
-      zipCode: zipCode.trim() === '' ? null : zipCode.trim(),
-      legalForm: selectedLegalForm === 'Alle' ? null : selectedLegalForm,
-      includePhone: includePhone,
-      includeWebsite: includeWebsite,
-      includeEmail: includeEmail,
-      includeCEO: includeCEO,
-    };
-
-    // Only trigger if an initial search has been performed AND criteria have actually changed
-    if (JSON.stringify(currentSearchCriteria) === JSON.stringify(prevSearchCriteriaRef.current)) {
-      return; // No change in criteria, do nothing
-    }
-
-    const handler = setTimeout(() => {
-      handleSearch();
-    }, 500); // 500ms debounce delay
-
-    return () => {
-      clearTimeout(handler);
-    };
-  }, [
-    selectedBranch,
-    selectedState,
-    city,
-    zipCode,
-    selectedLegalForm,
-    includePhone,
-    includeWebsite,
-    includeEmail,
-    includeCEO,
-    handleSearch, // `handleSearch` is now stable due to `useCallback`
-  ]);
 
   // Scroll to the total sum section when results are shown
   useEffect(() => {
@@ -466,11 +436,13 @@ export default function LeadSearchSection({ className }: { className?: string })
 
   const handleBranchSearch = useCallback((value: string) => {
     setBranchQuery(value);
+    selectedBranchRef.current = value;
     setOpenCombobox(true);
   }, []);
 
   const selectBranch = useCallback((branch: string) => {
     setSelectedBranch(branch);
+    selectedBranchRef.current = branch;
     setBranchQuery(branch);
     setOpenCombobox(false);
   }, []);
@@ -605,7 +577,7 @@ export default function LeadSearchSection({ className }: { className?: string })
             type="text"
             className="w-full"
             value={city}
-            onChange={(e) => setCity(e.target.value)}
+            onChange={(e) => { setCity(e.target.value); cityRef.current = e.target.value; }}
           />
         </div>
 
@@ -616,13 +588,13 @@ export default function LeadSearchSection({ className }: { className?: string })
             type="text"
             className="w-full"
             value={zipCode}
-            onChange={(e) => setZipCode(e.target.value)}
+            onChange={(e) => { setZipCode(e.target.value); zipCodeRef.current = e.target.value; }}
           />
         </div>
 
         <div>
           <label className="peer-disabled:cursor-not-allowed peer-disabled:opacity-70 block text-sm font-medium text-gray-700 mb-2 text-center" htmlFor="stateSelect">Bundesländer</label>
-          <Select value={selectedState} onValueChange={(value) => setSelectedState(value)}>
+          <Select value={selectedState} onValueChange={(value) => { setSelectedState(value); selectedStateRef.current = value; }}>
             <SelectTrigger id="stateSelect" className="w-full">
               <SelectValue placeholder="Alle" />
             </SelectTrigger>
@@ -639,7 +611,7 @@ export default function LeadSearchSection({ className }: { className?: string })
 
         <div>
           <label className="peer-disabled:cursor-not-allowed peer-disabled:opacity-70 block text-sm font-medium text-gray-700 mb-2 text-center" htmlFor="legalFormSelect">Rechtsform</label>
-          <Select value={selectedLegalForm} onValueChange={(value) => setSelectedLegalForm(value)}>
+          <Select value={selectedLegalForm} onValueChange={(value) => { setSelectedLegalForm(value); selectedLegalFormRef.current = value; }}>
             <SelectTrigger id="legalFormSelect" className="w-full">
               <SelectValue placeholder="Alle" />
             </SelectTrigger>
@@ -659,19 +631,19 @@ export default function LeadSearchSection({ className }: { className?: string })
         <h3 className="text-lg font-medium text-[var(--foreground)] mb-6 text-center">Erweiter deine Suche mit passenden Optionen, insofern verfügbar</h3>
         <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-4 p-4 border border-[var(--border)] rounded-md">
           <div className="flex items-center space-x-2">
-            <Checkbox id="phone" checked={includePhone} onCheckedChange={(checked: boolean) => setIncludePhone(checked)} />
+            <Checkbox id="phone" checked={includePhone} onCheckedChange={(checked: boolean) => { setIncludePhone(checked); includePhoneRef.current = checked; }} />
             <Label htmlFor="phone" className="text-sm text-gray-800">Telefonnummer</Label>
           </div>
           <div className="flex items-center space-x-2">
-            <Checkbox id="website" checked={includeWebsite} onCheckedChange={(checked: boolean) => setIncludeWebsite(checked)} />
+            <Checkbox id="website" checked={includeWebsite} onCheckedChange={(checked: boolean) => { setIncludeWebsite(checked); includeWebsiteRef.current = checked; }} />
             <Label htmlFor="website" className="text-sm text-gray-800">Website</Label>
           </div>
           <div className="flex items-center space-x-2">
-            <Checkbox id="email" checked={includeEmail} onCheckedChange={(checked: boolean) => setIncludeEmail(checked)} />
+            <Checkbox id="email" checked={includeEmail} onCheckedChange={(checked: boolean) => { setIncludeEmail(checked); includeEmailRef.current = checked; }} />
             <Label htmlFor="email" className="text-sm text-gray-800">E-Mail Adresse</Label>
           </div>
           <div className="flex items-center space-x-2">
-            <Checkbox id="ceo" checked={includeCEO} onCheckedChange={(checked: boolean) => setIncludeCEO(checked)} />
+            <Checkbox id="ceo" checked={includeCEO} onCheckedChange={(checked: boolean) => { setIncludeCEO(checked); includeCEORef.current = checked; }} />
             <Label htmlFor="ceo" className="text-sm text-gray-800">Geschäftsführer</Label>
           </div>
         </div>
@@ -702,10 +674,10 @@ export default function LeadSearchSection({ className }: { className?: string })
               <LeadResultsTable 
                 leads={leads} 
                 className="mb-8" 
-                includePhone={includePhone}
-                includeWebsite={includeWebsite}
-                includeEmail={includeEmail}
-                includeCEO={includeCEO}
+                includePhone={prevSearchCriteriaRef.current?.includePhone || false}
+                includeWebsite={prevSearchCriteriaRef.current?.includeWebsite || false}
+                includeEmail={prevSearchCriteriaRef.current?.includeEmail || false}
+                includeCEO={prevSearchCriteriaRef.current?.includeCEO || false}
               />
 
               <div className="mt-4 p-4 bg-background/50 rounded-lg">
