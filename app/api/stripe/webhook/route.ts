@@ -134,7 +134,7 @@ export async function POST(req: Request) {
         let baseWherePredicate: SQL<unknown> | undefined = undefined;
 
         if (branch && branch !== 'Alle') {
-          const condition = ilike(leads.subIndustry, `%${branch}%`);
+          const condition = ilike(leads.industry, `%${branch}%`);
           baseWherePredicate = baseWherePredicate ? and(baseWherePredicate, condition) : condition;
         }
         if (state && state !== 'Alle Bundesländer') {
@@ -199,7 +199,6 @@ export async function POST(req: Request) {
           state: leads.state,
           legalForm: leads.legalForm,
           industry: leads.industry,
-          subIndustry: leads.subIndustry,
           ...(includeEmail && { email: leads.email }),
           ...(includePhone && { phone: leads.phone }),
           ...(includeWebsite && { website: leads.website }),

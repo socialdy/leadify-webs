@@ -22,8 +22,8 @@ export async function POST(req: Request) {
 
     let baseWherePredicate: SQL<unknown> | undefined = undefined; // Initialize as undefined
 
-    if (branch) {
-      const condition = ilike(leadsTable.subIndustry, `%${branch}%`);
+    if (branch && branch !== 'Alle') {
+      const condition = ilike(leadsTable.industry, `%${branch}%`);
       baseWherePredicate = baseWherePredicate ? and(baseWherePredicate, condition) : condition;
     }
     if (state && state !== 'all') {
@@ -89,8 +89,7 @@ export async function POST(req: Request) {
       city: leadsTable.city,
       state: leadsTable.state,
       legalForm: leadsTable.legalForm,
-      industry: leadsTable.subIndustry,
-      createdAt: leadsTable.createdAt,
+      industry: leadsTable.industry,
     };
 
     if (includeEmail) {
@@ -180,9 +179,9 @@ export async function POST(req: Request) {
 
 export async function GET() {
   try {
-    const subIndustries = await db.selectDistinct({ subIndustry: leadsTable.subIndustry }).from(leadsTable);
-    const uniqueSubIndustries = subIndustries.map(item => item.subIndustry).filter(Boolean) as string[];
-    return NextResponse.json({ subIndustries: uniqueSubIndustries });
+    const industries = await db.selectDistinct({ industry: leadsTable.industry }).from(leadsTable);
+    const uniqueIndustries = industries.map(item => item.industry).filter(Boolean) as string[];
+    return NextResponse.json({ subIndustries: uniqueIndustries });
   } catch {
     // console.error('Error fetching unique sub-industries:', error);
     return NextResponse.json({ message: "Internal Server Error" }, { status: 500 });

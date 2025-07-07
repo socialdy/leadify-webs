@@ -50,6 +50,13 @@
       "when": 1751412439957,
       "tag": "0006_massive_norrin_radd",
       "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "7",
+      "when": 1751892164557,
+      "tag": "0007_remove_sub_industry_and_created_at",
+      "breakpoints": true
     }
   ]
 }
