@@ -23,7 +23,6 @@ const supabase = createClient(
 export async function POST(req: Request) {
   const body = await req.text();
   const signature = req.headers.get('stripe-signature');
-  const origin = req.headers.get('origin');
 
   let event: Stripe.Event;
 

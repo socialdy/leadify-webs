@@ -173,8 +173,8 @@ export async function POST(req: Request) {
         ceo: leadsWithCEOCount[0]?.count || 0,
       }
     });
-  } catch {
-    // console.error('Error in lead search API:', error);
+  } catch (error) {
+    console.error('Error in lead search API:', error);
     return NextResponse.json({ message: "Internal Server Error" }, { status: 500 });
   }
 }

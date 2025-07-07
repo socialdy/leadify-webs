@@ -18,8 +18,7 @@ export interface Lead {
   firstName?: string;
   lastName?: string;
   title2?: string;
-  industry?: string;
-  subIndustry?: string;
+  branche?: string;
 }
 
 interface LeadResultsTableProps {
@@ -50,9 +49,6 @@ const LeadResultsTable: React.FC<LeadResultsTableProps> = ({ leads, className, i
             </th>
             <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-muted-foreground uppercase tracking-wider">
               Branche
-            </th>
-            <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-muted-foreground uppercase tracking-wider">
-              Subbranche
             </th>
             <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-muted-foreground uppercase tracking-wider">
               Adresse
@@ -115,10 +111,7 @@ const LeadResultsTable: React.FC<LeadResultsTableProps> = ({ leads, className, i
                 {lead.companyName}
               </td>
               <td className="px-6 py-4 whitespace-nowrap text-sm text-muted-foreground text-left select-none blur-sm">
-                <span>{lead.industry || 'N/A'}</span>
-              </td>
-              <td className="px-6 py-4 whitespace-nowrap text-sm text-muted-foreground text-left select-none blur-sm">
-                <span>{lead.subIndustry || 'N/A'}</span>
+                <span>{lead.branche || 'N/A'}</span>
               </td>
               <td className="px-6 py-4 whitespace-nowrap text-sm text-muted-foreground text-left select-none blur-sm">
                 <span>{lead.address}</span>

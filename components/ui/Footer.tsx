@@ -171,7 +171,7 @@ export default function FooterSection() {
                     {/* Column 5: Zahlungsmethoden */}
                     <div className="md:col-span-1 space-y-4 text-sm text-center md:text-left">
                         <span className="block font-medium">Zahlungsmethoden</span>
-                        <div className="flex items-center gap-1 w-full justify-center md:justify-start">
+                        <div className="flex flex-wrap items-center gap-2 w-full justify-center md:justify-start">
                             <Image
                                 src="/img/visa.svg"
                                 alt="Visa"

@@ -185,6 +185,12 @@ export default function LeadSearchSection({ className }: { className?: string })
     ceo: 0,
   });
 
+  // New state variables for pending checkbox selections
+  const [pendingIncludePhone, setPendingIncludePhone] = useState(false);
+  const [pendingIncludeWebsite, setPendingIncludeWebsite] = useState(false);
+  const [pendingIncludeEmail, setPendingIncludeEmail] = useState(false);
+  const [pendingIncludeCEO, setPendingIncludeCEO] = useState(false);
+
   const prevSearchCriteriaRef = useRef<SearchCriteria | null>(null);
 
   // State to hold the combined list of all branches and fetched sub-industries
@@ -192,9 +198,6 @@ export default function LeadSearchSection({ className }: { className?: string })
   const [isCheckoutLoading, setIsCheckoutLoading] = useState(false);
 
   const ignorePageEffect = useRef(false);
-  const isInitialMount = useRef(true);
-
-  console.log('LeadSearchSection component rendering...'); // Add this log here
 
   const projectId = "ijilcjvjtdcggzrxgtrf"; // Your Supabase project ID
 
@@ -276,16 +279,22 @@ export default function LeadSearchSection({ className }: { className?: string })
     setShowResults(false);
     setLeads([]);
 
+    // Update the actual include states from the pending states
+    setIncludePhone(pendingIncludePhone);
+    setIncludeWebsite(pendingIncludeWebsite);
+    setIncludeEmail(pendingIncludeEmail);
+    setIncludeCEO(pendingIncludeCEO);
+
     const searchCriteria = {
       branch: selectedBranch === 'Alle' ? null : selectedBranch,
       state: selectedState === 'all' ? null : selectedState,
       city: city.trim() === '' ? null : city.trim(),
       zipCode: zipCode.trim() === '' ? null : zipCode.trim(),
       legalForm: selectedLegalForm === 'Alle' ? null : selectedLegalForm,
-      includePhone: includePhone,
-      includeWebsite: includeWebsite,
-      includeEmail: includeEmail,
-      includeCEO: includeCEO,
+      includePhone: pendingIncludePhone, // Use pending state for search criteria
+      includeWebsite: pendingIncludeWebsite, // Use pending state for search criteria
+      includeEmail: pendingIncludeEmail, // Use pending state for search criteria
+      includeCEO: pendingIncludeCEO, // Use pending state for search criteria
     };
     prevSearchCriteriaRef.current = searchCriteria;
 
@@ -345,10 +354,6 @@ export default function LeadSearchSection({ className }: { className?: string })
     city,
     zipCode,
     selectedLegalForm,
-    includePhone,
-    includeWebsite,
-    includeEmail,
-    includeCEO,
     leadsPerPage,
     currentPage,
     setLeads,
@@ -356,6 +361,10 @@ export default function LeadSearchSection({ className }: { className?: string })
     setOptionalCounts,
     setIsLoading,
     setShowResults,
+    pendingIncludePhone,
+    pendingIncludeWebsite,
+    pendingIncludeEmail,
+    pendingIncludeCEO,
   ]);
 
   // Effect to re-run search when currentPage changes (pagination)
@@ -371,50 +380,6 @@ export default function LeadSearchSection({ className }: { className?: string })
       handleSearch();
     }
   }, [currentPage, handleSearch, prevSearchCriteriaRef]);
-
-  // New useEffect to debounce search criteria changes
-  useEffect(() => {
-    if (isInitialMount.current) {
-      isInitialMount.current = false;
-      return; // Skip initial mount
-    }
-
-    const currentSearchCriteria = {
-      branch: selectedBranch === 'Alle' ? null : selectedBranch,
-      state: selectedState === 'all' ? null : selectedState,
-      city: city.trim() === '' ? null : city.trim(),
-      zipCode: zipCode.trim() === '' ? null : zipCode.trim(),
-      legalForm: selectedLegalForm === 'Alle' ? null : selectedLegalForm,
-      includePhone: includePhone,
-      includeWebsite: includeWebsite,
-      includeEmail: includeEmail,
-      includeCEO: includeCEO,
-    };
-
-    // Only trigger if an initial search has been performed AND criteria have actually changed
-    if (JSON.stringify(currentSearchCriteria) === JSON.stringify(prevSearchCriteriaRef.current)) {
-      return; // No change in criteria, do nothing
-    }
-
-    const handler = setTimeout(() => {
-      handleSearch();
-    }, 500); // 500ms debounce delay
-
-    return () => {
-      clearTimeout(handler);
-    };
-  }, [
-    selectedBranch,
-    selectedState,
-    city,
-    zipCode,
-    selectedLegalForm,
-    includePhone,
-    includeWebsite,
-    includeEmail,
-    includeCEO,
-    handleSearch, // `handleSearch` is now stable due to `useCallback`
-  ]);
 
   // Scroll to the total sum section when results are shown
   useEffect(() => {
@@ -622,8 +587,14 @@ export default function LeadSearchSection({ className }: { className?: string })
 
         <div>
           <label className="peer-disabled:cursor-not-allowed peer-disabled:opacity-70 block text-sm font-medium text-gray-700 mb-2 text-center" htmlFor="stateSelect">Bundesländer</label>
-          <Select value={selectedState} onValueChange={(value) => setSelectedState(value)}>
-            <SelectTrigger id="stateSelect" className="w-full">
+          <Select
+            value={selectedState}
+            onValueChange={(value) => setSelectedState(value)}
+          >
+            <SelectTrigger
+              className="w-full font-[var(--font-poppins)] capitalize"
+              id="state"
+            >
               <SelectValue placeholder="Alle" />
             </SelectTrigger>
             <SelectContent>
@@ -639,8 +610,14 @@ export default function LeadSearchSection({ className }: { className?: string })
 
         <div>
           <label className="peer-disabled:cursor-not-allowed peer-disabled:opacity-70 block text-sm font-medium text-gray-700 mb-2 text-center" htmlFor="legalFormSelect">Rechtsform</label>
-          <Select value={selectedLegalForm} onValueChange={(value) => setSelectedLegalForm(value)}>
-            <SelectTrigger id="legalFormSelect" className="w-full">
+          <Select
+            value={selectedLegalForm}
+            onValueChange={(value) => setSelectedLegalForm(value)}
+          >
+            <SelectTrigger
+              className="w-full font-[var(--font-poppins)] capitalize"
+              id="legalForm"
+            >
               <SelectValue placeholder="Alle" />
             </SelectTrigger>
             <SelectContent>
@@ -656,22 +633,22 @@ export default function LeadSearchSection({ className }: { className?: string })
       </div>
 
       <div className="mt-14">
-        <h3 className="text-lg font-medium text-[var(--foreground)] mb-6 text-center">Erweiter deine Suche mit passenden Optionen, insofern verfügbar</h3>
+        <h3 className="text-lg font-medium text-[var(--foreground)] mb-6 text-center">Erweiter deine Leads mit passenden Optionen, insofern verfügbar</h3>
         <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-4 p-4 border border-[var(--border)] rounded-md">
           <div className="flex items-center space-x-2">
-            <Checkbox id="phone" checked={includePhone} onCheckedChange={(checked: boolean) => setIncludePhone(checked)} />
+            <Checkbox id="phone" checked={pendingIncludePhone} onCheckedChange={(checked: boolean) => setPendingIncludePhone(checked)} />
             <Label htmlFor="phone" className="text-sm text-gray-800">Telefonnummer</Label>
           </div>
           <div className="flex items-center space-x-2">
-            <Checkbox id="website" checked={includeWebsite} onCheckedChange={(checked: boolean) => setIncludeWebsite(checked)} />
+            <Checkbox id="website" checked={pendingIncludeWebsite} onCheckedChange={(checked: boolean) => setPendingIncludeWebsite(checked)} />
             <Label htmlFor="website" className="text-sm text-gray-800">Website</Label>
           </div>
           <div className="flex items-center space-x-2">
-            <Checkbox id="email" checked={includeEmail} onCheckedChange={(checked: boolean) => setIncludeEmail(checked)} />
+            <Checkbox id="email" checked={pendingIncludeEmail} onCheckedChange={(checked: boolean) => setPendingIncludeEmail(checked)} />
             <Label htmlFor="email" className="text-sm text-gray-800">E-Mail Adresse</Label>
           </div>
           <div className="flex items-center space-x-2">
-            <Checkbox id="ceo" checked={includeCEO} onCheckedChange={(checked: boolean) => setIncludeCEO(checked)} />
+            <Checkbox id="ceo" checked={pendingIncludeCEO} onCheckedChange={(checked: boolean) => setPendingIncludeCEO(checked)} />
             <Label htmlFor="ceo" className="text-sm text-gray-800">Geschäftsführer</Label>
           </div>
         </div>
