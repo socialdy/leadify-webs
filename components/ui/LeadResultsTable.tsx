@@ -18,7 +18,7 @@ export interface Lead {
   firstName?: string;
   lastName?: string;
   title2?: string;
-  branche?: string;
+  industry: string;
 }
 
 interface LeadResultsTableProps {
@@ -106,62 +106,48 @@ const LeadResultsTable: React.FC<LeadResultsTableProps> = ({ leads, className, i
         </thead>
         <tbody className="bg-popover divide-y divide-border">
           {leads.map((lead) => (
-            <tr key={lead.id} className="hover:bg-accent/10">
-              <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-foreground text-left select-none">
-                {lead.companyName}
-              </td>
-              <td className="px-6 py-4 whitespace-nowrap text-sm text-muted-foreground text-left select-none blur-sm">
-                <span>{lead.branche || 'N/A'}</span>
-              </td>
-              <td className="px-6 py-4 whitespace-nowrap text-sm text-muted-foreground text-left select-none blur-sm">
-                <span>{lead.address}</span>
-              </td>
-              <td className="px-6 py-4 whitespace-nowrap text-sm text-muted-foreground text-left select-none blur-sm">
-                <span>{lead.zipCode}</span>
-              </td>
-              <td className="px-6 py-4 whitespace-nowrap text-sm text-muted-foreground text-left select-none blur-sm">
-                <span>{lead.city}</span>
-              </td>
-              <td className="px-6 py-4 whitespace-nowrap text-sm text-muted-foreground text-left select-none blur-sm">
-                <span>{lead.state}</span>
-              </td>
-              <td className="px-6 py-4 whitespace-nowrap text-sm text-muted-foreground text-left select-none blur-sm">
-                <span>{lead.legalForm}</span>
-              </td>
+            <tr key={lead.id} className="border-b border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
+              <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white text-left">{lead.companyName}</td>
+              <td className="px-6 py-4 whitespace-nowrap text-sm text-muted-foreground text-left select-none blur-sm">{lead.industry || 'N/A'}</td>
+              <td className="px-6 py-4 whitespace-nowrap text-sm text-muted-foreground text-left select-none blur-sm">{lead.address}</td>
+              <td className="px-6 py-4 whitespace-nowrap text-sm text-muted-foreground text-left select-none blur-sm">{lead.zipCode}</td>
+              <td className="px-6 py-4 whitespace-nowrap text-sm text-muted-foreground text-left select-none blur-sm">{lead.city}</td>
+              <td className="px-6 py-4 whitespace-nowrap text-sm text-muted-foreground text-left select-none blur-sm">{lead.state}</td>
+              <td className="px-6 py-4 whitespace-nowrap text-sm text-muted-foreground text-left select-none blur-sm">{lead.legalForm}</td>
               {includeEmail && (
                 <td className="px-6 py-4 whitespace-nowrap text-sm text-muted-foreground text-left select-none blur-sm">
-                  <span>{lead.email || 'N/A'}</span>
+                  {lead.email || 'N/A'}
                 </td>
               )}
               {includePhone && (
                 <td className="px-6 py-4 whitespace-nowrap text-sm text-muted-foreground text-left select-none blur-sm">
-                  <span>{lead.phone || 'N/A'}</span>
+                  {lead.phone || 'N/A'}
                 </td>
               )}
               {includeWebsite && (
                 <td className="px-6 py-4 whitespace-nowrap text-sm text-muted-foreground text-left select-none blur-sm">
-                  <span>{lead.website || 'N/A'}</span>
+                  {lead.website || 'N/A'}
                 </td>
               )}
               {includeCEO && (
                 <>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-muted-foreground text-left select-none blur-sm">
-                    <span>{lead.ceo || 'N/A'}</span>
+                    {lead.ceo || 'N/A'}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-muted-foreground text-left select-none blur-sm">
-                    <span>{lead.salutation || 'N/A'}</span>
+                    {lead.salutation || 'N/A'}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-muted-foreground text-left select-none blur-sm">
-                    <span>{lead.title1 || 'N/A'}</span>
+                    {lead.title1 || 'N/A'}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-muted-foreground text-left select-none blur-sm">
-                    <span>{lead.firstName || 'N/A'}</span>
+                    {lead.firstName || 'N/A'}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-muted-foreground text-left select-none blur-sm">
-                    <span>{lead.lastName || 'N/A'}</span>
+                    {lead.lastName || 'N/A'}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-muted-foreground text-left select-none blur-sm">
-                    <span>{lead.title2 || 'N/A'}</span>
+                    {lead.title2 || 'N/A'}
                   </td>
                 </>
               )}
