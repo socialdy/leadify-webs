@@ -89,8 +89,7 @@ export async function POST(req: Request) {
       city: leadsTable.city,
       state: leadsTable.state,
       legalForm: leadsTable.legalForm,
-      industry: leadsTable.industry,
-      subIndustry: leadsTable.subIndustry,
+      industry: leadsTable.subIndustry,
       createdAt: leadsTable.createdAt,
     };
 

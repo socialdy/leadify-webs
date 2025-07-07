@@ -306,45 +306,45 @@ export async function POST(req: Request) {
         const mailOptions = {
           from: process.env.EMAIL_FROM,
           to: customerEmail,
-          subject: `Ihre Leads sind bereit!`,
+          subject: `Ihre Leads sind bereit zum Download!`,
           html: `
             <!DOCTYPE html>
             <html lang="de">
             <head>
                 <meta charset="UTF-8">
                 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                <title>Ihre Leads sind bereit! (Bestellung ${newDownloadId})</title>
+                <title>Ihre Leads sind bereit zum Download!</title>
                 <style>
                     body {
                         font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
                         margin: 0;
                         padding: 0;
-                        background-color: oklch(0.97 0 0); /* --muted from globals.css for body background */
-                        color: oklch(0.145 0 0); /* --foreground from globals.css for main text */
+                        background-color: #f8f8f8; /* Muted background */
+                        color: #333333; /* Foreground text */
                     }
                     .container {
                         max-width: 600px;
                         margin: 40px auto;
-                        background-color: oklch(1 0 0); /* --background from globals.css for container */
+                        background-color: #ffffff; /* Container background */
                         border-radius: 8px;
                         overflow: hidden;
                         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-                        border: 1px solid oklch(0.922 0 0); /* --border from globals.css */
+                        border: 1px solid #e0e0e0; /* Border */
                     }
                     .header {
-                        background-color: oklch(1 0 0); /* White background */
+                        background-color: #ffffff; /* White background */
                         padding: 30px 20px;
                         text-align: center;
-                        border-bottom: 1px solid oklch(0.922 0 0); /* --border from globals.css */
+                        border-bottom: 1px solid #e0e0e0; /* Border */
                     }
                     .header img {
-                        max-width: 180px;
+                        max-width: 150px;
                         height: auto;
                         display: block;
-                        margin: 0 auto 15px auto;
+                        margin: 0 auto 25px auto;
                     }
                     .header h1 {
-                        color: oklch(0.145 0 0); /* --foreground for header text */
+                        color: #333333; /* Foreground for header text */
                         font-size: 24px;
                         margin: 0;
                         padding: 0;
@@ -353,7 +353,7 @@ export async function POST(req: Request) {
                     .content {
                         padding: 30px;
                         line-height: 1.6;
-                        color: oklch(0.145 0 0); /* --foreground */
+                        color: #333333; /* Foreground */
                         font-size: 16px;
                     }
                     .content p {
@@ -364,7 +364,7 @@ export async function POST(req: Request) {
                         margin: 25px 0;
                     }
                     .button {
-                        background-color: #034737; /* --color-primary */
+                        background-color: #034737; /* Primary green */
                         color: #ffffff; /* Explicit white for text */
                         padding: 12px 16px;
                         text-decoration: none;
@@ -374,16 +374,16 @@ export async function POST(req: Request) {
                         display: inline-block;
                         border: 1px solid #023028; /* Slightly darker primary for border */
                         box-shadow: 0 1px 4px 1px rgba(0, 0, 0, 0.1);
-                        transition: all 0.2s ease-in-out; /* Transitions might not work in all email clients */
+                        transition: all 0.2s ease-in-out;
                     }
                     .button:hover {
-                        background-color: #045C47; /* Hover color from .button-21 */
-                        border-color: #045C47; /* Hover border color from .button-21 */
+                        background-color: #045C47; /* Hover color */
+                        border-color: #045C47; /* Hover border color */
                     }
                     .contact-info {
                         margin-top: 30px;
                         padding-top: 20px;
-                        border-top: 1px solid oklch(0.922 0 0); /* --border */
+                        border-top: 1px solid #e0e0e0; /* Border */
                         text-align: left;
                     }
                     .contact-info p {
@@ -391,19 +391,19 @@ export async function POST(req: Request) {
                         font-size: 14px;
                     }
                     .contact-info a {
-                        color: #30E87A; /* --color-accent */
+                        color: #30E87A; /* Accent color */
                         text-decoration: none;
                     }
                     .contact-info a:hover {
                         text-decoration: underline;
                     }
                     .footer {
-                        background-color: #034737; /* --color-primary */
+                        background-color: #034737; /* Primary green */
                         padding: 20px;
                         text-align: center;
                         font-size: 13px;
                         color: #ffffff; /* White text for contrast */
-                        border-top: 1px solid oklch(0.922 0 0); /* --border */
+                        border-top: 1px solid #e0e0e0; /* Border */
                     }
                     .footer a {
                         color: #ffffff; /* White for footer links */
@@ -411,7 +411,7 @@ export async function POST(req: Request) {
                         font-weight: 500;
                     }
                     .footer a:hover {
-                        color: #30E87A; /* --color-accent on hover */
+                        color: #30E87A; /* Accent on hover */
                         text-decoration: underline;
                     }
                 </style>
@@ -419,7 +419,9 @@ export async function POST(req: Request) {
             <body>
                 <div class="container">
                     <div class="header">
-                        <img src="https://www.leadify.at/img/logo.png" alt="Leadify Logo" style="max-width: 180px; height: auto; display: block; margin: 0 auto 15px auto;">
+                        <a href="https://www.leadify.at">
+                            <img src="https://www.leadify.at/img/logo.png" alt="Leadify Logo" style="max-width: 150px; height: auto; display: block; margin: 0 auto 25px auto;">
+                        </a>
                         <h1>Ihre Leads sind bereit zum Download!</h1>
                     </div>
                     <div class="content">
@@ -431,7 +433,7 @@ export async function POST(req: Request) {
                         <div class="button-container">
                             <a href="${excelDownloadLink}" class="button">Excel-Datei herunterladen</a>
                         </div>
-                        <p style="font-size: 14px; color: oklch(0.556 0 0);">Diese Download-Links sind für 3 Stunden gültig.</p>
+                        <p style="font-size: 14px; color: #757575;">Diese Download-Links sind für 3 Stunden gültig.</p>
                         <p>Bei Fragen oder Problemen stehen wir Ihnen gerne zur Verfügung.</p>
                         
                         <div class="contact-info">
@@ -440,7 +442,7 @@ export async function POST(req: Request) {
                             <p><strong>E-Mail</strong><br/><a href="mailto:support@leadify.at">support@leadify.at</a></p>
                         </div>
                         
-                        <p>Mit freundlichen Grüßen,</p>
+                        <p>Mit freundlichen Grüßen</p>
                         <p>Ihr Leadify Team</p>
                     </div>
                     <div class="footer">

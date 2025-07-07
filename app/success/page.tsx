@@ -14,7 +14,7 @@ export default function CheckoutSuccessPage() {
       <p className="mt-3 text-base sm:text-lg text-gray-700 dark:text-gray-300 max-w-2xl leading-relaxed">
         Ihre Rechnung und die Leads (im Excel- und CSV-Format) werden Ihnen in Kürze per E-Mail zugeschickt. Dies kann einige Minuten dauern, abhängig von der Anzahl der Leads.
       </p>
-      <p className="mt-2 text-sm sm:text-base text-gray-700 dark:text-gray-300 max-w-2xl leading-relaxed mb-8">
+      <p className="mt-2 text-base sm:text-lg text-gray-700 dark:text-gray-300 max-w-2xl leading-relaxed mb-8">
         Bei offenen Fragen oder Problemen kontaktieren Sie uns bitte jederzeit unter:
       </p>
 
@@ -32,7 +32,7 @@ export default function CheckoutSuccessPage() {
           <PhoneIcon className="w-8 h-8 text-[var(--color-accent)] mb-3" />
           <h3 className="text-lg font-bold text-[var(--foreground)] mb-1">Telefon</h3>
           <p className="text-sm text-[var(--foreground)] leading-relaxed">
-            <Link href="tel:+436604252271" className="text-[var(--foreground)] hover:text-[var(--color-accent)] hover:underline">+43 660 425 2271</Link>
+            <a href="tel:+436604252271" className="text-[var(--foreground)] hover:text-[var(--color-accent)] duration-150">+43 660 425 2271</a>
           </p>
         </div>
 
@@ -40,7 +40,7 @@ export default function CheckoutSuccessPage() {
           <MailIcon className="w-8 h-8 text-[var(--color-accent)] mb-3" />
           <h3 className="text-lg font-bold text-[var(--foreground)] mb-1">E-Mail</h3>
           <p className="text-sm text-[var(--foreground)] leading-relaxed">
-            <Link href="mailto:support@leadify.at" className="text-[var(--foreground)] hover:text-[var(--color-accent)] hover:underline">support@leadify.at</Link>
+            <a href="mailto:support@leadify.at" className="text-[var(--foreground)] hover:text-[var(--color-accent)] duration-150">support@leadify.at</a>
           </p>
         </div>
       </div>
