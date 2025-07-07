@@ -17,7 +17,6 @@ export const leads = pgTable("leads", {
   id: serial("id").primaryKey(),
   companyName: varchar("company_name", { length: 256 }),
   industry: varchar("industry", { length: 256 }),
-  subIndustry: varchar("sub_industry", { length: 256 }),
   state: varchar("state", { length: 256 }),
   street: varchar("street", { length: 256 }),
   zipCode: varchar("zip_code", { length: 20 }),
@@ -32,7 +31,6 @@ export const leads = pgTable("leads", {
   firstName: varchar("first_name", { length: 256 }),
   lastName: varchar("last_name", { length: 256 }),
   title2: varchar("title2", { length: 256 }),
-  createdAt: timestamp("created_at").defaultNow().notNull(),
 });
 
 export const downloads = pgTable('downloads', {
