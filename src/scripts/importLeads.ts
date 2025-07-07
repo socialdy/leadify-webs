@@ -8,7 +8,6 @@ import { leads } from '../db/schema';
 interface LeadCsvRow {
   'Firmenname': string;
   'Branche': string;
-  'Subbranche': string;
   'Bundesland': string;
   'Straße': string;
   'PLZ': string;
@@ -43,7 +42,6 @@ async function importLeads() {
       const leadData: typeof leads.$inferInsert = {
         companyName: row['Firmenname'] || null,
         industry: row['Branche'] || null,
-        subIndustry: row['Subbranche'] || null,
         state: row['Bundesland'] || null,
         street: row['Straße'] || null,
         zipCode: row['PLZ'] || null,
