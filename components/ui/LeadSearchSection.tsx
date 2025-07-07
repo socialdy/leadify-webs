@@ -158,13 +158,13 @@ const getStripe = () => {
   return stripePromise;
 };
 
-export default function LeadSearchSection({ className }: { className?: string }) {
+export default function LeadSearchSection({ className, defaultState }: { className?: string, defaultState?: string }) {
   const [branchQuery, setBranchQuery] = useState<string>('');
   const [debouncedBranchQuery, setDebouncedBranchQuery] = useState('');
   const [filteredBranches, setFilteredBranches] = useState<string[]>([]);
   const [selectedBranch, setSelectedBranch] = useState('');
   const [openCombobox, setOpenCombobox] = useState(false);
-  const [selectedState, setSelectedState] = useState('all');
+  const [selectedState, setSelectedState] = useState(defaultState || 'all');
   const [includePhone, setIncludePhone] = useState(false);
   const [includeWebsite, setIncludeWebsite] = useState(false);
   const [includeEmail, setIncludeEmail] = useState(false);
@@ -587,21 +587,17 @@ export default function LeadSearchSection({ className }: { className?: string })
 
         <div>
           <label className="peer-disabled:cursor-not-allowed peer-disabled:opacity-70 block text-sm font-medium text-gray-700 mb-2 text-center" htmlFor="stateSelect">Bundesländer</label>
-          <Select
-            value={selectedState}
-            onValueChange={(value) => setSelectedState(value)}
-          >
-            <SelectTrigger
-              className="w-full font-[var(--font-poppins)] capitalize"
-              id="state"
-            >
-              <SelectValue placeholder="Alle" />
+          <Select value={selectedState} onValueChange={setSelectedState}>
+            <SelectTrigger className="w-full">
+              <SelectValue placeholder="Bundesland auswählen" />
             </SelectTrigger>
             <SelectContent>
               <SelectGroup>
                 <SelectItem value="all">Alle</SelectItem>
-                {allStates.map(state => (
-                  <SelectItem key={state} value={state}>{state}</SelectItem>
+                {allStates.map((state) => (
+                  <SelectItem key={state} value={state}>
+                    {state}
+                  </SelectItem>
                 ))}
               </SelectGroup>
             </SelectContent>
