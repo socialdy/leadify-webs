@@ -14,7 +14,6 @@ import LeistungsSection from "@/components/LeistungsSection";
 import CallToAction2 from "../../components/ui/CallToAction2";
 import ContactForm from "../../components/ui/ContactForm";
 import { Toaster } from "sonner";
-import { GetStaticPaths, GetStaticProps } from 'next';
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -22,69 +21,20 @@ const poppins = Poppins({
   variable: "--font-poppins",
 });
 
-// Liste der österreichischen Bundesländer
-const bundeslaender = [
-  { name: 'Burgenland', slug: 'burgenland' },
-  { name: 'Kärnten', slug: 'kaernten' },
-  { name: 'Niederösterreich', slug: 'niederoesterreich' },
-  { name: 'Oberösterreich', slug: 'oberoesterreich' },
-  { name: 'Salzburg', slug: 'salzburg' },
-  { name: 'Steiermark', slug: 'steiermark' },
-  { name: 'Tirol', slug: 'tirol' },
-  { name: 'Vorarlberg', slug: 'vorarlberg' },
-  { name: 'Wien', slug: 'wien' },
-];
-
-interface BundeslandPageProps {
-  currentLand: {
-    name: string;
-    slug: string;
-  };
-  seo: {
-    title: string;
-    description: string;
-    ogTitle: string;
-    ogDescription: string;
-    keywords: string;
-  };
-}
-
-export const getStaticPaths: GetStaticPaths = async () => {
-  const paths = bundeslaender.map((land) => ({
-    params: { slug: land.slug },
-  }));
-
-  return { paths, fallback: false }; // fallback: false bedeutet, dass 404 zurückgegeben wird, wenn der Pfad nicht existiert
+const currentLand = {
+  name: 'Salzburg',
+  slug: 'salzburg',
 };
 
-export const getStaticProps: GetStaticProps<BundeslandPageProps> = async ({ params }) => {
-  const slug = params?.slug as string;
-  const currentLand = bundeslaender.find((land) => land.slug === slug);
-
-  if (!currentLand) {
-    return {
-      notFound: true,
-    };
-  }
-
-  // Dynamische SEO-Texte basierend auf dem Bundesland, orientiert an index.tsx
-  const seo = {
-    title: `Firmenadressen kaufen ${currentLand.name} | B2B Leads - Leadify.at`,
-    description: `Firmenadressen in ${currentLand.name} kaufen: Präzise B2B Leads mit Telefon, E-Mail & Ansprechpartnern. DSGVO-konform, sofortiger Download in Excel/CSV. Ideal für Marketing & Vertrieb in ${currentLand.name}.`,
-    ogTitle: `Firmenadressen kaufen aus ${currentLand.name} | B2B Adressen aus ${currentLand.name} kaufen`,
-    ogDescription: `Firmenadressen mit unlimitierter Nutzung günstig kaufen aus ${currentLand.name}. Starte die Suche für ${currentLand.name} Adressen. Kostenloses Angebot & sofortiger Excel & CSV Download`,
-    keywords: `Leads ${currentLand.name}, Firmenadressen kaufen ${currentLand.name}, B2B Leads ${currentLand.name}, Direktmarketing ${currentLand.name}, Unternehmensdaten ${currentLand.name}`,
-  };
-
-  return {
-    props: {
-      currentLand,
-      seo,
-    },
-  };
+const seo = {
+  title: `Firmenadressen kaufen Salzburg | B2B Leads - Leadify.at`,
+  description: `Firmenadressen in Salzburg kaufen: Präzise B2B Leads mit Telefon, E-Mail & Ansprechpartnern. DSGVO-konform, sofortiger Download in Excel/CSV. Ideal für Marketing & Vertrieb in Salzburg.`,
+  ogTitle: `Firmenadressen kaufen aus Salzburg | B2B Adressen aus Salzburg kaufen`,
+  ogDescription: `Firmenadressen mit unlimitierter Nutzung günstig kaufen aus Salzburg. Starte die Suche für Salzburg Adressen. Kostenloses Angebot & sofortiger Excel & CSV Download`,
+  keywords: `Leads Salzburg, Firmenadressen kaufen Salzburg, B2B Leads Salzburg, Direktmarketing Salzburg, Unternehmensdaten Salzburg`,
 };
 
-export default function BundeslandPage({ currentLand, seo }: BundeslandPageProps) {
+export default function SalzburgPage() {
   const dynamicBranchesWords = [
     "Softwareentwickler", "Kreativagenturen", "Unternehmensberater", "IT-Dienstleister",
     "Architekturbüros", "Einzelhändler", "Hotels", "Restaurants", "Steuerberater",
@@ -92,21 +42,8 @@ export default function BundeslandPage({ currentLand, seo }: BundeslandPageProps
   ];
 
   const dynamicCitiesWords = [
-    "Wien", "Graz", "Linz", "Salzburg", "Innsbruck", "Klagenfurt", "Bregenz", "Eisenstadt",
-  ].filter(city => {
-    // Basic logic to show relevant cities for the state.
-    // This could be made more sophisticated with a mapping if needed.
-    if (currentLand.name === 'Wien') return city === 'Wien';
-    if (currentLand.name === 'Steiermark') return city === 'Graz';
-    if (currentLand.name === 'Oberösterreich') return city === 'Linz';
-    if (currentLand.name === 'Salzburg') return city === 'Salzburg';
-    if (currentLand.name === 'Tirol') return city === 'Innsbruck';
-    if (currentLand.name === 'Kärnten') return city === 'Klagenfurt';
-    if (currentLand.name === 'Vorarlberg') return city === 'Bregenz';
-    if (currentLand.name === 'Burgenland') return city === 'Eisenstadt';
-    return true; // For Niederösterreich, show all or default
-  });
-
+    "Salzburg",
+  ];
 
   return (
     <>
@@ -162,8 +99,6 @@ export default function BundeslandPage({ currentLand, seo }: BundeslandPageProps
             </section>
 
             <div className="max-w-4xl mx-auto w-full flex flex-col items-center justify-center text-center">
-              {/* <NotFoundSection className="my-8 md:my-16" /> */}
-
               <div className="flex items-center justify-center my-8 md:my-16 text-center flex-wrap w-full">
                 <h2 className="text-2xl md:text-5xl font-bold text-[var(--foreground)] leading-tight flex items-center justify-center flex-wrap">
                   Ich suche alle

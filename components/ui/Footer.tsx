@@ -59,7 +59,7 @@ export default function FooterSection() {
                                 </svg>
                             </Link>
                             <Link
-                                href="#"
+                                href="https://www.linkedin.com/company/leadify-firmenadressen-kaufen-oesterreich/"
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 aria-label="LinkedIn"
