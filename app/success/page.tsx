@@ -1,8 +1,13 @@
+import { Metadata } from 'next';
 import React from 'react';
 import { CheckCircleIcon } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { PhoneIcon, MailIcon, MapPinIcon } from 'lucide-react';
+
+export const metadata: Metadata = {
+  robots: { index: false, follow: false },
+};
 
 export default function CheckoutSuccessPage() {
   return (
