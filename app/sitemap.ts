@@ -33,7 +33,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.7,
     },
     {
-      url: 'https://www.leadify.at/firmenadressen/kaernten-oesterreich',
+      url: 'https://www.leadify.at/firmenadressen/kaernten',
       lastModified: new Date(),
       changeFrequency: 'weekly',
       priority: 0.7,
