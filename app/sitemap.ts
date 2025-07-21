@@ -50,24 +50,24 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     'wien',
   ];
 
-  const federalStatePages = federalStates.map((state) => ({
+  const federalStatePages = federalStates.map((state): MetadataRoute.Sitemap[number] => ({
     url: `${BASE_URL}/firmenadressen/bundesland/${state}`,
     lastModified: new Date().toISOString(),
-    changeFrequency: 'weekly' as 'weekly',
+    changeFrequency: 'weekly',
     priority: 0.7,
   }));
 
-  const cityPages = cities.map((city) => ({
+  const cityPages = cities.map((city): MetadataRoute.Sitemap[number] => ({
     url: `${BASE_URL}/firmenadressen/stadt/${city}`,
     lastModified: new Date().toISOString(),
-    changeFrequency: 'weekly' as 'weekly',
+    changeFrequency: 'weekly',
     priority: 0.7,
   }));
 
-  const blogPages = blogPosts.map((post) => ({
+  const blogPages = blogPosts.map((post): MetadataRoute.Sitemap[number] => ({
     url: `${BASE_URL}/blog/${post.slug}`,
     lastModified: post.lastModified,
-    changeFrequency: 'monthly' as 'monthly',
+    changeFrequency: 'monthly',
     priority: 0.8,
   }));
 
@@ -75,31 +75,31 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     {
       url: BASE_URL,
       lastModified: new Date().toISOString(),
-      changeFrequency: 'yearly' as 'yearly',
+      changeFrequency: 'yearly',
       priority: 1,
     },
     {
       url: `${BASE_URL}/impressum`,
       lastModified: new Date().toISOString(),
-      changeFrequency: 'monthly' as 'monthly',
+      changeFrequency: 'monthly',
       priority: 0.5,
     },
     {
       url: `${BASE_URL}/agb`,
       lastModified: new Date().toISOString(),
-      changeFrequency: 'monthly' as 'monthly',
+      changeFrequency: 'monthly',
       priority: 0.5,
     },
     {
       url: `${BASE_URL}/datenschutz`,
       lastModified: new Date().toISOString(),
-      changeFrequency: 'monthly' as 'monthly',
+      changeFrequency: 'monthly',
       priority: 0.5,
     },
     {
       url: `${BASE_URL}/blog`,
       lastModified: new Date().toISOString(),
-      changeFrequency: 'weekly' as 'weekly',
+      changeFrequency: 'weekly',
       priority: 0.9,
     },
     ...federalStatePages,
