@@ -22,7 +22,7 @@ export default function Pricing() {
                         <div className="bg-white rounded-full p-4 mx-auto w-20 h-20 flex items-center justify-center mb-6 border border-white">
                             <Package className="w-12 h-12 text-[var(--color-primary)]" />
                         </div>
-                        <p className="text-white text-5xl font-semibold mb-4">0,10 €</p>
+                        <p className="text-white text-5xl font-semibold mb-4">0,20 €</p>
                         <ul className="text-white text-lg space-y-2 mb-5">
                             <li className="py-2 border-t border-b border-white border-opacity-50 text-center">Firmenname</li>
                             <li className="py-2 border-b border-white border-opacity-50 text-center">Branche</li>

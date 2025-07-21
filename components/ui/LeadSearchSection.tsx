@@ -396,20 +396,20 @@ export default function LeadSearchSection({ className, defaultState }: { classNa
   // Define the cost structure based on user's request
   const { costItems, subtotal, discountAmount, totalExclUSt } = useMemo(() => {
     const items = [
-    { label: "Standard Paket", pricePerItem: 0.10, count: totalLeadsFound },
+    { label: "Standard Paket", pricePerItem: 0.20, count: totalLeadsFound }, // Changed from 0.10 to 0.40
   ];
 
   if (includePhone) {
-      items.push({ label: "Telefonnummer", pricePerItem: 0.02, count: optionalCounts.phone });
+      items.push({ label: "Telefonnummer", pricePerItem: 0.04, count: optionalCounts.phone });
   }
   if (includeEmail) {
-      items.push({ label: "Email", pricePerItem: 0.02, count: optionalCounts.email });
+      items.push({ label: "Email", pricePerItem: 0.04, count: optionalCounts.email });
   }
   if (includeWebsite) {
-      items.push({ label: "Website", pricePerItem: 0.02, count: optionalCounts.website });
+      items.push({ label: "Website", pricePerItem: 0.04, count: optionalCounts.website });
   }
   if (includeCEO) {
-      items.push({ label: "Geschäftsführer", pricePerItem: 0.02, count: optionalCounts.ceo });
+      items.push({ label: "Geschäftsführer", pricePerItem: 0.04, count: optionalCounts.ceo });
     }
 
     let currentSubtotal = 0;
