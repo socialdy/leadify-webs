@@ -3,7 +3,7 @@ import fs from 'fs'
 import path from 'path'
 import matter from 'gray-matter'
 
-const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "https://www.yourdomain.at";
+const BASE_URL = "https://www.leadify.at";
 
 async function getAllBlogPosts() {
   const postsDirectory = path.join(process.cwd(), 'content', 'blog');
@@ -38,8 +38,27 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     'wien',
   ];
 
+  const cities = [
+    'bregenz',
+    'eisenstadt',
+    'graz',
+    'innsbruck',
+    'klagenfurt',
+    'linz',
+    'salzburg',
+    'st-poelten',
+    'wien',
+  ];
+
   const federalStatePages = federalStates.map((state) => ({
     url: `${BASE_URL}/firmenadressen/bundesland/${state}`,
+    lastModified: new Date().toISOString(),
+    changeFrequency: 'weekly' as 'weekly',
+    priority: 0.7,
+  }));
+
+  const cityPages = cities.map((city) => ({
+    url: `${BASE_URL}/firmenadressen/stadt/${city}`,
     lastModified: new Date().toISOString(),
     changeFrequency: 'weekly' as 'weekly',
     priority: 0.7,
@@ -84,6 +103,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.9,
     },
     ...federalStatePages,
+    ...cityPages,
     ...blogPages,
   ];
 } 

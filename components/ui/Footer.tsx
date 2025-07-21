@@ -136,8 +136,8 @@ export default function FooterSection() {
                             { title: 'Kunden', href: '#kunden' },
                             { title: 'Preise', href: '#preise' },
                             { title: 'FAQ', href: '#faq' },
+                            { title: 'Blog', href: '/blog' }, // Move Blog link here
                             { title: 'Kontakt', href: '#kontakt' },
-                            { title: 'Blog', href: '/blog' }, // Add Blog link here
                         ].map((item, index) => (
                             <Link
                                 key={index}
