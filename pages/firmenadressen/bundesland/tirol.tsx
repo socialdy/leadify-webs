@@ -1,18 +1,18 @@
 import Head from "next/head";
 import Image from "next/image";
 import { Poppins } from "next/font/google";
-import { HeroHeader as Header } from "../../components/ui/Header";
-import Footer from "../../components/ui/Footer";
-import { MarqueeDemo } from "../../components/ui/marquee";
-import LeadSearchSection from "../../components/ui/LeadSearchSection";
-import Faqs from "../../components/faqs-2";
-import WordRotate from "../../components/magicui/word-rotate";
-import Pricing from "../../components/pricing";
-import Testimonials from "../../components/testimonials";
-import ProcessFlow from "../../components/ui/ProcessFlow";
+import { HeroHeader as Header } from "@/components/ui/Header";
+import Footer from "@/components/ui/Footer";
+import { MarqueeDemo } from "@/components/ui/marquee";
+import LeadSearchSection from "@/components/ui/LeadSearchSection";
+import Faqs from "@/components/faqs-2";
+import WordRotate from "@/components/magicui/word-rotate";
+import Pricing from "@/components/pricing";
+import Testimonials from "@/components/testimonials";
+import ProcessFlow from "@/components/ui/ProcessFlow";
 import LeistungsSection from "@/components/LeistungsSection";
-import CallToAction2 from "../../components/ui/CallToAction2";
-import ContactForm from "../../components/ui/ContactForm";
+import CallToAction2 from "@/components/ui/CallToAction2";
+import ContactForm from "@/components/ui/ContactForm";
 import { Toaster } from "sonner";
 
 const poppins = Poppins({
@@ -22,19 +22,21 @@ const poppins = Poppins({
 });
 
 const currentLand = {
-  name: 'Oberösterreich',
-  slug: 'oberoesterreich',
+  name: 'Tirol',
+  slug: 'tirol',
 };
 
 const seo = {
-  title: `Firmenadressen kaufen Oberösterreich | B2B Leads - Leadify.at`,
-  description: `Firmenadressen in Oberösterreich kaufen: Präzise B2B Leads mit Telefon, E-Mail & Ansprechpartnern. DSGVO-konform, sofortiger Download in Excel/CSV. Ideal für Marketing & Vertrieb in Oberösterreich.`,
-  ogTitle: `Firmenadressen kaufen aus Oberösterreich | B2B Adressen aus Oberösterreich kaufen`,
-  ogDescription: `Firmenadressen mit unlimitierter Nutzung günstig kaufen aus Oberösterreich. Starte die Suche für Oberösterreich Adressen. Kostenloses Angebot & sofortiger Excel & CSV Download`,
-  keywords: `Leads Oberösterreich, Firmenadressen kaufen Oberösterreich, B2B Leads Oberösterreich, Direktmarketing Oberösterreich, Unternehmensdaten Oberösterreich`,
+  title: `Firmenadressen kaufen Tirol | B2B Leads - Leadify.at`,
+  description: `Firmenadressen in Tirol kaufen: Präzise B2B Leads mit Telefon, E-Mail & Ansprechpartnern. DSGVO-konform, sofortiger Download in Excel/CSV. Ideal für Marketing & Vertrieb in Tirol.`,
+  ogTitle: `Firmenadressen kaufen aus Tirol | B2B Adressen aus Tirol kaufen`,
+  ogDescription: `Firmenadressen mit unlimitierter Nutzung günstig kaufen aus Tirol. Starte die Suche für Tirol Adressen. Kostenloses Angebot & sofortiger Excel & CSV Download`,
+  keywords: `Leads Tirol, Firmenadressen kaufen Tirol, B2B Leads Tirol, Direktmarketing Tirol, Unternehmensdaten Tirol`,
 };
 
-export default function OberoesterreichPage() {
+const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "https://www.yourdomain.at";
+
+export default function TirolPage() {
   const dynamicBranchesWords = [
     "Softwareentwickler", "Kreativagenturen", "Unternehmensberater", "IT-Dienstleister",
     "Architekturbüros", "Einzelhändler", "Hotels", "Restaurants", "Steuerberater",
@@ -42,7 +44,7 @@ export default function OberoesterreichPage() {
   ];
 
   const dynamicCitiesWords = [
-    "Linz", "Wels", "Steyr",
+    "Innsbruck", "Kufstein", "Lienz", "Schwaz",
   ];
 
   return (
@@ -55,6 +57,7 @@ export default function OberoesterreichPage() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="keywords" content={seo.keywords} />
         <link rel="icon" href="/fav.ico" />
+        <link rel="canonical" href={`${BASE_URL}/firmenadressen/bundesland/${currentLand.slug}`} />
       </Head>
       <div
         className={`${poppins.className} grid grid-rows-[auto_1fr_auto] min-h-screen bg-[var(--background)] overflow-x-hidden`}

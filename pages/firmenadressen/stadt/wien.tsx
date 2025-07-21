@@ -1,18 +1,18 @@
 import Head from "next/head";
 import Image from "next/image";
 import { Poppins } from "next/font/google";
-import { HeroHeader as Header } from "../../components/ui/Header";
-import Footer from "../../components/ui/Footer";
-import { MarqueeDemo } from "../../components/ui/marquee";
-import LeadSearchSection from "../../components/ui/LeadSearchSection";
-import Faqs from "../../components/faqs-2";
-import WordRotate from "../../components/magicui/word-rotate";
-import Pricing from "../../components/pricing";
-import Testimonials from "../../components/testimonials";
-import ProcessFlow from "../../components/ui/ProcessFlow";
+import { HeroHeader as Header } from "@/components/ui/Header";
+import Footer from "@/components/ui/Footer";
+import { MarqueeDemo } from "@/components/ui/marquee";
+import LeadSearchSection from "@/components/ui/LeadSearchSection";
+import Faqs from "@/components/faqs-2";
+import WordRotate from "@/components/magicui/word-rotate";
+import Pricing from "@/components/pricing";
+import Testimonials from "@/components/testimonials";
+import ProcessFlow from "@/components/ui/ProcessFlow";
 import LeistungsSection from "@/components/LeistungsSection";
-import CallToAction2 from "../../components/ui/CallToAction2";
-import ContactForm from "../../components/ui/ContactForm";
+import CallToAction2 from "@/components/ui/CallToAction2";
+import ContactForm from "@/components/ui/ContactForm";
 import { Toaster } from "sonner";
 
 const poppins = Poppins({
@@ -21,7 +21,7 @@ const poppins = Poppins({
   variable: "--font-poppins",
 });
 
-const currentLand = {
+const currentCity = {
   name: 'Wien',
   slug: 'wien',
 };
@@ -34,6 +34,8 @@ const seo = {
   keywords: `Leads Wien, Firmenadressen kaufen Wien, B2B Leads Wien, Direktmarketing Wien, Unternehmensdaten Wien`,
 };
 
+const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "https://www.yourdomain.at";
+
 export default function WienPage() {
   const dynamicBranchesWords = [
     "Softwareentwickler", "Kreativagenturen", "Unternehmensberater", "IT-Dienstleister",
@@ -42,7 +44,7 @@ export default function WienPage() {
   ];
 
   const dynamicCitiesWords = [
-    "Wien",
+    "Leopoldstadt", "Landstraße", "Donaustadt", "Favoriten",
   ];
 
   return (
@@ -55,6 +57,7 @@ export default function WienPage() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="keywords" content={seo.keywords} />
         <link rel="icon" href="/fav.ico" />
+        <link rel="canonical" href={`${BASE_URL}/firmenadressen/stadt/${currentCity.slug}`} />
       </Head>
       <div
         className={`${poppins.className} grid grid-rows-[auto_1fr_auto] min-h-screen bg-[var(--background)] overflow-x-hidden`}
@@ -64,10 +67,10 @@ export default function WienPage() {
           <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
             <div className="max-w-4xl mx-auto w-full flex flex-col items-center justify-center text-center">
               <h1 className="text-4xl md:text-6xl font-bold tracking-tight text-[var(--foreground)] mb-4 break-words text-center">
-                Firmenadressen kaufen <br/> {currentLand.name}
+                Firmenadressen kaufen <br/> {currentCity.name}
               </h1>
               <p className="text-base md:text-sm text-[var(--foreground)] max-w-2xl mx-auto mb-6">
-                Firmenadressen günstig kaufen in {currentLand.name}. Starte jetzt die Suche nach B2B Adressen. Kostenloses Angebot & Sofortiger Kauf und Download in Excel, CSV und DSGVO konform. Daten aus {currentLand.name} mit Qualität.
+                Firmenadressen günstig kaufen in {currentCity.name}. Starte jetzt die Suche nach B2B Adressen. Kostenloses Angebot & Sofortiger Kauf und Download in Excel, CSV und DSGVO konform. Daten aus {currentCity.name} mit Qualität.
               </p>
 
               <div className="flex gap-4 mb-10 justify-center mx-auto">
@@ -77,7 +80,7 @@ export default function WienPage() {
                   onClick={() => document.getElementById('firmensuche')?.scrollIntoView({ behavior: 'smooth' })}
                 >
                   <span className="text">
-                    Jetzt Firmensuche starten in {currentLand.name}
+                    Jetzt Firmensuche starten in {currentCity.name}
                   </span>
                 </button>
               </div>
@@ -89,13 +92,13 @@ export default function WienPage() {
 
             <div className="max-w-4xl mx-auto w-full flex flex-col items-center justify-center text-center">
               <section className="w-full my-8 md:my-16">
-                <p className="text-base text-center font-medium text-[var(--foreground)]">Unternehmen die uns vertrauen in {currentLand.name}</p>
+                <p className="text-base text-center font-medium text-[var(--foreground)]">Unternehmen die uns vertrauen in {currentCity.name}</p>
                 <MarqueeDemo />
               </section>
             </div>
 
             <section id="firmensuche">
-              <LeadSearchSection className="my-8 md:my-16" defaultState={currentLand.name}></LeadSearchSection>
+              <LeadSearchSection className="my-8 md:my-16" defaultState={currentCity.name}></LeadSearchSection>
             </section>
 
             <div className="max-w-4xl mx-auto w-full flex flex-col items-center justify-center text-center">

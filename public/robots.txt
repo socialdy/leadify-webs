@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /success
+Disallow: /not-found
+
+Sitemap: /sitemap.xml

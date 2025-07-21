@@ -87,6 +87,9 @@ export const HeroHeader = () => {
                                                     if (targetElement) {
                                                         targetElement.scrollIntoView({ behavior: 'smooth' });
                                                     }
+                                                } else {
+                                                    // For other non-anchor links, navigate normally
+                                                    window.location.href = item.href;
                                                 }
                                                 setMenuState(false); // Close mobile menu regardless
                                             }}
@@ -148,6 +151,9 @@ export const HeroHeader = () => {
                                                     if (targetElement) {
                                                         targetElement.scrollIntoView({ behavior: 'smooth' });
                                                     }
+                                                } else {
+                                                    // For other non-anchor links, navigate normally
+                                                    window.location.href = item.href;
                                                 }
                                                 setMenuState(false); // Close mobile menu regardless
                                             }}

@@ -1,18 +1,18 @@
 import Head from "next/head";
 import Image from "next/image";
 import { Poppins } from "next/font/google";
-import { HeroHeader as Header } from "../../components/ui/Header";
-import Footer from "../../components/ui/Footer";
-import { MarqueeDemo } from "../../components/ui/marquee";
-import LeadSearchSection from "../../components/ui/LeadSearchSection";
-import Faqs from "../../components/faqs-2";
-import WordRotate from "../../components/magicui/word-rotate";
-import Pricing from "../../components/pricing";
-import Testimonials from "../../components/testimonials";
-import ProcessFlow from "../../components/ui/ProcessFlow";
+import { HeroHeader as Header } from "@/components/ui/Header";
+import Footer from "@/components/ui/Footer";
+import { MarqueeDemo } from "@/components/ui/marquee";
+import LeadSearchSection from "@/components/ui/LeadSearchSection";
+import Faqs from "@/components/faqs-2";
+import WordRotate from "@/components/magicui/word-rotate";
+import Pricing from "@/components/pricing";
+import Testimonials from "@/components/testimonials";
+import ProcessFlow from "@/components/ui/ProcessFlow";
 import LeistungsSection from "@/components/LeistungsSection";
-import CallToAction2 from "../../components/ui/CallToAction2";
-import ContactForm from "../../components/ui/ContactForm";
+import CallToAction2 from "@/components/ui/CallToAction2";
+import ContactForm from "@/components/ui/ContactForm";
 import { Toaster } from "sonner";
 
 const poppins = Poppins({
@@ -22,19 +22,21 @@ const poppins = Poppins({
 });
 
 const currentLand = {
-  name: 'Linz',
-  slug: 'linz',
+  name: 'Vorarlberg',
+  slug: 'vorarlberg',
 };
 
 const seo = {
-  title: `Firmenadressen kaufen Linz | B2B Leads - Leadify.at`,
-  description: `Firmenadressen in Linz kaufen: Präzise B2B Leads mit Telefon, E-Mail & Ansprechpartnern. DSGVO-konform, sofortiger Download in Excel/CSV. Ideal für Marketing & Vertrieb in Linz.`,
-  ogTitle: `Firmenadressen kaufen aus Linz | B2B Adressen aus Linz kaufen`,
-  ogDescription: `Firmenadressen mit unlimitierter Nutzung günstig kaufen aus Linz. Starte die Suche für Linz Adressen. Kostenloses Angebot & sofortiger Excel & CSV Download`,
-  keywords: `Leads Linz, Firmenadressen kaufen Linz, B2B Leads Linz, Direktmarketing Linz, Unternehmensdaten Linz`,
+  title: `Firmenadressen kaufen Vorarlberg | B2B Leads - Leadify.at`,
+  description: `Firmenadressen in Vorarlberg kaufen: Präzise B2B Leads mit Telefon, E-Mail & Ansprechpartnern. DSGVO-konform, sofortiger Download in Excel/CSV. Ideal für Marketing & Vertrieb in Vorarlberg.`,
+  ogTitle: `Firmenadressen kaufen aus Vorarlberg | B2B Adressen aus Vorarlberg kaufen`,
+  ogDescription: `Firmenadressen mit unlimitierter Nutzung günstig kaufen aus Vorarlberg. Starte die Suche für Vorarlberg Adressen. Kostenloses Angebot & sofortiger Excel & CSV Download`,
+  keywords: `Leads Vorarlberg, Firmenadressen kaufen Vorarlberg, B2B Leads Vorarlberg, Direktmarketing Vorarlberg, Unternehmensdaten Vorarlberg`,
 };
 
-export default function LinzPage() {
+const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "https://www.yourdomain.at";
+
+export default function VorarlbergPage() {
   const dynamicBranchesWords = [
     "Softwareentwickler", "Kreativagenturen", "Unternehmensberater", "IT-Dienstleister",
     "Architekturbüros", "Einzelhändler", "Hotels", "Restaurants", "Steuerberater",
@@ -42,7 +44,7 @@ export default function LinzPage() {
   ];
 
   const dynamicCitiesWords = [
-    "Linz",
+    "Bregenz", "Dornbirn", "Feldkirch", "Lustenau",
   ];
 
   return (
@@ -55,6 +57,7 @@ export default function LinzPage() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="keywords" content={seo.keywords} />
         <link rel="icon" href="/fav.ico" />
+        <link rel="canonical" href={`${BASE_URL}/firmenadressen/bundesland/${currentLand.slug}`} />
       </Head>
       <div
         className={`${poppins.className} grid grid-rows-[auto_1fr_auto] min-h-screen bg-[var(--background)] overflow-x-hidden`}

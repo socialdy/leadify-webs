@@ -1,18 +1,18 @@
 import Head from "next/head";
 import Image from "next/image";
 import { Poppins } from "next/font/google";
-import { HeroHeader as Header } from "../../components/ui/Header";
-import Footer from "../../components/ui/Footer";
-import { MarqueeDemo } from "../../components/ui/marquee";
-import LeadSearchSection from "../../components/ui/LeadSearchSection";
-import Faqs from "../../components/faqs-2";
-import WordRotate from "../../components/magicui/word-rotate";
-import Pricing from "../../components/pricing";
-import Testimonials from "../../components/testimonials";
-import ProcessFlow from "../../components/ui/ProcessFlow";
+import { HeroHeader as Header } from "@/components/ui/Header";
+import Footer from "@/components/ui/Footer";
+import { MarqueeDemo } from "@/components/ui/marquee";
+import LeadSearchSection from "@/components/ui/LeadSearchSection";
+import Faqs from "@/components/faqs-2";
+import WordRotate from "@/components/magicui/word-rotate";
+import Pricing from "@/components/pricing";
+import Testimonials from "@/components/testimonials";
+import ProcessFlow from "@/components/ui/ProcessFlow";
 import LeistungsSection from "@/components/LeistungsSection";
-import CallToAction2 from "../../components/ui/CallToAction2";
-import ContactForm from "../../components/ui/ContactForm";
+import CallToAction2 from "@/components/ui/CallToAction2";
+import ContactForm from "@/components/ui/ContactForm";
 import { Toaster } from "sonner";
 
 const poppins = Poppins({
@@ -21,20 +21,22 @@ const poppins = Poppins({
   variable: "--font-poppins",
 });
 
-const currentLand = {
-  name: 'Graz',
-  slug: 'graz',
+const currentCity = {
+  name: 'Eisenstadt',
+  slug: 'eisenstadt',
 };
 
 const seo = {
-  title: `Firmenadressen kaufen Graz | B2B Leads - Leadify.at`,
-  description: `Firmenadressen in Graz kaufen: Präzise B2B Leads mit Telefon, E-Mail & Ansprechpartnern. DSGVO-konform, sofortiger Download in Excel/CSV. Ideal für Marketing & Vertrieb in Graz.`,
-  ogTitle: `Firmenadressen kaufen aus Graz | B2B Adressen aus Graz kaufen`,
-  ogDescription: `Firmenadressen mit unlimitierter Nutzung günstig kaufen aus Graz. Starte die Suche für Graz Adressen. Kostenloses Angebot & sofortiger Excel & CSV Download`,
-  keywords: `Leads Graz, Firmenadressen kaufen Graz, B2B Leads Graz, Direktmarketing Graz, Unternehmensdaten Graz`,
+  title: `Firmenadressen kaufen Eisenstadt | B2B Leads - Leadify.at`,
+  description: `Firmenadressen in Eisenstadt kaufen: Präzise B2B Leads mit Telefon, E-Mail & Ansprechpartnern. DSGVO-konform, sofortiger Download in Excel/CSV. Ideal für Marketing & Vertrieb in Eisenstadt.`,
+  ogTitle: `Firmenadressen kaufen aus Eisenstadt | B2B Adressen aus Eisenstadt kaufen`,
+  ogDescription: `Firmenadressen mit unlimitierter Nutzung günstig kaufen aus Eisenstadt. Starte die Suche für Eisenstadt Adressen. Kostenloses Angebot & sofortiger Excel & CSV Download`,
+  keywords: `Leads Eisenstadt, Firmenadressen kaufen Eisenstadt, B2B Leads Eisenstadt, Direktmarketing Eisenstadt, Unternehmensdaten Eisenstadt`,
 };
 
-export default function GrazPage() {
+const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "https://www.yourdomain.at";
+
+export default function EisenstadtPage() {
   const dynamicBranchesWords = [
     "Softwareentwickler", "Kreativagenturen", "Unternehmensberater", "IT-Dienstleister",
     "Architekturbüros", "Einzelhändler", "Hotels", "Restaurants", "Steuerberater",
@@ -42,7 +44,7 @@ export default function GrazPage() {
   ];
 
   const dynamicCitiesWords = [
-    "Graz",
+    "Rust", "Mattersburg", "Neusiedl am See", "Pinkafeld",
   ];
 
   return (
@@ -55,6 +57,7 @@ export default function GrazPage() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="keywords" content={seo.keywords} />
         <link rel="icon" href="/fav.ico" />
+        <link rel="canonical" href={`${BASE_URL}/firmenadressen/stadt/${currentCity.slug}`} />
       </Head>
       <div
         className={`${poppins.className} grid grid-rows-[auto_1fr_auto] min-h-screen bg-[var(--background)] overflow-x-hidden`}
@@ -64,10 +67,10 @@ export default function GrazPage() {
           <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
             <div className="max-w-4xl mx-auto w-full flex flex-col items-center justify-center text-center">
               <h1 className="text-4xl md:text-6xl font-bold tracking-tight text-[var(--foreground)] mb-4 break-words text-center">
-                Firmenadressen kaufen <br/> {currentLand.name}
+                Firmenadressen kaufen <br/> {currentCity.name}
               </h1>
               <p className="text-base md:text-sm text-[var(--foreground)] max-w-2xl mx-auto mb-6">
-                Firmenadressen günstig kaufen in {currentLand.name}. Starte jetzt die Suche nach B2B Adressen. Kostenloses Angebot & Sofortiger Kauf und Download in Excel, CSV und DSGVO konform. Daten aus {currentLand.name} mit Qualität.
+                Firmenadressen günstig kaufen in {currentCity.name}. Starte jetzt die Suche nach B2B Adressen. Kostenloses Angebot & Sofortiger Kauf und Download in Excel, CSV und DSGVO konform. Daten aus {currentCity.name} mit Qualität.
               </p>
 
               <div className="flex gap-4 mb-10 justify-center mx-auto">
@@ -77,7 +80,7 @@ export default function GrazPage() {
                   onClick={() => document.getElementById('firmensuche')?.scrollIntoView({ behavior: 'smooth' })}
                 >
                   <span className="text">
-                    Jetzt Firmensuche starten in {currentLand.name}
+                    Jetzt Firmensuche starten in {currentCity.name}
                   </span>
                 </button>
               </div>
@@ -89,13 +92,13 @@ export default function GrazPage() {
 
             <div className="max-w-4xl mx-auto w-full flex flex-col items-center justify-center text-center">
               <section className="w-full my-8 md:my-16">
-                <p className="text-base text-center font-medium text-[var(--foreground)]">Unternehmen die uns vertrauen in {currentLand.name}</p>
+                <p className="text-base text-center font-medium text-[var(--foreground)]">Unternehmen die uns vertrauen in {currentCity.name}</p>
                 <MarqueeDemo />
               </section>
             </div>
 
             <section id="firmensuche">
-              <LeadSearchSection className="my-8 md:my-16" defaultState={currentLand.name}></LeadSearchSection>
+              <LeadSearchSection className="my-8 md:my-16" defaultState={currentCity.name}></LeadSearchSection>
             </section>
 
             <div className="max-w-4xl mx-auto w-full flex flex-col items-center justify-center text-center">

@@ -1,18 +1,18 @@
 import Head from "next/head";
 import Image from "next/image";
 import { Poppins } from "next/font/google";
-import { HeroHeader as Header } from "../../components/ui/Header";
-import Footer from "../../components/ui/Footer";
-import { MarqueeDemo } from "../../components/ui/marquee";
-import LeadSearchSection from "../../components/ui/LeadSearchSection";
-import Faqs from "../../components/faqs-2";
-import WordRotate from "../../components/magicui/word-rotate";
-import Pricing from "../../components/pricing";
-import Testimonials from "../../components/testimonials";
-import ProcessFlow from "../../components/ui/ProcessFlow";
+import { HeroHeader as Header } from "@/components/ui/Header";
+import Footer from "@/components/ui/Footer";
+import { MarqueeDemo } from "@/components/ui/marquee";
+import LeadSearchSection from "@/components/ui/LeadSearchSection";
+import Faqs from "@/components/faqs-2";
+import WordRotate from "@/components/magicui/word-rotate";
+import Pricing from "@/components/pricing";
+import Testimonials from "@/components/testimonials";
+import ProcessFlow from "@/components/ui/ProcessFlow";
 import LeistungsSection from "@/components/LeistungsSection";
-import CallToAction2 from "../../components/ui/CallToAction2";
-import ContactForm from "../../components/ui/ContactForm";
+import CallToAction2 from "@/components/ui/CallToAction2";
+import ContactForm from "@/components/ui/ContactForm";
 import { Toaster } from "sonner";
 
 const poppins = Poppins({
@@ -22,19 +22,19 @@ const poppins = Poppins({
 });
 
 const currentLand = {
-  name: 'Eisenstadt',
-  slug: 'eisenstadt',
+  name: 'Niederösterreich',
+  slug: 'niederoesterreich',
 };
 
 const seo = {
-  title: `Firmenadressen kaufen Eisenstadt | B2B Leads - Leadify.at`,
-  description: `Firmenadressen in Eisenstadt kaufen: Präzise B2B Leads mit Telefon, E-Mail & Ansprechpartnern. DSGVO-konform, sofortiger Download in Excel/CSV. Ideal für Marketing & Vertrieb in Eisenstadt.`,
-  ogTitle: `Firmenadressen kaufen aus Eisenstadt | B2B Adressen aus Eisenstadt kaufen`,
-  ogDescription: `Firmenadressen mit unlimitierter Nutzung günstig kaufen aus Eisenstadt. Starte die Suche für Eisenstadt Adressen. Kostenloses Angebot & sofortiger Excel & CSV Download`,
-  keywords: `Leads Eisenstadt, Firmenadressen kaufen Eisenstadt, B2B Leads Eisenstadt, Direktmarketing Eisenstadt, Unternehmensdaten Eisenstadt`,
+  title: `Firmenadressen kaufen Niederösterreich | B2B Leads - Leadify.at`,
+  description: `Firmenadressen in Niederösterreich kaufen: Präzise B2B Leads mit Telefon, E-Mail & Ansprechpartnern. DSGVO-konform, sofortiger Download in Excel/CSV. Ideal für Marketing & Vertrieb in Niederösterreich.`,
+  ogTitle: `Firmenadressen kaufen aus Niederösterreich | B2B Adressen aus Niederösterreich kaufen`,
+  ogDescription: `Firmenadressen mit unlimitierter Nutzung günstig kaufen aus Niederösterreich. Starte die Suche für Niederösterreich Adressen. Kostenloses Angebot & sofortiger Excel & CSV Download`,
+  keywords: `Leads Niederösterreich, Firmenadressen kaufen Niederösterreich, B2B Leads Niederösterreich, Direktmarketing Niederösterreich, Unternehmensdaten Niederösterreich`,
 };
 
-export default function EisenstadtPage() {
+export default function NiederoesterreichPage() {
   const dynamicBranchesWords = [
     "Softwareentwickler", "Kreativagenturen", "Unternehmensberater", "IT-Dienstleister",
     "Architekturbüros", "Einzelhändler", "Hotels", "Restaurants", "Steuerberater",
@@ -42,7 +42,7 @@ export default function EisenstadtPage() {
   ];
 
   const dynamicCitiesWords = [
-    "Eisenstadt",
+    "St. Pölten", "Wiener Neustadt", "Krems an der Donau", "Amstetten",
   ];
 
   return (

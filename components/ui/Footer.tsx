@@ -3,30 +3,46 @@
 import { Logo } from '@/components/ui/logo'
 import Link from 'next/link'
 import Image from 'next/image'
+import { usePathname } from 'next/navigation';
 
 export default function FooterSection() {
-    const firmenadressenLinks = [
-        { title: 'Firmenadressen Wien', href: '/firmenadressen/wien' },
-        { title: 'Firmenadressen Niederösterreich', href: '/firmenadressen/niederoesterreich' },
-        { title: 'Firmenadressen Oberösterreich', href: '/firmenadressen/oberoesterreich' },
-        { title: 'Firmenadressen Steiermark', href: '/firmenadressen/steiermark' },
-        { title: 'Firmenadressen Tirol', href: '/firmenadressen/tirol' },
-        { title: 'Firmenadressen Salzburg', href: '/firmenadressen/salzburg' },
-        { title: 'Firmenadressen Kärnten', href: '/firmenadressen/kaernten' },
-        { title: 'Firmenadressen Vorarlberg', href: '/firmenadressen/vorarlberg' },
-        { title: 'Firmenadressen Burgenland', href: '/firmenadressen/burgenland' },
-        { title: 'Firmenadressen St. Pölten', href: '/firmenadressen/st-poelten' },
-        { title: 'Firmenadressen Linz', href: '/firmenadressen/linz' },
-        { title: 'Firmenadressen Graz', href: '/firmenadressen/graz' },
-        { title: 'Firmenadressen Innsbruck', href: '/firmenadressen/innsbruck' },
-        { title: 'Firmenadressen Klagenfurt', href: '/firmenadressen/klagenfurt' },
-        { title: 'Firmenadressen Bregenz', href: '/firmenadressen/bregenz' },
-        { title: 'Firmenadressen Eisenstadt', href: '/firmenadressen/eisenstadt' },
+    const pathname = usePathname() || '';
+
+    const bundeslandLinks = [
+        { title: 'Firmenadressen Burgenland', href: '/firmenadressen/bundesland/burgenland' },
+        { title: 'Firmenadressen Kärnten', href: '/firmenadressen/bundesland/kaernten' },
+        { title: 'Firmenadressen Niederösterreich', href: '/firmenadressen/bundesland/niederoesterreich' },
+        { title: 'Firmenadressen Oberösterreich', href: '/firmenadressen/bundesland/oberoesterreich' },
+        { title: 'Firmenadressen Salzburg', href: '/firmenadressen/bundesland/salzburg-land' }, // Angepasst auf salzburg-land
+        { title: 'Firmenadressen Steiermark', href: '/firmenadressen/bundesland/steiermark' },
+        { title: 'Firmenadressen Tirol', href: '/firmenadressen/bundesland/tirol' },
+        { title: 'Firmenadressen Vorarlberg', href: '/firmenadressen/bundesland/vorarlberg' },
+        { title: 'Firmenadressen Wien', href: '/firmenadressen/bundesland/wien' },
     ];
 
-    const half = Math.ceil(firmenadressenLinks.length / 2);
-    const firstHalf = firmenadressenLinks.slice(0, half);
-    const secondHalf = firmenadressenLinks.slice(half);
+    const stadtLinks = [
+        { title: 'Firmenadressen Bregenz', href: '/firmenadressen/stadt/bregenz' },
+        { title: 'Firmenadressen Eisenstadt', href: '/firmenadressen/stadt/eisenstadt' },
+        { title: 'Firmenadressen Graz', href: '/firmenadressen/stadt/graz' },
+        { title: 'Firmenadressen Innsbruck', href: '/firmenadressen/stadt/innsbruck' },
+        { title: 'Firmenadressen Klagenfurt', href: '/firmenadressen/stadt/klagenfurt' },
+        { title: 'Firmenadressen Linz', href: '/firmenadressen/stadt/linz' },
+        { title: 'Firmenadressen Salzburg', href: '/firmenadressen/stadt/salzburg' },
+        { title: 'Firmenadressen St. Pölten', href: '/firmenadressen/stadt/st-poelten' },
+        { title: 'Firmenadressen Wien', href: '/firmenadressen/stadt/wien' },
+    ];
+
+    let displayedLinks = bundeslandLinks;
+
+    if (pathname.startsWith('/firmenadressen/stadt/')) {
+        displayedLinks = stadtLinks;
+    } else if (pathname.startsWith('/firmenadressen/bundesland/')) {
+        displayedLinks = bundeslandLinks;
+    }
+
+    const half = Math.ceil(displayedLinks.length / 2);
+    const firstHalf = displayedLinks.slice(0, half);
+    const secondHalf = displayedLinks.slice(half);
 
     return (
         <footer className=" bg-white pt-20 dark:bg-transparent">
@@ -121,16 +137,22 @@ export default function FooterSection() {
                             { title: 'Preise', href: '#preise' },
                             { title: 'FAQ', href: '#faq' },
                             { title: 'Kontakt', href: '#kontakt' },
+                            { title: 'Blog', href: '/blog' }, // Add Blog link here
                         ].map((item, index) => (
                             <Link
                                 key={index}
                                 href={item.href}
                                 onClick={(e) => {
-                                    e.preventDefault();
-                                    const targetId = item.href.substring(1);
-                                    const targetElement = document.getElementById(targetId);
-                                    if (targetElement) {
-                                        targetElement.scrollIntoView({ behavior: 'smooth' });
+                                    // Only prevent default for anchor links on the same page
+                                    if (item.href.startsWith('#') && pathname === '/') {
+                                        e.preventDefault();
+                                        const targetId = item.href.substring(1);
+                                        const targetElement = document.getElementById(targetId);
+                                        if (targetElement) {
+                                            targetElement.scrollIntoView({ behavior: 'smooth' });
+                                        }
+                                    } else if (item.href === '/blog') {
+                                        // For the blog link, do nothing, let Link component handle navigation
                                     }
                                 }}
                                 className="text-muted-foreground hover:text-[var(--color-accent)] transition-colors duration-200 block"

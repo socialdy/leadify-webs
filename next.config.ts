@@ -1,6 +1,10 @@
 import type { NextConfig } from "next";
 
+/** @type {import('next').NextConfig} */
 const nextConfig: NextConfig = {
+  experimental: {
+    // appDir: true,
+  },
   /* config options here */
   reactStrictMode: true,
   images: {

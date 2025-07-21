@@ -1,18 +1,18 @@
 import Head from "next/head";
 import Image from "next/image";
 import { Poppins } from "next/font/google";
-import { HeroHeader as Header } from "../../components/ui/Header";
-import Footer from "../../components/ui/Footer";
-import { MarqueeDemo } from "../../components/ui/marquee";
-import LeadSearchSection from "../../components/ui/LeadSearchSection";
-import Faqs from "../../components/faqs-2";
-import WordRotate from "../../components/magicui/word-rotate";
-import Pricing from "../../components/pricing";
-import Testimonials from "../../components/testimonials";
-import ProcessFlow from "../../components/ui/ProcessFlow";
+import { HeroHeader as Header } from "@/components/ui/Header";
+import Footer from "@/components/ui/Footer";
+import { MarqueeDemo } from "@/components/ui/marquee";
+import LeadSearchSection from "@/components/ui/LeadSearchSection";
+import Faqs from "@/components/faqs-2";
+import WordRotate from "@/components/magicui/word-rotate";
+import Pricing from "@/components/pricing";
+import Testimonials from "@/components/testimonials";
+import ProcessFlow from "@/components/ui/ProcessFlow";
 import LeistungsSection from "@/components/LeistungsSection";
-import CallToAction2 from "../../components/ui/CallToAction2";
-import ContactForm from "../../components/ui/ContactForm";
+import CallToAction2 from "@/components/ui/CallToAction2";
+import ContactForm from "@/components/ui/ContactForm";
 import { Toaster } from "sonner";
 
 const poppins = Poppins({
@@ -22,19 +22,21 @@ const poppins = Poppins({
 });
 
 const currentLand = {
-  name: 'Bregenz',
-  slug: 'bregenz',
+  name: 'Oberösterreich',
+  slug: 'oberoesterreich',
 };
 
 const seo = {
-  title: `Firmenadressen kaufen Bregenz | B2B Leads - Leadify.at`,
-  description: `Firmenadressen in Bregenz kaufen: Präzise B2B Leads mit Telefon, E-Mail & Ansprechpartnern. DSGVO-konform, sofortiger Download in Excel/CSV. Ideal für Marketing & Vertrieb in Bregenz.`,
-  ogTitle: `Firmenadressen kaufen aus Bregenz | B2B Adressen aus Bregenz kaufen`,
-  ogDescription: `Firmenadressen mit unlimitierter Nutzung günstig kaufen aus Bregenz. Starte die Suche für Bregenz Adressen. Kostenloses Angebot & sofortiger Excel & CSV Download`,
-  keywords: `Leads Bregenz, Firmenadressen kaufen Bregenz, B2B Leads Bregenz, Direktmarketing Bregenz, Unternehmensdaten Bregenz`,
+  title: `Firmenadressen kaufen Oberösterreich | B2B Leads - Leadify.at`,
+  description: `Firmenadressen in Oberösterreich kaufen: Präzise B2B Leads mit Telefon, E-Mail & Ansprechpartnern. DSGVO-konform, sofortiger Download in Excel/CSV. Ideal für Marketing & Vertrieb in Oberösterreich.`,
+  ogTitle: `Firmenadressen kaufen aus Oberösterreich | B2B Adressen aus Oberösterreich kaufen`,
+  ogDescription: `Firmenadressen mit unlimitierter Nutzung günstig kaufen aus Oberösterreich. Starte die Suche für Oberösterreich Adressen. Kostenloses Angebot & sofortiger Excel & CSV Download`,
+  keywords: `Leads Oberösterreich, Firmenadressen kaufen Oberösterreich, B2B Leads Oberösterreich, Direktmarketing Oberösterreich, Unternehmensdaten Oberösterreich`,
 };
 
-export default function BregenzPage() {
+const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "https://www.yourdomain.at";
+
+export default function OberoesterreichPage() {
   const dynamicBranchesWords = [
     "Softwareentwickler", "Kreativagenturen", "Unternehmensberater", "IT-Dienstleister",
     "Architekturbüros", "Einzelhändler", "Hotels", "Restaurants", "Steuerberater",
@@ -42,7 +44,7 @@ export default function BregenzPage() {
   ];
 
   const dynamicCitiesWords = [
-    "Bregenz",
+    "Linz", "Wels", "Steyr", "Gmunden",
   ];
 
   return (
@@ -55,6 +57,7 @@ export default function BregenzPage() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="keywords" content={seo.keywords} />
         <link rel="icon" href="/fav.ico" />
+        <link rel="canonical" href={`${BASE_URL}/firmenadressen/bundesland/${currentLand.slug}`} />
       </Head>
       <div
         className={`${poppins.className} grid grid-rows-[auto_1fr_auto] min-h-screen bg-[var(--background)] overflow-x-hidden`}
