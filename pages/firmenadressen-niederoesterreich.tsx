@@ -22,21 +22,21 @@ const poppins = Poppins({
 });
 
 const currentLand = {
-  name: 'Oberösterreich',
-  slug: 'oberoesterreich',
+  name: 'Niederösterreich',
+  slug: 'niederoesterreich',
 };
 
 const seo = {
-  title: `Firmenadressen kaufen Oberösterreich | B2B Leads - Leadify.at`,
-  description: `Firmenadressen in Oberösterreich kaufen: Präzise B2B Leads mit Telefon, E-Mail & Ansprechpartnern. DSGVO-konform, sofortiger Download in Excel/CSV. Ideal für Marketing & Vertrieb in Oberösterreich.`,
-  ogTitle: `Firmenadressen kaufen aus Oberösterreich | B2B Adressen aus Oberösterreich kaufen`,
-  ogDescription: `Firmenadressen mit unlimitierter Nutzung günstig kaufen aus Oberösterreich. Starte die Suche für Oberösterreich Adressen. Kostenloses Angebot & sofortiger Excel & CSV Download`,
-  keywords: `Leads Oberösterreich, Firmenadressen kaufen Oberösterreich, B2B Leads Oberösterreich, Direktmarketing Oberösterreich, Unternehmensdaten Oberösterreich`,
+  title: `Firmenadressen kaufen Niederösterreich | B2B Leads - Leadify.at`,
+  description: `Firmenadressen in Niederösterreich kaufen: Präzise B2B Leads mit Telefon, E-Mail & Ansprechpartnern. DSGVO-konform, sofortiger Download in Excel/CSV. Ideal für Marketing & Vertrieb in Niederösterreich.`,
+  ogTitle: `Firmenadressen kaufen aus Niederösterreich | B2B Adressen aus Niederösterreich kaufen`,
+  ogDescription: `Firmenadressen mit unlimitierter Nutzung günstig kaufen aus Niederösterreich. Starte die Suche für Niederösterreich Adressen. Kostenloses Angebot & sofortiger Excel & CSV Download`,
+  keywords: `Leads Niederösterreich, Firmenadressen kaufen Niederösterreich, B2B Leads Niederösterreich, Direktmarketing Niederösterreich, Unternehmensdaten Niederösterreich`,
 };
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "https://www.yourdomain.at";
 
-export default function OberoesterreichPage() {
+export default function NiederoesterreichPage() {
   const dynamicBranchesWords = [
     "Softwareentwickler", "Kreativagenturen", "Unternehmensberater", "IT-Dienstleister",
     "Architekturbüros", "Einzelhändler", "Hotels", "Restaurants", "Steuerberater",
@@ -44,7 +44,7 @@ export default function OberoesterreichPage() {
   ];
 
   const dynamicCitiesWords = [
-    "Linz", "Wels", "Steyr", "Gmunden",
+    "St. Pölten", "Wiener Neustadt", "Krems an der Donau", "Amstetten",
   ];
 
   return (
@@ -57,7 +57,7 @@ export default function OberoesterreichPage() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="keywords" content={seo.keywords} />
         <link rel="icon" href="/fav.ico" />
-        <link rel="canonical" href={`${BASE_URL}/firmenadressen/bundesland/${currentLand.slug}`} />
+        <link rel="canonical" href={`${BASE_URL}/firmenadressen-${currentLand.slug}`} />
       </Head>
       <div
         className={`${poppins.className} grid grid-rows-[auto_1fr_auto] min-h-screen bg-[var(--background)] overflow-x-hidden`}

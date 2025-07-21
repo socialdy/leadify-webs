@@ -22,21 +22,21 @@ const poppins = Poppins({
 });
 
 const currentLand = {
-  name: 'Kärnten',
-  slug: 'kaernten',
+  name: 'Tirol',
+  slug: 'tirol',
 };
 
 const seo = {
-  title: `Firmenadressen kaufen Kärnten | B2B Leads - Leadify.at`,
-  description: `Firmenadressen in Kärnten kaufen: Präzise B2B Leads mit Telefon, E-Mail & Ansprechpartnern. DSGVO-konform, sofortiger Download in Excel/CSV. Ideal für Marketing & Vertrieb in Kärnten.`,
-  ogTitle: `Firmenadressen kaufen aus Kärnten | B2B Adressen aus Kärnten kaufen`,
-  ogDescription: `Firmenadressen mit unlimitierter Nutzung günstig kaufen aus Kärnten. Starte die Suche für Kärnten Adressen. Kostenloses Angebot & sofortiger Excel & CSV Download`,
-  keywords: `Leads Kärnten, Firmenadressen kaufen Kärnten, B2B Leads Kärnten, Direktmarketing Kärnten, Unternehmensdaten Kärnten`,
+  title: `Firmenadressen kaufen Tirol | B2B Leads - Leadify.at`,
+  description: `Firmenadressen in Tirol kaufen: Präzise B2B Leads mit Telefon, E-Mail & Ansprechpartnern. DSGVO-konform, sofortiger Download in Excel/CSV. Ideal für Marketing & Vertrieb in Tirol.`,
+  ogTitle: `Firmenadressen kaufen aus Tirol | B2B Adressen aus Tirol kaufen`,
+  ogDescription: `Firmenadressen mit unlimitierter Nutzung günstig kaufen aus Tirol. Starte die Suche für Tirol Adressen. Kostenloses Angebot & sofortiger Excel & CSV Download`,
+  keywords: `Leads Tirol, Firmenadressen kaufen Tirol, B2B Leads Tirol, Direktmarketing Tirol, Unternehmensdaten Tirol`,
 };
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "https://www.yourdomain.at";
 
-export default function KaerntenPage() {
+export default function TirolPage() {
   const dynamicBranchesWords = [
     "Softwareentwickler", "Kreativagenturen", "Unternehmensberater", "IT-Dienstleister",
     "Architekturbüros", "Einzelhändler", "Hotels", "Restaurants", "Steuerberater",
@@ -44,7 +44,7 @@ export default function KaerntenPage() {
   ];
 
   const dynamicCitiesWords = [
-    "Klagenfurt am Wörthersee", "Villach", "Spittal an der Drau", "Wolfsberg",
+    "Innsbruck", "Kufstein", "Lienz", "Schwaz",
   ];
 
   return (
@@ -57,7 +57,7 @@ export default function KaerntenPage() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="keywords" content={seo.keywords} />
         <link rel="icon" href="/fav.ico" />
-        <link rel="canonical" href={`${BASE_URL}/firmenadressen/bundesland/${currentLand.slug}`} />
+        <link rel="canonical" href={`${BASE_URL}/firmenadressen-${currentLand.slug}`} />
       </Head>
       <div
         className={`${poppins.className} grid grid-rows-[auto_1fr_auto] min-h-screen bg-[var(--background)] overflow-x-hidden`}

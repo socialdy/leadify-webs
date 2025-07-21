@@ -9,15 +9,15 @@ export default function FooterSection() {
     const pathname = usePathname() || '';
 
     const bundeslandLinks = [
-        { title: 'Firmenadressen Burgenland', href: '/firmenadressen/bundesland/burgenland' },
-        { title: 'Firmenadressen Kärnten', href: '/firmenadressen/bundesland/kaernten' },
-        { title: 'Firmenadressen Niederösterreich', href: '/firmenadressen/bundesland/niederoesterreich' },
-        { title: 'Firmenadressen Oberösterreich', href: '/firmenadressen/bundesland/oberoesterreich' },
-        { title: 'Firmenadressen Salzburg', href: '/firmenadressen/bundesland/salzburg-land' }, // Angepasst auf salzburg-land
-        { title: 'Firmenadressen Steiermark', href: '/firmenadressen/bundesland/steiermark' },
-        { title: 'Firmenadressen Tirol', href: '/firmenadressen/bundesland/tirol' },
-        { title: 'Firmenadressen Vorarlberg', href: '/firmenadressen/bundesland/vorarlberg' },
-        { title: 'Firmenadressen Wien', href: '/firmenadressen/bundesland/wien' },
+        { title: 'Firmenadressen Burgenland', href: '/firmenadressen-burgenland' },
+        { title: 'Firmenadressen Kärnten', href: '/firmenadressen-kaernten' },
+        { title: 'Firmenadressen Niederösterreich', href: '/firmenadressen-niederoesterreich' },
+        { title: 'Firmenadressen Oberösterreich', href: '/firmenadressen-oberoesterreich' },
+        { title: 'Firmenadressen Salzburg', href: '/firmenadressen-salzburg' },
+        { title: 'Firmenadressen Steiermark', href: '/firmenadressen-steiermark' },
+        { title: 'Firmenadressen Tirol', href: '/firmenadressen-tirol' },
+        { title: 'Firmenadressen Vorarlberg', href: '/firmenadressen-vorarlberg' },
+        { title: 'Firmenadressen Wien', href: '/firmenadressen-wien' },
     ];
 
     const stadtLinks = [
@@ -36,7 +36,7 @@ export default function FooterSection() {
 
     if (pathname.startsWith('/firmenadressen/stadt/')) {
         displayedLinks = stadtLinks;
-    } else if (pathname.startsWith('/firmenadressen/bundesland/')) {
+    } else if (pathname.startsWith('/firmenadressen-')) { // Adjusted for new URL structure
         displayedLinks = bundeslandLinks;
     }
 

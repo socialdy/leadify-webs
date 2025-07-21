@@ -22,21 +22,21 @@ const poppins = Poppins({
 });
 
 const currentLand = {
-  name: 'Vorarlberg',
-  slug: 'vorarlberg',
+  name: 'Oberösterreich',
+  slug: 'oberoesterreich',
 };
 
 const seo = {
-  title: `Firmenadressen kaufen Vorarlberg | B2B Leads - Leadify.at`,
-  description: `Firmenadressen in Vorarlberg kaufen: Präzise B2B Leads mit Telefon, E-Mail & Ansprechpartnern. DSGVO-konform, sofortiger Download in Excel/CSV. Ideal für Marketing & Vertrieb in Vorarlberg.`,
-  ogTitle: `Firmenadressen kaufen aus Vorarlberg | B2B Adressen aus Vorarlberg kaufen`,
-  ogDescription: `Firmenadressen mit unlimitierter Nutzung günstig kaufen aus Vorarlberg. Starte die Suche für Vorarlberg Adressen. Kostenloses Angebot & sofortiger Excel & CSV Download`,
-  keywords: `Leads Vorarlberg, Firmenadressen kaufen Vorarlberg, B2B Leads Vorarlberg, Direktmarketing Vorarlberg, Unternehmensdaten Vorarlberg`,
+  title: `Firmenadressen kaufen Oberösterreich | B2B Leads - Leadify.at`,
+  description: `Firmenadressen in Oberösterreich kaufen: Präzise B2B Leads mit Telefon, E-Mail & Ansprechpartnern. DSGVO-konform, sofortiger Download in Excel/CSV. Ideal für Marketing & Vertrieb in Oberösterreich.`,
+  ogTitle: `Firmenadressen kaufen aus Oberösterreich | B2B Adressen aus Oberösterreich kaufen`,
+  ogDescription: `Firmenadressen mit unlimitierter Nutzung günstig kaufen aus Oberösterreich. Starte die Suche für Oberösterreich Adressen. Kostenloses Angebot & sofortiger Excel & CSV Download`,
+  keywords: `Leads Oberösterreich, Firmenadressen kaufen Oberösterreich, B2B Leads Oberösterreich, Direktmarketing Oberösterreich, Unternehmensdaten Oberösterreich`,
 };
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "https://www.yourdomain.at";
 
-export default function VorarlbergPage() {
+export default function OberoesterreichPage() {
   const dynamicBranchesWords = [
     "Softwareentwickler", "Kreativagenturen", "Unternehmensberater", "IT-Dienstleister",
     "Architekturbüros", "Einzelhändler", "Hotels", "Restaurants", "Steuerberater",
@@ -44,7 +44,7 @@ export default function VorarlbergPage() {
   ];
 
   const dynamicCitiesWords = [
-    "Bregenz", "Dornbirn", "Feldkirch", "Lustenau",
+    "Linz", "Wels", "Steyr", "Gmunden",
   ];
 
   return (
@@ -57,7 +57,7 @@ export default function VorarlbergPage() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="keywords" content={seo.keywords} />
         <link rel="icon" href="/fav.ico" />
-        <link rel="canonical" href={`${BASE_URL}/firmenadressen/bundesland/${currentLand.slug}`} />
+        <link rel="canonical" href={`${BASE_URL}/firmenadressen-${currentLand.slug}`} />
       </Head>
       <div
         className={`${poppins.className} grid grid-rows-[auto_1fr_auto] min-h-screen bg-[var(--background)] overflow-x-hidden`}

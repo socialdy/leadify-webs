@@ -22,21 +22,21 @@ const poppins = Poppins({
 });
 
 const currentLand = {
-  name: 'Salzburg',
-  slug: 'salzburg-land',
+  name: 'Steiermark',
+  slug: 'steiermark',
 };
 
 const seo = {
-  title: `Firmenadressen kaufen Salzburg | B2B Leads - Leadify.at`,
-  description: `Firmenadressen in Salzburg kaufen: Präzise B2B Leads mit Telefon, E-Mail & Ansprechpartnern. DSGVO-konform, sofortiger Download in Excel/CSV. Ideal für Marketing & Vertrieb in Salzburg.`,
-  ogTitle: `Firmenadressen kaufen aus Salzburg | B2B Adressen aus Salzburg kaufen`,
-  ogDescription: `Firmenadressen mit unlimitierter Nutzung günstig kaufen aus Salzburg. Starte die Suche für Salzburg Adressen. Kostenloses Angebot & sofortiger Excel & CSV Download`,
-  keywords: `Leads Salzburg, Firmenadressen kaufen Salzburg, B2B Leads Salzburg, Direktmarketing Salzburg, Unternehmensdaten Salzburg`,
+  title: `Firmenadressen kaufen Steiermark | B2B Leads - Leadify.at`,
+  description: `Firmenadressen in der Steiermark kaufen: Präzise B2B Leads mit Telefon, E-Mail & Ansprechpartnern. DSGVO-konform, sofortiger Download in Excel/CSV. Ideal für Marketing & Vertrieb in der Steiermark.`,
+  ogTitle: `Firmenadressen kaufen aus Steiermark | B2B Adressen aus Steiermark kaufen`,
+  ogDescription: `Firmenadressen mit unlimitierter Nutzung günstig kaufen aus Steiermark. Starte die Suche für Steiermark Adressen. Kostenloses Angebot & sofortiger Excel & CSV Download`,
+  keywords: `Leads Steiermark, Firmenadressen kaufen Steiermark, B2B Leads Steiermark, Direktmarketing Steiermark, Unternehmensdaten Steiermark`,
 };
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "https://www.yourdomain.at";
 
-export default function SalzburgPage() {
+export default function SteiermarkPage() {
   const dynamicBranchesWords = [
     "Softwareentwickler", "Kreativagenturen", "Unternehmensberater", "IT-Dienstleister",
     "Architekturbüros", "Einzelhändler", "Hotels", "Restaurants", "Steuerberater",
@@ -44,7 +44,7 @@ export default function SalzburgPage() {
   ];
 
   const dynamicCitiesWords = [
-    "Salzburg", "Hallein", "Saalfelden am Steinernen Meer", "Zell am See",
+    "Graz", "Leoben", "Kapfenberg", "Bruck an der Mur",
   ];
 
   return (
@@ -57,7 +57,7 @@ export default function SalzburgPage() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="keywords" content={seo.keywords} />
         <link rel="icon" href="/fav.ico" />
-        <link rel="canonical" href={`${BASE_URL}/firmenadressen/bundesland/${currentLand.slug}`} />
+        <link rel="canonical" href={`${BASE_URL}/firmenadressen-${currentLand.slug}`} />
       </Head>
       <div
         className={`${poppins.className} grid grid-rows-[auto_1fr_auto] min-h-screen bg-[var(--background)] overflow-x-hidden`}

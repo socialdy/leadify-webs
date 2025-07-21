@@ -22,21 +22,21 @@ const poppins = Poppins({
 });
 
 const currentLand = {
-  name: 'Tirol',
-  slug: 'tirol',
+  name: 'Wien',
+  slug: 'wien',
 };
 
 const seo = {
-  title: `Firmenadressen kaufen Tirol | B2B Leads - Leadify.at`,
-  description: `Firmenadressen in Tirol kaufen: Präzise B2B Leads mit Telefon, E-Mail & Ansprechpartnern. DSGVO-konform, sofortiger Download in Excel/CSV. Ideal für Marketing & Vertrieb in Tirol.`,
-  ogTitle: `Firmenadressen kaufen aus Tirol | B2B Adressen aus Tirol kaufen`,
-  ogDescription: `Firmenadressen mit unlimitierter Nutzung günstig kaufen aus Tirol. Starte die Suche für Tirol Adressen. Kostenloses Angebot & sofortiger Excel & CSV Download`,
-  keywords: `Leads Tirol, Firmenadressen kaufen Tirol, B2B Leads Tirol, Direktmarketing Tirol, Unternehmensdaten Tirol`,
+  title: `Firmenadressen kaufen Wien | B2B Leads - Leadify.at`,
+  description: `Firmenadressen in Wien kaufen: Präzise B2B Leads mit Telefon, E-Mail & Ansprechpartnern. DSGVO-konform, sofortiger Download in Excel/CSV. Ideal für Marketing & Vertrieb in Wien.`,
+  ogTitle: `Firmenadressen kaufen aus Wien | B2B Adressen aus Wien kaufen`,
+  ogDescription: `Firmenadressen mit unlimitierter Nutzung günstig kaufen aus Wien. Starte die Suche für Wien Adressen. Kostenloses Angebot & sofortiger Excel & CSV Download`,
+  keywords: `Leads Wien, Firmenadressen kaufen Wien, B2B Leads Wien, Direktmarketing Wien, Unternehmensdaten Wien`,
 };
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "https://www.yourdomain.at";
 
-export default function TirolPage() {
+export default function WienPage() {
   const dynamicBranchesWords = [
     "Softwareentwickler", "Kreativagenturen", "Unternehmensberater", "IT-Dienstleister",
     "Architekturbüros", "Einzelhändler", "Hotels", "Restaurants", "Steuerberater",
@@ -44,7 +44,7 @@ export default function TirolPage() {
   ];
 
   const dynamicCitiesWords = [
-    "Innsbruck", "Kufstein", "Lienz", "Schwaz",
+    "Wien", "Schwechat", "Mödling", "Klosterneuburg",
   ];
 
   return (
@@ -57,7 +57,7 @@ export default function TirolPage() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="keywords" content={seo.keywords} />
         <link rel="icon" href="/fav.ico" />
-        <link rel="canonical" href={`${BASE_URL}/firmenadressen/bundesland/${currentLand.slug}`} />
+        <link rel="canonical" href={`${BASE_URL}/firmenadressen-${currentLand.slug}`} />
       </Head>
       <div
         className={`${poppins.className} grid grid-rows-[auto_1fr_auto] min-h-screen bg-[var(--background)] overflow-x-hidden`}

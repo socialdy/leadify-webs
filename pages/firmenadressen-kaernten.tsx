@@ -22,21 +22,21 @@ const poppins = Poppins({
 });
 
 const currentLand = {
-  name: 'Burgenland',
-  slug: 'burgenland',
+  name: 'Kärnten',
+  slug: 'kaernten',
 };
 
 const seo = {
-  title: `Firmenadressen kaufen Burgenland | B2B Leads - Leadify.at`,
-  description: `Firmenadressen im Burgenland kaufen: Präzise B2B Leads mit Telefon, E-Mail & Ansprechpartnern. DSGVO-konform, sofortiger Download in Excel/CSV. Ideal für Marketing & Vertrieb im Burgenland.`,
-  ogTitle: `Firmenadressen kaufen aus Burgenland | B2B Adressen aus Burgenland kaufen`,
-  ogDescription: `Firmenadressen mit unlimitierter Nutzung günstig kaufen aus Burgenland. Starte die Suche für Burgenland Adressen. Kostenloses Angebot & sofortiger Excel & CSV Download`,
-  keywords: `Leads Burgenland, Firmenadressen kaufen Burgenland, B2B Leads Burgenland, Direktmarketing Burgenland, Unternehmensdaten Burgenland`,
+  title: `Firmenadressen kaufen Kärnten | B2B Leads - Leadify.at`,
+  description: `Firmenadressen in Kärnten kaufen: Präzise B2B Leads mit Telefon, E-Mail & Ansprechpartnern. DSGVO-konform, sofortiger Download in Excel/CSV. Ideal für Marketing & Vertrieb in Kärnten.`,
+  ogTitle: `Firmenadressen kaufen aus Kärnten | B2B Adressen aus Kärnten kaufen`,
+  ogDescription: `Firmenadressen mit unlimitierter Nutzung günstig kaufen aus Kärnten. Starte die Suche für Kärnten Adressen. Kostenloses Angebot & sofortiger Excel & CSV Download`,
+  keywords: `Leads Kärnten, Firmenadressen kaufen Kärnten, B2B Leads Kärnten, Direktmarketing Kärnten, Unternehmensdaten Kärnten`,
 };
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "https://www.yourdomain.at";
 
-export default function BurgenlandPage() {
+export default function KaerntenPage() {
   const dynamicBranchesWords = [
     "Softwareentwickler", "Kreativagenturen", "Unternehmensberater", "IT-Dienstleister",
     "Architekturbüros", "Einzelhändler", "Hotels", "Restaurants", "Steuerberater",
@@ -44,7 +44,7 @@ export default function BurgenlandPage() {
   ];
 
   const dynamicCitiesWords = [
-    "Eisenstadt", "Oberwart", "Neusiedl am See", "Mattersburg",
+    "Klagenfurt am Wörthersee", "Villach", "Spittal an der Drau", "Wolfsberg",
   ];
 
   return (
@@ -57,7 +57,7 @@ export default function BurgenlandPage() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="keywords" content={seo.keywords} />
         <link rel="icon" href="/fav.ico" />
-        <link rel="canonical" href={`${BASE_URL}/firmenadressen/bundesland/${currentLand.slug}`} />
+        <link rel="canonical" href={`${BASE_URL}/firmenadressen-${currentLand.slug}`} />
       </Head>
       <div
         className={`${poppins.className} grid grid-rows-[auto_1fr_auto] min-h-screen bg-[var(--background)] overflow-x-hidden`}

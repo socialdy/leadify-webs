@@ -51,7 +51,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   ];
 
   const federalStatePages = federalStates.map((state): MetadataRoute.Sitemap[number] => ({
-    url: `${BASE_URL}/firmenadressen/bundesland/${state}`,
+    url: `${BASE_URL}/firmenadressen-${state}`,
     lastModified: new Date().toISOString(),
     changeFrequency: 'weekly',
     priority: 0.7,

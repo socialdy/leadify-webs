@@ -22,21 +22,21 @@ const poppins = Poppins({
 });
 
 const currentLand = {
-  name: 'Steiermark',
-  slug: 'steiermark',
+  name: 'Vorarlberg',
+  slug: 'vorarlberg',
 };
 
 const seo = {
-  title: `Firmenadressen kaufen Steiermark | B2B Leads - Leadify.at`,
-  description: `Firmenadressen in der Steiermark kaufen: Präzise B2B Leads mit Telefon, E-Mail & Ansprechpartnern. DSGVO-konform, sofortiger Download in Excel/CSV. Ideal für Marketing & Vertrieb in der Steiermark.`,
-  ogTitle: `Firmenadressen kaufen aus Steiermark | B2B Adressen aus Steiermark kaufen`,
-  ogDescription: `Firmenadressen mit unlimitierter Nutzung günstig kaufen aus Steiermark. Starte die Suche für Steiermark Adressen. Kostenloses Angebot & sofortiger Excel & CSV Download`,
-  keywords: `Leads Steiermark, Firmenadressen kaufen Steiermark, B2B Leads Steiermark, Direktmarketing Steiermark, Unternehmensdaten Steiermark`,
+  title: `Firmenadressen kaufen Vorarlberg | B2B Leads - Leadify.at`,
+  description: `Firmenadressen in Vorarlberg kaufen: Präzise B2B Leads mit Telefon, E-Mail & Ansprechpartnern. DSGVO-konform, sofortiger Download in Excel/CSV. Ideal für Marketing & Vertrieb in Vorarlberg.`,
+  ogTitle: `Firmenadressen kaufen aus Vorarlberg | B2B Adressen aus Vorarlberg kaufen`,
+  ogDescription: `Firmenadressen mit unlimitierter Nutzung günstig kaufen aus Vorarlberg. Starte die Suche für Vorarlberg Adressen. Kostenloses Angebot & sofortiger Excel & CSV Download`,
+  keywords: `Leads Vorarlberg, Firmenadressen kaufen Vorarlberg, B2B Leads Vorarlberg, Direktmarketing Vorarlberg, Unternehmensdaten Vorarlberg`,
 };
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "https://www.yourdomain.at";
 
-export default function SteiermarkPage() {
+export default function VorarlbergPage() {
   const dynamicBranchesWords = [
     "Softwareentwickler", "Kreativagenturen", "Unternehmensberater", "IT-Dienstleister",
     "Architekturbüros", "Einzelhändler", "Hotels", "Restaurants", "Steuerberater",
@@ -44,7 +44,7 @@ export default function SteiermarkPage() {
   ];
 
   const dynamicCitiesWords = [
-    "Graz", "Leoben", "Kapfenberg", "Bruck an der Mur",
+    "Bregenz", "Dornbirn", "Feldkirch", "Lustenau",
   ];
 
   return (
@@ -57,7 +57,7 @@ export default function SteiermarkPage() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="keywords" content={seo.keywords} />
         <link rel="icon" href="/fav.ico" />
-        <link rel="canonical" href={`${BASE_URL}/firmenadressen/bundesland/${currentLand.slug}`} />
+        <link rel="canonical" href={`${BASE_URL}/firmenadressen-${currentLand.slug}`} />
       </Head>
       <div
         className={`${poppins.className} grid grid-rows-[auto_1fr_auto] min-h-screen bg-[var(--background)] overflow-x-hidden`}

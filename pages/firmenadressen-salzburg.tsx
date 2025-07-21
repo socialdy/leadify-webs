@@ -22,21 +22,21 @@ const poppins = Poppins({
 });
 
 const currentLand = {
-  name: 'Wien',
-  slug: 'wien-bundesland',
+  name: 'Salzburg',
+  slug: 'salzburg',
 };
 
 const seo = {
-  title: `Firmenadressen kaufen Wien | B2B Leads - Leadify.at`,
-  description: `Firmenadressen in Wien kaufen: Präzise B2B Leads mit Telefon, E-Mail & Ansprechpartnern. DSGVO-konform, sofortiger Download in Excel/CSV. Ideal für Marketing & Vertrieb in Wien.`,
-  ogTitle: `Firmenadressen kaufen aus Wien | B2B Adressen aus Wien kaufen`,
-  ogDescription: `Firmenadressen mit unlimitierter Nutzung günstig kaufen aus Wien. Starte die Suche für Wien Adressen. Kostenloses Angebot & sofortiger Excel & CSV Download`,
-  keywords: `Leads Wien, Firmenadressen kaufen Wien, B2B Leads Wien, Direktmarketing Wien, Unternehmensdaten Wien`,
+  title: `Firmenadressen kaufen Salzburg | B2B Leads - Leadify.at`,
+  description: `Firmenadressen in Salzburg kaufen: Präzise B2B Leads mit Telefon, E-Mail & Ansprechpartnern. DSGVO-konform, sofortiger Download in Excel/CSV. Ideal für Marketing & Vertrieb in Salzburg.`,
+  ogTitle: `Firmenadressen kaufen aus Salzburg | B2B Adressen aus Salzburg kaufen`,
+  ogDescription: `Firmenadressen mit unlimitierter Nutzung günstig kaufen aus Salzburg. Starte die Suche für Salzburg Adressen. Kostenloses Angebot & sofortiger Excel & CSV Download`,
+  keywords: `Leads Salzburg, Firmenadressen kaufen Salzburg, B2B Leads Salzburg, Direktmarketing Salzburg, Unternehmensdaten Salzburg`,
 };
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "https://www.yourdomain.at";
 
-export default function WienPage() {
+export default function SalzburgPage() {
   const dynamicBranchesWords = [
     "Softwareentwickler", "Kreativagenturen", "Unternehmensberater", "IT-Dienstleister",
     "Architekturbüros", "Einzelhändler", "Hotels", "Restaurants", "Steuerberater",
@@ -44,7 +44,7 @@ export default function WienPage() {
   ];
 
   const dynamicCitiesWords = [
-    "Wien", "Schwechat", "Mödling", "Klosterneuburg",
+    "Salzburg", "Hallein", "Saalfelden am Steinernen Meer", "Zell am See",
   ];
 
   return (
@@ -57,7 +57,7 @@ export default function WienPage() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="keywords" content={seo.keywords} />
         <link rel="icon" href="/fav.ico" />
-        <link rel="canonical" href={`${BASE_URL}/firmenadressen/bundesland/${currentLand.slug}`} />
+        <link rel="canonical" href={`${BASE_URL}/firmenadressen-${currentLand.slug}`} />
       </Head>
       <div
         className={`${poppins.className} grid grid-rows-[auto_1fr_auto] min-h-screen bg-[var(--background)] overflow-x-hidden`}
