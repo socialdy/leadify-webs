@@ -22,10 +22,8 @@ export default function RootLayout({
         <meta name="description" content="Finden und kaufen Sie hochwertige Firmenadressen und Leads für Ihr Direktmarketing in Österreich." />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/fav.ico" />
-      </head>
-      <body className={`${poppins.className} w-full max-w-screen-xl mx-auto flex flex-col items-center`}>
-        <Script async src="https://www.googletagmanager.com/gtag/js?id=G-Q3N39S9CXT" />
-        <Script id="google-analytics">
+        <Script async src="https://www.googletagmanager.com/gtag/js?id=G-Q3N39S9CXT" strategy="afterInteractive" />
+        <Script id="google-analytics" strategy="afterInteractive">
           {
             `window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
@@ -34,6 +32,8 @@ export default function RootLayout({
             gtag('config', 'G-Q3N39S9CXT');`
           }
         </Script>
+      </head>
+      <body className={`${poppins.className} w-full max-w-screen-xl mx-auto flex flex-col items-center`}>
         <HeroHeader />
         {children}
         <Footer />
