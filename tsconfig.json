@@ -34,7 +34,8 @@
     "next-env.d.ts",
     ".next/types/**/*.ts",
     "drizzle.config.ts",
-    "drizzle/**/*.ts"
+    "drizzle/**/*.ts",
+    "types/**/*.d.ts"
   ],
   "exclude": [
     "node_modules"

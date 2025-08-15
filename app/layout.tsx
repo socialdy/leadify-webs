@@ -2,6 +2,7 @@ import '../styles/globals.css'; // Adjust path if your global CSS is elsewhere
 import { HeroHeader } from '@/components/ui/Header'; // Corrected import
 import Footer from '@/components/ui/Footer';
 import { Poppins } from 'next/font/google';
+import Script from 'next/script';
 
 const poppins = Poppins({
   subsets: ['latin'],
@@ -23,6 +24,16 @@ export default function RootLayout({
         <link rel="icon" href="/fav.ico" />
       </head>
       <body className={`${poppins.className} w-full max-w-screen-xl mx-auto flex flex-col items-center`}>
+        <Script async src="https://www.googletagmanager.com/gtag/js?id=G-Q3N39S9CXT" />
+        <Script id="google-analytics">
+          {
+            `window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'G-Q3N39S9CXT');`
+          }
+        </Script>
         <HeroHeader />
         {children}
         <Footer />

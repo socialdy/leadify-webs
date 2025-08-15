@@ -27,6 +27,7 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import Image from 'next/image';
 import { toast } from "sonner";
 import { loadStripe, Stripe } from '@stripe/stripe-js';
+import { usePathname } from 'next/navigation';
 
 export const allBranches = [
   "Wäscherei / chemische Reinigung", "Fremdenführer / Reiseführer", "Esoterik", "Musikgruppe / Musikverein",
@@ -201,6 +202,8 @@ export default function LeadSearchSection({ className, defaultState }: { classNa
 
   const projectId = "ijilcjvjtdcggzrxgtrf"; // Your Supabase project ID
 
+  const pathname = usePathname() ?? ''; // Initialize with empty string if null
+
   useEffect(() => {
     // console.log('useEffect for fetching sub-industries running...'); // Removed: no longer needed
     // Load saved search criteria from sessionStorage on component mount
@@ -226,6 +229,17 @@ export default function LeadSearchSection({ className, defaultState }: { classNa
       }
     }
 
+    // Check if the current path is a city-specific page
+    if (pathname.startsWith('/firmenadressen/stadt/')) {
+      const cityFromPath = pathname.split('/').pop(); // Get the last segment of the path
+      if (cityFromPath) {
+        // Capitalize the first letter of the city name
+        const capitalizedCity = cityFromPath.charAt(0).toUpperCase() + cityFromPath.slice(1);
+        setCity(capitalizedCity); // Pre-fill the city input field
+        setSelectedState('all'); // Optionally reset state or set to 'all' if city is specified
+      }
+    }
+
     // Initialize filteredBranches directly with allBranches now that it's static
     setFilteredBranches(allBranches);
 
@@ -235,7 +249,7 @@ export default function LeadSearchSection({ className, defaultState }: { classNa
     //     const response = await fetch('/api/leads');
     //     const data = await response.json();
     //     // Removed Debugging logs
-
+    //
     //     // if (Array.isArray(data)) {
     //     //   // Only use sub-industries from the database, do not combine with hardcoded allBranches
     //     //   setCombinedBranches(Array.from(new Set([...data])); 
@@ -248,7 +262,7 @@ export default function LeadSearchSection({ className, defaultState }: { classNa
     // };
     // console.log('Calling fetchSubIndustries...'); // Add this log
     // fetchSubIndustries();
-  }, []);
+  }, [pathname]);
 
   useEffect(() => {
     const timerId = setTimeout(() => {

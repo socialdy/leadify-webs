@@ -87,7 +87,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const { frontmatter } = await getPost(slug);
 
   // Combine post-specific details with general keywords
-  const generalKeywords = 'Leads Österreich, Firmenadressen kaufen, B2B Leads, Direktmarketing Österreich, Unternehmensdaten';
+  const generalKeywords = 'firmenadressen kaufen österreich, firmenadressen kaufen, adressen kaufen, leads kaufen, Leads Österreich, Firmenadressen, B2B Leads, Direktmarketing Österreich, Unternehmensdaten';
   const postKeywords = `${frontmatter.title}, ${frontmatter.description}`;
   const combinedKeywords = `${postKeywords}, ${generalKeywords}`;
 
@@ -95,6 +95,29 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     title: frontmatter.title,
     description: frontmatter.description,
     keywords: combinedKeywords,
+    openGraph: {
+      title: frontmatter.title,
+      description: frontmatter.description,
+      url: `https://leadify.at/blog/${slug}`,
+      type: 'article',
+      publishedTime: frontmatter.date,
+      authors: [frontmatter.author],
+      images: frontmatter.coverImage
+        ? [{
+            url: `https://leadify.at${frontmatter.coverImage}`,
+            alt: frontmatter.title,
+          }]
+        : [],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: frontmatter.title,
+      description: frontmatter.description,
+      creator: '@leadifyat',
+      images: frontmatter.coverImage
+        ? [`https://leadify.at${frontmatter.coverImage}`]
+        : [],
+    },
   };
 }
 

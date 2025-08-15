@@ -9,40 +9,28 @@ export default function FooterSection() {
     const pathname = usePathname() || '';
 
     const bundeslandLinks = [
-        { title: 'Firmenadressen Burgenland', href: '/firmenadressen-burgenland' },
-        { title: 'Firmenadressen Kärnten', href: '/firmenadressen-kaernten' },
-        { title: 'Firmenadressen Niederösterreich', href: '/firmenadressen-niederoesterreich' },
-        { title: 'Firmenadressen Oberösterreich', href: '/firmenadressen-oberoesterreich' },
-        { title: 'Firmenadressen Salzburg', href: '/firmenadressen-salzburg' },
-        { title: 'Firmenadressen Steiermark', href: '/firmenadressen-steiermark' },
-        { title: 'Firmenadressen Tirol', href: '/firmenadressen-tirol' },
-        { title: 'Firmenadressen Vorarlberg', href: '/firmenadressen-vorarlberg' },
-        { title: 'Firmenadressen Wien', href: '/firmenadressen-wien' },
+        { title: 'Firmenadressen Burgenland kaufen', href: '/firmenadressen-burgenland' },
+        { title: 'Firmenadressen Kärnten kaufen', href: '/firmenadressen-kaernten' },
+        { title: 'Firmenadressen Niederösterreich kaufen', href: '/firmenadressen-niederoesterreich' },
+        { title: 'Firmenadressen Oberösterreich kaufen', href: '/firmenadressen-oberoesterreich' },
+        { title: 'Firmenadressen Salzburg kaufen', href: '/firmenadressen-salzburg' },
+        { title: 'Firmenadressen Steiermark kaufen', href: '/firmenadressen-steiermark' },
+        { title: 'Firmenadressen Tirol kaufen', href: '/firmenadressen-tirol' },
+        { title: 'Firmenadressen Vorarlberg kaufen', href: '/firmenadressen-vorarlberg' },
+        { title: 'Firmenadressen Wien kaufen', href: '/firmenadressen-wien' },
     ];
 
     const stadtLinks = [
-        { title: 'Firmenadressen Bregenz', href: '/firmenadressen/stadt/bregenz' },
-        { title: 'Firmenadressen Eisenstadt', href: '/firmenadressen/stadt/eisenstadt' },
-        { title: 'Firmenadressen Graz', href: '/firmenadressen/stadt/graz' },
-        { title: 'Firmenadressen Innsbruck', href: '/firmenadressen/stadt/innsbruck' },
-        { title: 'Firmenadressen Klagenfurt', href: '/firmenadressen/stadt/klagenfurt' },
-        { title: 'Firmenadressen Linz', href: '/firmenadressen/stadt/linz' },
-        { title: 'Firmenadressen Salzburg', href: '/firmenadressen/stadt/salzburg' },
-        { title: 'Firmenadressen St. Pölten', href: '/firmenadressen/stadt/st-poelten' },
-        { title: 'Firmenadressen Wien', href: '/firmenadressen/stadt/wien' },
+        { title: 'Firmenadressen Bregenz kaufen', href: '/firmenadressen/stadt/bregenz' },
+        { title: 'Firmenadressen Eisenstadt kaufen', href: '/firmenadressen/stadt/eisenstadt' },
+        { title: 'Firmenadressen Graz kaufen', href: '/firmenadressen/stadt/graz' },
+        { title: 'Firmenadressen Innsbruck kaufen', href: '/firmenadressen/stadt/innsbruck' },
+        { title: 'Firmenadressen Klagenfurt kaufen', href: '/firmenadressen/stadt/klagenfurt' },
+        { title: 'Firmenadressen Linz kaufen', href: '/firmenadressen/stadt/linz' },
+        { title: 'Firmenadressen Salzburg kaufen', href: '/firmenadressen/stadt/salzburg' },
+        { title: 'Firmenadressen St. Pölten kaufen', href: '/firmenadressen/stadt/st-poelten' },
+        { title: 'Firmenadressen Wien kaufen', href: '/firmenadressen/stadt/wien' },
     ];
-
-    let displayedLinks = bundeslandLinks;
-
-    if (pathname.startsWith('/firmenadressen/stadt/')) {
-        displayedLinks = stadtLinks;
-    } else if (pathname.startsWith('/firmenadressen-')) { // Adjusted for new URL structure
-        displayedLinks = bundeslandLinks;
-    }
-
-    const half = Math.ceil(displayedLinks.length / 2);
-    const firstHalf = displayedLinks.slice(0, half);
-    const secondHalf = displayedLinks.slice(half);
 
     return (
         <footer className=" bg-white pt-20 dark:bg-transparent">
@@ -75,7 +63,7 @@ export default function FooterSection() {
                                 </svg>
                             </Link>
                             <Link
-                                href="https://www.linkedin.com/company/leadify-firmenadressen-kaufen-oesterreich/"
+                                href="https://www.linkedin.com/company/108199157/admin/dashboard/"
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 aria-label="LinkedIn"
@@ -92,7 +80,7 @@ export default function FooterSection() {
                                 </svg>
                             </Link>
                             <Link
-                                href="#"
+                                href="https://www.facebook.com/people/Leadify-%C3%96sterreichische-Firmenadressen-kaufen/61578699849974/?sk=reviews"
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 aria-label="Facebook"
@@ -109,7 +97,7 @@ export default function FooterSection() {
                                 </svg>
                             </Link>
                             <Link
-                                href="#"
+                                href="https://www.instagram.com/leadifyat/"
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 aria-label="Instagram"
@@ -162,10 +150,10 @@ export default function FooterSection() {
                         ))}
                     </div>
 
-                    {/* Column 3: Firmenadressen (first half) */}
+                    {/* New Column for Bundesländer Links */}
                     <div className="md:col-span-1 space-y-4 text-sm text-center md:text-left">
-                        <span className="block font-medium">Firmenadressen</span>
-                        {firstHalf.map((item, index) => (
+                        <span className="block font-medium">Firmenadressen Bundesländer</span>
+                        {bundeslandLinks.map((item, index) => (
                             <Link
                                 key={index}
                                 href={item.href}
@@ -176,10 +164,10 @@ export default function FooterSection() {
                         ))}
                     </div>
 
-                    {/* Column 4: Firmenadressen (second half) */}
-                    <div className="md:col-span-1 space-y-4 pt-7 text-sm text-center md:text-left">
-                        {/* Adjusted padding to align with first column's header */}
-                        {secondHalf.map((item, index) => (
+                    {/* New Column for Stadt Links */}
+                    <div className="md:col-span-1 space-y-4 text-sm text-center md:text-left">
+                        <span className="block font-medium">Firmenadressen Städte</span>
+                        {stadtLinks.map((item, index) => (
                             <Link
                                 key={index}
                                 href={item.href}
