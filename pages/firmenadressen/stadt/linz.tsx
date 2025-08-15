@@ -34,7 +34,7 @@ const seo = {
   keywords: `Leads Linz, Firmenadressen kaufen Linz, B2B Leads Linz, Direktmarketing Linz, Unternehmensdaten Linz`,
 };
 
-const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "https://www.yourdomain.at";
+const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "https://www.leadify.at";
 
 export default function LinzPage() {
   const dynamicBranchesWords = [

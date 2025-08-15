@@ -34,7 +34,7 @@ const seo = {
   keywords: `Leads Burgenland, Firmenadressen kaufen Burgenland, B2B Leads Burgenland, Direktmarketing Burgenland, Unternehmensdaten Burgenland`,
 };
 
-const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "https://www.yourdomain.at";
+const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "https://www.leadify.at";
 
 export default function BurgenlandPage() {
   const dynamicBranchesWords = [

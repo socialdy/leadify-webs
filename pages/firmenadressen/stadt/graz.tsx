@@ -34,7 +34,7 @@ const seo = {
   keywords: `Leads Graz, Firmenadressen kaufen Graz, B2B Leads Graz, Direktmarketing Graz, Unternehmensdaten Graz`,
 };
 
-const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "https://www.yourdomain.at";
+const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "https://www.leadify.at";
 
 export default function GrazPage() {
   const dynamicBranchesWords = [

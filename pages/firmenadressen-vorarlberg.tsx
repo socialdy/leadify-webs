@@ -34,7 +34,7 @@ const seo = {
   keywords: `Leads Vorarlberg, Firmenadressen kaufen Vorarlberg, B2B Leads Vorarlberg, Direktmarketing Vorarlberg, Unternehmensdaten Vorarlberg`,
 };
 
-const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "https://www.yourdomain.at";
+const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "https://www.leadify.at";
 
 export default function VorarlbergPage() {
   const dynamicBranchesWords = [

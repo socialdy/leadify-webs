@@ -34,7 +34,7 @@ const seo = {
   keywords: `Leads Klagenfurt am Wörthersee, Firmenadressen kaufen Klagenfurt am Wörthersee, B2B Leads Klagenfurt am Wörthersee, Direktmarketing Klagenfurt am Wörthersee, Unternehmensdaten Klagenfurt am Wörthersee`,
 };
 
-const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "https://www.yourdomain.at";
+const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "https://www.leadify.at";
 
 export default function KlagenfurtPage() {
   const dynamicBranchesWords = [

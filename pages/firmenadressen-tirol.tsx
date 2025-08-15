@@ -34,7 +34,7 @@ const seo = {
   keywords: `Leads Tirol, Firmenadressen kaufen Tirol, B2B Leads Tirol, Direktmarketing Tirol, Unternehmensdaten Tirol`,
 };
 
-const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "https://www.yourdomain.at";
+const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "https://www.leadify.at";
 
 export default function TirolPage() {
   const dynamicBranchesWords = [

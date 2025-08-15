@@ -34,7 +34,7 @@ const seo = {
   keywords: `Leads Kärnten, Firmenadressen kaufen Kärnten, B2B Leads Kärnten, Direktmarketing Kärnten, Unternehmensdaten Kärnten`,
 };
 
-const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "https://www.yourdomain.at";
+const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "https://www.leadify.at";
 
 export default function KaerntenPage() {
   const dynamicBranchesWords = [

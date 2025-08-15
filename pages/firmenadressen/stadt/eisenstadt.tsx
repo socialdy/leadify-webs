@@ -34,7 +34,7 @@ const seo = {
   keywords: `Leads Eisenstadt, Firmenadressen kaufen Eisenstadt, B2B Leads Eisenstadt, Direktmarketing Eisenstadt, Unternehmensdaten Eisenstadt`,
 };
 
-const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "https://www.yourdomain.at";
+const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "https://www.leadify.at";
 
 export default function EisenstadtPage() {
   const dynamicBranchesWords = [

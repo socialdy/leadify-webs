@@ -34,7 +34,7 @@ const seo = {
   keywords: `Leads Oberösterreich, Firmenadressen kaufen Oberösterreich, B2B Leads Oberösterreich, Direktmarketing Oberösterreich, Unternehmensdaten Oberösterreich`,
 };
 
-const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "https://www.yourdomain.at";
+const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "https://www.leadify.at";
 
 export default function OberoesterreichPage() {
   const dynamicBranchesWords = [

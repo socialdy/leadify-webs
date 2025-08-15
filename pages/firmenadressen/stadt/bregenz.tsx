@@ -34,7 +34,7 @@ const seo = {
   keywords: `Leads Bregenz, Firmenadressen kaufen Bregenz, B2B Leads Bregenz, Direktmarketing Bregenz, Unternehmensdaten Bregenz`,
 };
 
-const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "https://www.yourdomain.at";
+const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "https://www.leadify.at";
 
 export default function BregenzPage() {
   const dynamicBranchesWords = [

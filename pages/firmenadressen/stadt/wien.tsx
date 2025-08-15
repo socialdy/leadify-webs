@@ -34,7 +34,7 @@ const seo = {
   keywords: `Leads Wien, Firmenadressen kaufen Wien, B2B Leads Wien, Direktmarketing Wien, Unternehmensdaten Wien`,
 };
 
-const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "https://www.yourdomain.at";
+const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "https://www.leadify.at";
 
 export default function WienPage() {
   const dynamicBranchesWords = [

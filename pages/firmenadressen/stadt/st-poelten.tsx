@@ -34,7 +34,7 @@ const seo = {
   keywords: `Leads St. Pölten, Firmenadressen kaufen St. Pölten, B2B Leads St. Pölten, Direktmarketing St. Pölten, Unternehmensdaten St. Pölten`,
 };
 
-const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "https://www.yourdomain.at";
+const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "https://www.leadify.at";
 
 export default function StPoeltenPage() {
   const dynamicBranchesWords = [

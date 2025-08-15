@@ -34,7 +34,7 @@ const seo = {
   keywords: `Leads Salzburg, Firmenadressen kaufen Salzburg, B2B Leads Salzburg, Direktmarketing Salzburg, Unternehmensdaten Salzburg`,
 };
 
-const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "https://www.yourdomain.at";
+const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "https://www.leadify.at";
 
 export default function SalzburgPage() {
   const dynamicBranchesWords = [

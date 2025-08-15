@@ -34,7 +34,7 @@ const seo = {
   keywords: `Leads Niederösterreich, Firmenadressen kaufen Niederösterreich, B2B Leads Niederösterreich, Direktmarketing Niederösterreich, Unternehmensdaten Niederösterreich`,
 };
 
-const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "https://www.yourdomain.at";
+const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "https://www.leadify.at";
 
 export default function NiederoesterreichPage() {
   const dynamicBranchesWords = [
