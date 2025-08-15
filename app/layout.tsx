@@ -2,7 +2,6 @@ import '../styles/globals.css'; // Adjust path if your global CSS is elsewhere
 import { HeroHeader } from '@/components/ui/Header'; // Corrected import
 import Footer from '@/components/ui/Footer';
 import { Poppins } from 'next/font/google';
-import Script from 'next/script';
 
 const poppins = Poppins({
   subsets: ['latin'],
