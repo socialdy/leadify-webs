@@ -1,9 +1,7 @@
-import fs from 'fs';
-import path from 'path';
-import matter from 'gray-matter';
 import { MDXRemote } from 'next-mdx-remote/rsc';
 import Link from 'next/link'; // Import Link
 import Image from 'next/image'; // Import Image
+import { getAllPosts, getPost } from '@/lib/blog'; // Import from lib/blog
 import {
   Accordion,
   AccordionContent,
@@ -23,17 +21,6 @@ const components = {
   AccordionTrigger,
 };
 
-interface Post {
-  slug: string;
-  frontmatter: {
-    title: string;
-    description: string;
-    date: string;
-    author: string;
-    coverImage?: string;
-  };
-}
-
 // Define the page props interface
 interface PageProps {
   params: Promise<{ // This should be `Promise` if generateStaticParams or similar returns a Promise
@@ -41,44 +28,10 @@ interface PageProps {
   }>
 }
 
-async function getAllPosts(): Promise<Post[]> {
-  const postsDirectory = path.join(process.cwd(), 'content', 'blog');
-  const fileNames = fs.readdirSync(postsDirectory);
-
-  const posts = fileNames.map((fileName) => {
-    const filePath = path.join(postsDirectory, fileName);
-    const fileContents = fs.readFileSync(filePath, 'utf8');
-    const { data } = matter(fileContents);
-    const slug = fileName.replace(/\.mdx$/, '');
-
-    return {
-      slug,
-      frontmatter: data as Post['frontmatter'],
-    };
-  });
-
-  posts.sort((a, b) => new Date(b.frontmatter.date).getTime() - new Date(a.frontmatter.date).getTime());
-
-  return posts;
-}
-
-async function getPost(slug: string) {
-  const filePath = path.join(process.cwd(), 'content', 'blog', `${slug}.mdx`);
-  const fileContents = fs.readFileSync(filePath, 'utf8');
-  const { content, data } = matter(fileContents);
-
-  return {
-    content,
-    frontmatter: data,
-  };
-}
-
 export async function generateStaticParams() {
-  const postsDirectory = path.join(process.cwd(), 'content', 'blog');
-  const fileNames = fs.readdirSync(postsDirectory);
-
-  return fileNames.map((fileName) => ({
-    slug: fileName.replace(/\.mdx$/, ''),
+  const allPosts = await getAllPosts();
+  return allPosts.map((post) => ({
+    slug: post.slug,
   }));
 }
 

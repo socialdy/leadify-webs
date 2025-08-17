@@ -1,5 +1,4 @@
 import Head from "next/head";
-import Image from "next/image";
 import { Poppins } from "next/font/google";
 import { HeroHeader as Header } from "@/components/ui/Header";
 import Footer from "@/components/ui/Footer";
@@ -14,12 +13,65 @@ import LeistungsSection from "@/components/LeistungsSection";
 import CallToAction2 from "@/components/ui/CallToAction2";
 import ContactForm from "@/components/ui/ContactForm";
 import { Toaster } from "sonner";
+import fs from 'fs'; // Import fs
+import path from 'path'; // Import path
+import matter from 'gray-matter'; // Import gray-matter
+import Link from 'next/link'; // Import Link
+import Image from 'next/image'; // Import Image
+import { truncateText } from '@/lib/utils'; // Import truncateText
 
 const poppins = Poppins({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
   variable: "--font-poppins",
 });
+
+interface Post {
+  slug: string;
+  frontmatter: {
+    title: string;
+    description: string;
+    date: string;
+    author: string;
+    coverImage?: string; // coverImage is optional
+  };
+}
+
+async function getPosts(): Promise<Post[]> {
+  const postsDirectory = path.join(process.cwd(), 'content', 'blog');
+  const fileNames = fs.readdirSync(postsDirectory);
+
+  const posts = fileNames.map((fileName) => {
+    const filePath = path.join(postsDirectory, fileName);
+    const fileContents = fs.readFileSync(filePath, 'utf8');
+    const { data } = matter(fileContents);
+    const slug = fileName.replace(/\.mdx$/, '');
+
+    return {
+      slug,
+      frontmatter: data as Post['frontmatter'],
+    };
+  });
+
+  // Sort posts by date in descending order
+  posts.sort((a, b) => new Date(b.frontmatter.date).getTime() - new Date(a.frontmatter.date).getTime());
+
+  return posts;
+}
+
+interface LinzPageProps {
+  posts: Post[];
+}
+
+export async function getStaticProps() {
+  const posts = await getPosts();
+
+  return {
+    props: {
+      posts,
+    },
+  };
+}
 
 const currentCity = {
   name: 'Linz',
@@ -30,13 +82,13 @@ const seo = {
   title: `Firmenadressen kaufen Linz | B2B Leads - Leadify.at`,
   description: `Firmenadressen in Linz kaufen: Präzise B2B Leads mit Telefon, E-Mail & Ansprechpartnern. DSGVO-konform, sofortiger Download in Excel/CSV. Ideal für Marketing & Vertrieb in Linz.`,
   ogTitle: `Firmenadressen kaufen aus Linz | B2B Adressen aus Linz kaufen`,
-  ogDescription: `Firmenadressen mit unlimitierter Nutzung günstig kaufen aus Linz. Starte die Suche für Linz Adressen. Kostenloses Angebot & sofortiger Excel & CSV Download`,
+  ogDescription: `Firmenadressen mit unlimitierter Nutzung günstig kaufen aus Linz. Starte die Suche für Linz Adressen. Kostenloses Angebot &amp; sofortiger Excel &amp; CSV Download`,
   keywords: `Leads Linz, Firmenadressen kaufen Linz, B2B Leads Linz, Direktmarketing Linz, Unternehmensdaten Linz`,
 };
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "https://www.leadify.at";
 
-export default function LinzPage() {
+export default function LinzPage({ posts }: LinzPageProps) {
   const dynamicBranchesWords = [
     "Softwareentwickler", "Kreativagenturen", "Unternehmensberater", "IT-Dienstleister",
     "Architekturbüros", "Einzelhändler", "Hotels", "Restaurants", "Steuerberater",
@@ -140,6 +192,43 @@ export default function LinzPage() {
               <section id="faq" className="py-8 md:py-16 w-full">
                   <Faqs />
               </section>
+
+              {/* Blog Section - Start */}
+              <section id="blog" className="py-8 md:py-16 w-full">
+                <h2 className="text-balance text-3xl font-bold md:text-4xl lg:text-5xl text-[var(--foreground)] mb-4">Blog</h2>
+                <p className="text-base text-center text-gray-600 mb-8">Bleiben Sie auf dem Laufenden mit unseren neuesten Artikeln zu Lead-Generierung und Marketingstrategien.</p>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                  {posts.slice(0, 3).map((post) => (
+                    <div key={post.slug} className="bg-white rounded-lg border border-gray-200 overflow-hidden transition-all duration-300 border-l-4 border-l-[#30E87A]">
+                      <Link href={`/blog/${post.slug}`}>
+                        {post.frontmatter.coverImage && (
+                          <div className="relative w-full h-48">
+                            <Image
+                              src={post.frontmatter.coverImage}
+                              alt={post.frontmatter.title}
+                              fill
+                              style={{ objectFit: 'cover' }}
+                              className="object-center"
+                            />
+                          </div>
+                        )}
+                        <div className="p-6 text-left">
+                          <h2 className="text-2xl font-semibold text-gray-900 mb-2">{post.frontmatter.title}</h2>
+                          <p className="text-gray-600 text-sm mb-4">
+                            {new Date(post.frontmatter.date).toLocaleDateString('de-DE', { year: 'numeric', month: 'long', day: 'numeric' })} von {post.frontmatter.author}
+                          </p>
+                          <p className="text-gray-700">{truncateText(post.frontmatter.description, 150)}</p>
+                          <span className="inline-block mt-4 text-[#30E87A] font-medium">Weiterlesen →</span>
+                        </div>
+                      </Link>
+                    </div>
+                  ))}
+                </div>
+                <div className="flex justify-center mt-12">
+                  <Link href="/blog" className="button-21">Alle Blogs ansehen →</Link>
+                </div>
+              </section>
+              {/* Blog Section - End */}
 
               <ContactForm />
             </div>

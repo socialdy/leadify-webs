@@ -1,8 +1,6 @@
 import Link from 'next/link';
-import fs from 'fs';
-import path from 'path';
-import matter from 'gray-matter';
 import Image from 'next/image'; // Importiere Image Komponente
+import { getAllPosts } from '@/lib/blog'; // Import from lib/blog
 
 export const metadata = {
   title: 'Leadify Blog | Einblicke, Tipps & Neuigkeiten zur Lead-Generierung',
@@ -10,41 +8,8 @@ export const metadata = {
   keywords: 'Leads Österreich, Firmenadressen kaufen, B2B Leads, Direktmarketing Österreich, Unternehmensdaten, Blog Österreich, Lead-Generierung Blog, Vertriebsstrategien, B2B Marketing Blog',
 };
 
-interface Post {
-  slug: string;
-  frontmatter: {
-    title: string;
-    description: string;
-    date: string;
-    author: string;
-    coverImage?: string; // coverImage ist optional
-  };
-}
-
-async function getPosts(): Promise<Post[]> {
-  const postsDirectory = path.join(process.cwd(), 'content', 'blog');
-  const fileNames = fs.readdirSync(postsDirectory);
-
-  const posts = fileNames.map((fileName) => {
-    const filePath = path.join(postsDirectory, fileName);
-    const fileContents = fs.readFileSync(filePath, 'utf8');
-    const { data } = matter(fileContents);
-    const slug = fileName.replace(/\.mdx$/, '');
-
-    return {
-      slug,
-      frontmatter: data as Post['frontmatter'],
-    };
-  });
-
-  // Sort posts by date in descending order
-  posts.sort((a, b) => new Date(b.frontmatter.date).getTime() - new Date(a.frontmatter.date).getTime());
-
-  return posts;
-}
-
 export default async function BlogPage() {
-  const posts = await getPosts();
+  const posts = await getAllPosts();
 
   return (
     <div className="container mx-auto px-4 py-8 mt-24">

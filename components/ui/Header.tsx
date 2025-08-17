@@ -11,6 +11,7 @@ const menuItems = [
     { name: 'Kunden', href: '/#kunden' },
     { name: 'Preise', href: '/#preise' },
     { name: 'FAQ', href: '/#faq' },
+    { name: 'Blog', href: '/#blog' },
     { name: 'Kontakt', href: '/#kontakt' },
 ]
 
@@ -122,7 +123,7 @@ export const HeroHeader = () => {
                                 className="button-21 flex items-center justify-center text-center"
                             >
                                 <span className="relative whitespace-nowrap">
-                                    <span className="relative z-10">Jetzt Firmensuche starten</span>
+                                    <span className="relative z-10">Firmensuche starten</span>
                                 </span>
                             </Link>
                         </div>
@@ -179,7 +180,7 @@ export const HeroHeader = () => {
                                     className="button-21 mt-6 flex items-center justify-center text-center text-[black] dark:text-gray-300"
                                 >
                                     <span className="relative whitespace-nowrap">
-                                        <span className="relative z-10">Jetzt Firmensuche starten</span>
+                                        <span className="relative z-10">Firmensuche starten</span>
                                     </span>
                                 </Link>
                             </div>

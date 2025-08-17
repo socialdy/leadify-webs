@@ -1,30 +1,10 @@
 import { MetadataRoute } from 'next'
-import fs from 'fs'
-import path from 'path'
-import matter from 'gray-matter'
+import { getAllPosts } from '@/lib/blog'; // Import from lib/blog
 
 const BASE_URL = "https://www.leadify.at";
 
-async function getAllBlogPosts() {
-  const postsDirectory = path.join(process.cwd(), 'content', 'blog');
-  const fileNames = fs.readdirSync(postsDirectory);
-
-  const posts = fileNames.map((fileName) => {
-    const filePath = path.join(postsDirectory, fileName);
-    const fileContents = fs.readFileSync(filePath, 'utf8');
-    const { data } = matter(fileContents);
-    const slug = fileName.replace(/\.mdx$/, '');
-    
-    return {
-      slug,
-      lastModified: new Date(data.date).toISOString(),
-    };
-  });
-  return posts;
-}
-
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const blogPosts = await getAllBlogPosts();
+  const blogPosts = await getAllPosts();
 
   const federalStates = [
     'burgenland',
@@ -66,7 +46,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   const blogPages = blogPosts.map((post): MetadataRoute.Sitemap[number] => ({
     url: `${BASE_URL}/blog/${post.slug}`,
-    lastModified: post.lastModified,
+    lastModified: new Date(post.frontmatter.date).toISOString(),
     changeFrequency: 'monthly',
     priority: 0.8,
   }));
