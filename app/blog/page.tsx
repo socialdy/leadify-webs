@@ -50,7 +50,7 @@ export default async function BlogPage() {
     <div className="container mx-auto px-4 py-8 mt-24">
       <div className="text-center mb-12">
         <h1 className="text-5xl font-bold text-gray-900 mb-4">Blog</h1>
-        <p className=" text-gray-600">Entdecken Sie wertvolle Einblicke, Tipps und Neuigkeiten rund um das Thema Lead-Generierung, Firmendaten und Vertriebsstrategien.</p>
+        <p className=" text-gray-600">Hier finden Sie praxisnahe Einblicke und wertvolle Tipps, um Ihre Lead-Generierung und Vertriebsstrategien zu optimieren.</p>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {posts.map((post) => (

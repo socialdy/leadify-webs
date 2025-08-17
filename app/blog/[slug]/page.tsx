@@ -88,8 +88,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
   // Combine post-specific details with general keywords
   const generalKeywords = 'firmenadressen kaufen österreich, firmenadressen kaufen, adressen kaufen, leads kaufen, Leads Österreich, Firmenadressen, B2B Leads, Direktmarketing Österreich, Unternehmensdaten';
-  const postKeywords = `${frontmatter.title}, ${frontmatter.description}`;
-  const combinedKeywords = `${postKeywords}, ${generalKeywords}`;
+  const combinedKeywords = `${generalKeywords}`;
 
   return {
     title: frontmatter.title,
@@ -131,7 +130,7 @@ export default async function PostPage({ params }: PageProps) {
     <div className="container mx-auto px-4 py-8 max-w-3xl">
       <article className="prose lg:prose-xl mx-auto">
         <h1 className="text-4xl font-bold text-gray-800 mt-20">{frontmatter.title}</h1>
-        <p className="text-gray-600 text-sm mb-6">
+        <p className="text-gray-600 text-sm mb-6 mt-3">
           {new Date(frontmatter.date).toLocaleDateString('de-DE', { year: 'numeric', month: 'long', day: 'numeric' })} von {frontmatter.author}
         </p>
         <MDXRemote source={content} components={components} />
@@ -142,7 +141,7 @@ export default async function PostPage({ params }: PageProps) {
           <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">Weitere interessante Beiträge</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {relatedPosts.map((post) => (
-              <div key={post.slug} className="bg-white rounded-lg border border-gray-200 overflow-hidden transition-all duration-300 border-l-4 border-[var(--color-primary)] border-r-4">
+              <div key={post.slug} className="bg-white rounded-lg border border-gray-200 overflow-hidden transition-all duration-300 border-l-4 border-l-[#30E87A]">
                 <Link href={`/blog/${post.slug}`}>
                   {post.frontmatter.coverImage && (
                     <div className="relative w-full h-48">
@@ -161,7 +160,7 @@ export default async function PostPage({ params }: PageProps) {
                       {new Date(post.frontmatter.date).toLocaleDateString('de-DE', { year: 'numeric', month: 'long', day: 'numeric' })} von {post.frontmatter.author}
                     </p>
                     <p className="text-gray-700">{post.frontmatter.description}</p>
-                    <span className="inline-block mt-4 text-gray-900 font-medium hover:text-[var(--color-accent)] transition-colors duration-200">Weiterlesen &rarr;</span>
+                    <span className="inline-block mt-4 text-[#30E87A] font-medium">Weiterlesen →</span>
                   </div>
                 </Link>
               </div>
