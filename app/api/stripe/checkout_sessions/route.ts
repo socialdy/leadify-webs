@@ -64,7 +64,7 @@ export async function POST(req: Request) {
     const origin = req.headers.get('origin');
 
     const session = await stripe.checkout.sessions.create({
-      payment_method_types: ['card'],
+      payment_method_types: ['card', 'paypal'],
       line_items: line_items,
       mode: 'payment',
       discounts: [{
