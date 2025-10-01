@@ -21,6 +21,7 @@ export default function RootLayout({
         <meta name="description" content="Finden und kaufen Sie hochwertige Firmenadressen und Leads für Ihr Direktmarketing in Österreich." />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/fav.ico" />
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
       </head>
       <body className={`${poppins.className} w-full max-w-screen-xl mx-auto flex flex-col items-center`}>
         <HeroHeader />
