@@ -522,7 +522,7 @@ export default function LeadSearchSection({ className, defaultState }: { classNa
 
   return (
     <section id="firmensuche-section" className={`w-full max-w-sm md:max-w-3xl py-8 lg:max-w-4xl mx-auto px-2 sm:px-6 md:px-8 bg-background/40 dark:bg-background/80 rounded-2xl border border-[var(--border)] dark:border-gray-800 backdrop-blur-xl shadow-md transition-shadow ${className || ''}`}>
-      <h3 className="text-center text-lg font-bold text-[var(--color-accent)]">Angebot -50% Gutscheincode: &quot;Oktober-50&quot;</h3>
+      <h3 className="text-center text-lg font-bold text-[var(--color-accent)]">Angebot -50% Gutscheincode: &quot;November-50&quot;</h3>
 
       <h2 className="text-balance text-2xl font-bold md:text-3xl lg:text-4xl text-center text-[var(--foreground)] mt-4 mb-4">Firmensuche</h2>
       <p className="text-base text-center text-[var(--foreground)] mb-10">Finde jetzt die passenden österreichischen Unternehmen aufgrund deiner Auswahlkriterien</p>
@@ -746,7 +746,7 @@ export default function LeadSearchSection({ className, defaultState }: { classNa
                   </div>
 
                   <div className="border-t border-dashed border-[var(--border)] pt-2 mt-2 flex items-center text-[var(--color-accent)] gap-x-1 md:gap-x-4">
-                    <span className="flex-1 font-semibold text-sm text-left font-bold">Oktober Aktion: &apos;Oktober-50&apos;</span>
+                    <span className="flex-1 font-semibold text-sm text-left font-bold">November Aktion: &apos;November-50&apos;</span>
                     <span className="min-w-[30px] md:min-w-[50px] text-right text-sm sm:text-sm font-semibold">- {Math.round(DISCOUNT_PERCENTAGE * 100)}%</span>
                     <span className="min-w-[30px] md:min-w-[50px] text-right"></span>
                     <span className="min-w-[60px] md:min-w-[60px] text-right text-sm sm:text-base font-semibold">- {discountAmount.toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} &euro;</span>
